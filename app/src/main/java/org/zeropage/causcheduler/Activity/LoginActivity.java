@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +16,7 @@ import com.android.volley.Response;
 
 import org.zeropage.causcheduler.Network.PortalNetworkQueue;
 import org.zeropage.causcheduler.R;
+import org.zeropage.causcheduler.Util.RConverter;
 import org.zeropage.causcheduler.Util.SharedConstant;
 
 /**
@@ -33,6 +33,12 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = (Button) findViewById(R.id.login_button);
         final EditText idText = (EditText) findViewById(R.id.portal_id);
         final EditText pwText = (EditText) findViewById(R.id.portal_password);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        // For Logging.
+        Log.e(LOG_TAG, "현재 저장되어 있는 학생 이름 : " + prefs.getString(RConverter.getString(getApplicationContext(), R.string.student_name_key), ""));
+        Log.e(LOG_TAG, "현재 저장되어 있는 학생 학번 : " + prefs.getString(RConverter.getString(getApplicationContext(), R.string.student_num_key), ""));
+        Log.e(LOG_TAG, "현재 저장되어 있는 학생 학과 : " + prefs.getString(RConverter.getString(getApplicationContext(), R.string.student_dept_key), ""));
 
         if (!checkLoginStatus()) {
 
@@ -47,7 +53,11 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressDialog.show(getApplicationContext(), getResources().getString(R.string.login_introcution_header), )
+                // 로그인 작업을 위한 Dialog 생성.
+                String dialogHeader = RConverter.getString(getApplicationContext(), R.string.login_introcution_header);
+                String dialogMessage = RConverter.getString(getApplicationContext(), R.string.login_introduction_msg);
+                final ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, dialogHeader, dialogMessage, false, false);
+
                 PortalNetworkQueue.sendLoginRequest(LoginActivity.this, idText.getText().toString(), pwText.getText().toString(), new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
@@ -58,16 +68,20 @@ public class LoginActivity extends AppCompatActivity {
                         if (studentInfo.length == 1) {
                             Toast.makeText(getApplicationContext(), "잘못된 아이디.", Toast.LENGTH_LONG).show();
                         } else {
-                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            prefs.edit().putString(getResources().getString(R.string.student_name_key), studentInfo[0]).apply();
-                            prefs.edit().putString(getResources().getString(R.string.student_num_key), studentInfo[1]).apply();
-                            prefs.edit().putString(getResources().getString(R.string.student_dept_key), studentInfo[2]).apply();
+                            prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_name_key), studentInfo[0]).apply();
+                            prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_num_key), studentInfo[1]).apply();
+                            prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_dept_key), studentInfo[2]).apply();
 
                             // For Logging.
                             Log.e(LOG_TAG, "받아온 학생 이름 : " + studentInfo[0]);
                             Log.e(LOG_TAG, "받아온 학생 학번 : " + studentInfo[1]);
                             Log.e(LOG_TAG, "받아온 학생 학과 : " + studentInfo[2]);
+
+                            switchActivity(MainActivity.class);
                         }
+
+                        // Dialog 해제.
+                        dialog.dismiss();
                     }
                 });
             }
@@ -80,9 +94,9 @@ public class LoginActivity extends AppCompatActivity {
      */
     private boolean checkLoginStatus() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String savedStudentId = prefs.getString(getResources().getString(R.string.student_num_key), SharedConstant.EMPTY_STRING);
-        String savedStudentName = prefs.getString(getResources().getString(R.string.student_name_key), SharedConstant.EMPTY_STRING);
-        String savedStudentDept = prefs.getString(getResources().getString(R.string.student_dept_key), SharedConstant.EMPTY_STRING);
+        String savedStudentId = prefs.getString(RConverter.getString(getApplicationContext(), R.string.student_num_key), SharedConstant.EMPTY_STRING);
+        String savedStudentName = prefs.getString(RConverter.getString(getApplicationContext(), R.string.student_name_key), SharedConstant.EMPTY_STRING);
+        String savedStudentDept = prefs.getString(RConverter.getString(getApplicationContext(), R.string.student_dept_key), SharedConstant.EMPTY_STRING);
         return !savedStudentId.equals(SharedConstant.EMPTY_STRING) && !savedStudentName.equals(SharedConstant.EMPTY_STRING) && !savedStudentDept.equals(SharedConstant.EMPTY_STRING);
     }
 
