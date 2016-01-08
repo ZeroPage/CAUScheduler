@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
 
     /**
      * 해당 Activity에서 인자로 주어진 Activity로 이동합니다. Extra는 사용하지 않습니다.
-     * @param cls 이동한 Activity를 가리킵니다.
+     * @param cls 이동하려 하는 Activity를 가리킵니다.
      */
     private void switchActivity(Class<?> cls) {
         Intent switchIntent = new Intent(getApplicationContext(), cls);
