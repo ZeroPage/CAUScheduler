@@ -59,10 +59,10 @@ public class PortalNetworkQueue {
         });
     }
 
-    public static void sendHomeworkRequest(Context context, String studentId, String lectureId, Response.Listener listener, Response.ErrorListener errorListener) {
+    public static void sendLectureListRequest(Context context, String studentId, Response.Listener listener, Response.ErrorListener errorListener) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/std/lec/sLmsLec070/selectTaskList.do",
-                "<map><lectureNo value=\"" + lectureId + "\"/><userId value=\"" + studentId +"\"/></map>", listener, errorListener);
+        PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/prof/myp/pLmsMyp050/selectStudDataInCourseList.do",
+                "<map><lectureNo value=\""  + "\"/><userId value=\"" + studentId +"\"/></map>", listener, errorListener);
         requestQueue.add(stringRequest);
     }
 }
