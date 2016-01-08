@@ -24,12 +24,15 @@ import org.zeropage.causcheduler.Util.SharedConstant;
  */
 public class LoginActivity extends AppCompatActivity implements Response.Listener{
     private static final String LOG_TAG = "LoginProcess";
-    private final ProgressDialog dialog = new ProgressDialog(LoginActivity.this);
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // ProgressDialog 초기화
+        dialog = new ProgressDialog(LoginActivity.this);
 
         // 로그인 작업을 위한 Dialog 설정.
         String dialogHeader = RConverter.getString(getApplicationContext(), R.string.login_introduction_header);
