@@ -7,5 +7,7 @@
     <string name="student_dept_key">StudentDept</string>
     <string name="student_name_key">StudentName</string>
     <string name="login_introduction_msg">로그인 중입니다...</string>
-    <string name="login_introcution_header">Login...</string>
+    <string name="login_introduction_header">Login...</string>
+    <string name="login_fail_msg">잘못된 아이디 혹은 패스워드를 입력하셨습니다.</string>
+    <string name="welcome_msg">자동 로그인 되었습니다.</string>
 </resources>
