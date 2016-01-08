@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ProgressDialog.show(getApplicationContext(), getResources().getString(R.string.login_introcution_header), )
+                ProgressDialog.show(getApplicationContext(), getResources().getString(R.string.login_introcution_header), )
                 PortalNetworkQueue.sendLoginRequest(LoginActivity.this, idText.getText().toString(), pwText.getText().toString(), new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
