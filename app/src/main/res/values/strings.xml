@@ -3,4 +3,9 @@
     <string name="prompt_email">아이디를 입력하세요!</string>
     <string name="prompt_password">패스워드를 입력하세요!</string>
     <string name="action_sign_in">로그인!</string>
+    <string name="student_num_key">StudentId</string>
+    <string name="student_dept_key">StudentDept</string>
+    <string name="student_name_key">StudentName</string>
+    <string name="login_introduction_msg">로그인 중입니다...</string>
+    <string name="login_introcution_header">Login...</string>
 </resources>

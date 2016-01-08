@@ -2,6 +2,7 @@ package org.zeropage.causcheduler.Network;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,10 +33,13 @@ public class PortalNetworkQueue {
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      * @param errorListener 네트워크 작업 중 오류가 발생했을 때 수행되는 작업을 가리키는 Listener입니다.
      */
-    public static void sendLoginRequest(Context context, String userId, String userPassword, Response.Listener listener, Response.ErrorListener errorListener) {
+    public static void sendLoginRequest(final Context context, final String userId, final String userPassword, final Response.Listener listener, final Response.ErrorListener errorListener) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://cautis.cau.ac.kr/SMT/getList.jsp?id=" + userId + "&pw=" + userPassword, listener, errorListener);
         requestQueue.add(stringRequest);
+
+        Log.e(LOG_TAG, "로그인 작업에 전달된 ID : " + userId);
+        Log.e(LOG_TAG, "로그인 작업에 전달된 Password : " + userPassword);
     }
 
     /**
@@ -45,11 +49,12 @@ public class PortalNetworkQueue {
      * @param userPassword 로그인에 사용할 Password를 가리킵니다.
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      */
-    public static void sendLoginRequest(Context context, String userId, String userPassword, Response.Listener listener) {
+    public static void sendLoginRequest(final Context context, final String userId, final String userPassword, final Response.Listener listener) {
         sendLoginRequest(context, userId, userPassword, listener, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(LOG_TAG, "네트워크 전송 작업에 실패했습니다. 다음 내용을 참고하세요.\n" + error.getMessage());
+                Toast.makeText(context, "로그인에 실패했습니다.", Toast.LENGTH_LONG).show();
             }
         });
     }
