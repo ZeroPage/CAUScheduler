@@ -13,7 +13,7 @@ public class RConverter {
      * @param stringAddress 문자열이 들어있는 주소를 가리킵니다. ex) R.string.[....]
      * @return 가져온 문자열을 반환합니다.
      */
-    public static String getString(Context context, int stringAddress) {
+    public static String getString(final Context context, final int stringAddress) {
         return context.getResources().getString(stringAddress);
     }
 
