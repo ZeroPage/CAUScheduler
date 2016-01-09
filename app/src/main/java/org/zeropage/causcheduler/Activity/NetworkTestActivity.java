@@ -14,9 +14,11 @@ import com.android.volley.VolleyError;
 import org.zeropage.causcheduler.Network.PortalNetworkQueue;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.Util.PortalXmlParser;
+import org.zeropage.causcheduler.Util.Restaurant;
 import org.zeropage.causcheduler.Util.Semester;
 
 import java.nio.charset.StandardCharsets;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Lumin on 2016-01-09.
@@ -33,13 +35,25 @@ public class NetworkTestActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PortalNetworkQueue.sendLectureListRequest(getApplicationContext(), "20146824", 2015, Semester.Spring, new Response.Listener() {
+//                PortalNetworkQueue.sendLectureListRequest(getApplicationContext(), "20146824", 2015, Semester.Spring, new Response.Listener() {
+//                    @Override
+//                    public void onResponse(Object response) {
+//                        try {
+//                            PortalXmlParser portalXmlParser = new PortalXmlParser();
+//                            portalXmlParser.parseLectureList(response.toString());
+//                            Toast.makeText(NetworkTestActivity.this, "성공", Toast.LENGTH_SHORT).show();
+//                        } catch (Exception e) {
+//
+//                        }
+//                    }
+//                });
+
+                PortalNetworkQueue.sendMealInfoRequest(getApplicationContext(), new GregorianCalendar(2016, 1, 9), Restaurant.Dormitory, "20146824", new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
                         try {
-
                             PortalXmlParser portalXmlParser = new PortalXmlParser();
-                            portalXmlParser.parseLectureList(response.toString());
+                            portalXmlParser.parseMealInfo(response.toString());
                             Toast.makeText(NetworkTestActivity.this, "성공", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
 
