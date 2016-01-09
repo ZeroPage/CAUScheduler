@@ -28,6 +28,7 @@ public class PortalXmlParser {
 
     /**
      * 강의 리스트 정보를 가지고 있는 Xml 정보를 Parsing합니다.
+     *
      * @param lectureListXmlContent 강의 리스트 정보를 가지고 있는 Xml 내용물을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 모든 강의 정보를 가지고 있는 List입니다.
      */
@@ -77,5 +78,50 @@ public class PortalXmlParser {
         }
 
         return lectureList;
+    }
+
+    /**
+     * 주어진 Xml 내용으로부터 식단의 상세한 내역을 가져옵니다.
+     * @param mealXmlContent 식단 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
+     */
+    public void parseMealInfo(String mealXmlContent) {
+        try {
+            // Encoding 재조정 작업.
+            mealXmlContent = new String(mealXmlContent.getBytes("ISO_8859_1"));
+            Log.e(LOG_TAG, "MealList Parsing에 전달된 Xml : " + mealXmlContent);
+
+            InputSource inputSource = new InputSource(new StringReader(mealXmlContent));
+            Document mealInfoDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            // vector id = result를 담는 노드 탐색
+            NodeList mealInfoList = (NodeList) xPath.compile("map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
+
+            Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + mealInfoList.getLength());
+
+            for (int i = 0; i < mealInfoList.getLength(); i++) {
+                NodeList infoNode = mealInfoList.item(i).getChildNodes();
+
+                // 구체적인 Parsing 시작.
+                String mealMenuName = infoNode.item(0).getAttributes().item(0).getTextContent();
+                String mealTime = infoNode.item(1).getAttributes().item(0).getTextContent();
+                String mealPrice = infoNode.item(2).getAttributes().item(0).getTextContent().replaceAll(" ", "");
+                String mealMenuContent = infoNode.item(3).getAttributes().item(0).getTextContent().replaceAll("<br>", "\n");
+
+
+                // For Logging.
+                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 이름 : " + mealMenuName);
+                Log.e(LOG_TAG, "현재 Parsing 중인 식단 배식 시간 : " + mealTime);
+                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 가격 : " + mealPrice);
+                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 메뉴 구성 : " + mealMenuContent);
+            }
+
+        } catch (ParserConfigurationException e) {
+            Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        } catch (IOException | SAXException e) {
+            Log.e(LOG_TAG, "IO 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        } catch (XPathExpressionException e) {
+            Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        }
     }
 }
