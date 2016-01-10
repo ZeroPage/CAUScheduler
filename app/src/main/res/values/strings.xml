@@ -16,4 +16,11 @@
     </array>
     <string name="drawer_close">drawer closed</string>
     <string name="drawer_open">drawer opened</string>
+
+    <string name="student_num_default">No SID</string>
+    <string name="student_dept_default">No dept</string>
+    <string name="student_name_default">No name</string>
+
+    <string name="label_assignments">Assignments</string>
+    <string name="label_meals">Meals</string>
 </resources>

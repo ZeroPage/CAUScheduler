@@ -1,6 +1,8 @@
 package org.zeropage.causcheduler.Activity;
 
 import android.content.res.Configuration;
+import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -8,25 +10,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.*;
 import org.zeropage.causcheduler.R;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private Toolbar toolbar;
-    private List<String> mDrawerItemList;
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    private NavigationView mNavigationView;
 
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -39,23 +34,36 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Drawer List 초기화
-        String[] drawerItemArray = getResources().getStringArray(R.array.drawer_item_array);
-        mDrawerItemList = Arrays.asList(drawerItemArray);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.drawer);
+        // NavigationView 초기화
+        mNavigationView = (NavigationView)findViewById(R.id.navigation_view);
 
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<>(this,
-                R.layout.drawer_list_item, R.id.list_item_drawer_textview, mDrawerItemList));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.v(LOG_TAG, (String)mDrawerList.getItemAtPosition(i));
-                mDrawerLayout.closeDrawer(mDrawerList);// 선택 후 드로어를 닫음
+            public boolean onNavigationItemSelected(MenuItem item) {
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if(item.isChecked()) item.setChecked(false);
+                else item.setChecked(true);
+
+                //Closing drawer on item click
+                mDrawerLayout.closeDrawers();
+
+                // TODO 드로어 아이템 클릭 시 해야되는 일 적기
+
+                return false;
             }
         });
+
+        View header = mNavigationView.getHeaderView(0);
+        TextView studentNameTextView = (TextView)header.findViewById(R.id.header_student_name);
+        TextView studentNumTextView = (TextView)header.findViewById(R.id.header_student_num);
+        TextView studentDeptTextView = (TextView)header.findViewById(R.id.header_student_dept);
+
+        studentNameTextView.setText(PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext()).getString(getString(R.string.student_name_key), getString(R.string.student_name_default)));
+        studentNumTextView.setText(PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext()).getString(getString(R.string.student_num_key), getString(R.string.student_num_default)));
+        studentDeptTextView.setText(PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext()).getString(getString(R.string.student_dept_key), getString(R.string.student_dept_default)));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -85,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
+
+
 
     /* Called whenever we call invalidateOptionsMenu() */
     // 이 메소드는 드로어가 열릴 경우, 그에 따라 자연스럽게 화면에서 특정 컴포넌트를 없애는 데 사용합니다.

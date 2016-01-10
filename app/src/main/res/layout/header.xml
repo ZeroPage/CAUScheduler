@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:orientation="vertical"
+>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/student_name_default"
+            android:textSize="14sp"
+            android:textColor="#111"
+            android:textStyle="bold"
+            android:gravity="start"
+            android:paddingBottom="4dp"
+            android:id="@+id/header_student_name"
+            android:layout_marginRight="105dp" android:layout_marginEnd="105dp"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/student_num_default"
+            android:id="@+id/header_student_num"
+            android:gravity="start"
+            android:textSize="14sp"
+            android:textColor="#111"
+            android:paddingBottom="4dp"
+            android:layout_below="@+id/header_student_name" android:layout_alignLeft="@+id/header_student_name"
+            android:layout_alignStart="@+id/header_student_name" android:layout_marginTop="14dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/student_dept_default"
+            android:id="@+id/header_student_dept"
+            android:gravity="start"
+            android:textSize="14sp"
+            android:textColor="#111"
+            android:layout_below="@+id/header_student_num" android:layout_alignLeft="@+id/header_student_num"
+            android:layout_alignStart="@+id/header_student_num" android:layout_marginTop="15dp"/>
+
+</RelativeLayout>
