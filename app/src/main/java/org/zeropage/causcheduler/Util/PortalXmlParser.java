@@ -124,4 +124,58 @@ public class PortalXmlParser {
             Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         }
     }
+
+    public void parseHomeworkList(String homeworkListXmlContent) {
+        List<Lecture> lectureList = new ArrayList<>();
+
+        try {
+            // Encoding 재조정 작업.
+            homeworkListXmlContent = new String(homeworkListXmlContent.getBytes("ISO_8859_1"));
+            Log.e(LOG_TAG, "LectureList Parsing에 전달된 Xml : " + homeworkListXmlContent);
+
+            InputSource inputSource = new InputSource(new StringReader(homeworkListXmlContent));
+            Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
+            XPath xmlPath = XPathFactory.newInstance().newXPath();
+
+            // vector id = tasklist를 담는 노드를 탐색
+            NodeList homeworkNodeList = (NodeList) xmlPath.compile("map/vector[@id='tasklist']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
+
+            for (int i = 0; i < homeworkNodeList.getLength(); i++) {
+                NodeList homeworkNode = homeworkNodeList.item(i).getChildNodes();
+                int pumpedIndex = 0;
+
+                // 과제 연장이 있는 경우
+                if (homeworkNode.item(5).getNodeName().equals("taskextend")) {
+                    pumpedIndex = 1;
+                }
+
+                String homeworkName = homeworkNode.item(2).getAttributes().item(0).getTextContent();
+                String homeworkStartTime = homeworkNode.item(3).getAttributes().item(0).getTextContent();
+                String homeworkEndTime = homeworkNode.item(4).getAttributes().item(0).getTextContent();
+                String currentHomeworkStatus = homeworkNode.item(5 + pumpedIndex).getAttributes().item(0).getTextContent();
+                String homeworkExtendEndTime = (pumpedIndex == 0) ? SharedConstant.EMPTY_STRING : homeworkNode.item(5).getAttributes().item(0).getTextContent();
+
+                int submitStudentNum = Integer.parseInt(homeworkNode.item(7 + pumpedIndex).getAttributes().item(0).getTextContent());
+                int totalStudentNum = Integer.parseInt(homeworkNode.item(8 + pumpedIndex).getAttributes().item(0).getTextContent());
+
+                String currentSubmitStatus = homeworkNode.item(12 + pumpedIndex).getAttributes().item(0).getTextContent();
+
+                // For Logging.
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 이름 : " + homeworkName);
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 시작 시간 : " + homeworkStartTime);
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 종료 시간 : " + homeworkEndTime);
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 연장 종료 시간 : " + homeworkExtendEndTime);
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 진행 상황 : " + currentHomeworkStatus);
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 학생 수 : " + submitStudentNum);
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제를 수행하는 총 학생 수 : " + totalStudentNum);
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 여부 : " + currentSubmitStatus);
+            }
+        } catch (ParserConfigurationException e) {
+            Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        } catch (IOException | SAXException e) {
+            Log.e(LOG_TAG, "IO 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        } catch (XPathExpressionException e) {
+            Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        }
+    }
 }

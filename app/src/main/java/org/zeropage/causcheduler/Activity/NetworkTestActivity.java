@@ -48,12 +48,25 @@ public class NetworkTestActivity extends AppCompatActivity {
 //                    }
 //                });
 
-                PortalNetworkQueue.sendMealInfoRequest(getApplicationContext(), new GregorianCalendar(2016, 1, 9), Restaurant.Dormitory, "20146824", new Response.Listener() {
+//                PortalNetworkQueue.sendMealInfoRequest(getApplicationContext(), new GregorianCalendar(2016, 1, 9), Restaurant.Dormitory, "20146824", new Response.Listener() {
+//                    @Override
+//                    public void onResponse(Object response) {
+//                        try {
+//                            PortalXmlParser portalXmlParser = new PortalXmlParser();
+//                            portalXmlParser.parseMealInfo(response.toString());
+//                            Toast.makeText(NetworkTestActivity.this, "성공", Toast.LENGTH_SHORT).show();
+//                        } catch (Exception e) {
+//
+//                        }
+//                    }
+//                });
+
+                PortalNetworkQueue.sendHomeworkListRequest(getApplicationContext(), "20146824", 99382, new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
                         try {
                             PortalXmlParser portalXmlParser = new PortalXmlParser();
-                            portalXmlParser.parseMealInfo(response.toString());
+                            portalXmlParser.parseHomeworkList(response.toString());
                             Toast.makeText(NetworkTestActivity.this, "성공", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
 
