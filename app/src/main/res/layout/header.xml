@@ -3,6 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
                 android:orientation="vertical"
+                android:background="@drawable/material_background"
 >
 
     <TextView
@@ -10,7 +11,7 @@
             android:layout_height="wrap_content"
             android:text="@string/student_name_default"
             android:textSize="14sp"
-            android:textColor="#111"
+            android:textColor="#FFF"
             android:textStyle="bold"
             android:gravity="start"
             android:paddingBottom="4dp"
@@ -27,7 +28,7 @@
             android:id="@+id/header_student_num"
             android:gravity="start"
             android:textSize="14sp"
-            android:textColor="#111"
+            android:textColor="#FFF"
             android:paddingBottom="4dp"
             android:layout_below="@+id/header_student_name" android:layout_alignLeft="@+id/header_student_name"
             android:layout_alignStart="@+id/header_student_name" android:layout_marginTop="14dp"/>
@@ -38,7 +39,7 @@
             android:id="@+id/header_student_dept"
             android:gravity="start"
             android:textSize="14sp"
-            android:textColor="#111"
+            android:textColor="#FFF"
             android:layout_below="@+id/header_student_num" android:layout_alignLeft="@+id/header_student_num"
             android:layout_alignStart="@+id/header_student_num" android:layout_marginTop="15dp"/>
 

@@ -10,10 +10,7 @@
     <string name="login_introduction_header">Login...</string>
     <string name="login_fail_msg">잘못된 아이디 혹은 패스워드를 입력하셨습니다.</string>
     <string name="welcome_msg">자동 로그인 되었습니다.</string>
-    <array name="drawer_item_array">
-        <item>Setting</item>
-        <item>Log out</item>
-    </array>
+
     <string name="drawer_close">drawer closed</string>
     <string name="drawer_open">drawer opened</string>
 
@@ -23,4 +20,6 @@
 
     <string name="label_assignments">Assignments</string>
     <string name="label_meals">Meals</string>
+    <string name="label_setting">Setting</string>
+    <string name="label_logout">Log out</string>
 </resources>

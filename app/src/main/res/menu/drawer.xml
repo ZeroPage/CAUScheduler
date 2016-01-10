@@ -13,5 +13,16 @@
                 android:checked="false"
                 android:icon="@drawable/ic_local_dining_black_24dp"
                 android:title="@string/label_meals" />
+        <item
+                android:id="@+id/drawer_setting"
+                android:checked="false"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/label_setting" />
+        <item
+                android:id="@+id/drawer_logout"
+                android:checked="false"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/label_logout" />
+
     </group>
 </menu>
