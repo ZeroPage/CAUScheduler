@@ -136,4 +136,39 @@ public class PortalNetworkQueue {
             }
         });
     }
+
+
+    /**
+     * 포탈에 특정 과목의 과제 리스트를 불러오도록 Request를 보냅니다.
+     * @param context 네트워크 작업에 사용할 Context입니다.
+     * @param studentId 과제 정보를 불러오기 위한 학생의 학번입니다.
+     * @param networkLectureId 과제 정보를 불러올 강의의 ID를 가리킵니다.
+     * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
+     * @param errorListener 네트워크 작업 중 오류가 발생했을 때 수행할 작업을 가리키는 Listener입니다.
+     */
+    public static void sendHomeworkListRequest(final Context context, final String studentId, final int networkLectureId, final Response.Listener listener, final Response.ErrorListener errorListener) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/std/lec/sLmsLec070/selectTaskList.do",
+                "<map><lectureNo value=\"" + networkLectureId + "\"/><userId value=\"" + studentId + "\"/></map>", listener, errorListener);
+        requestQueue.add(stringRequest);
+    }
+
+
+    /**
+     * 포탈에 특정 과목의 과제 리스트를 불러오도록 Request를 보냅니다. 오류가 발생했을 때는 단순히 로그를 남기고, 간단한 Toast를 띄우는 작업만을 수행합니다.
+     * @param context 네트워크 작업에 사용할 Context입니다.
+     * @param studentId 과제 정보를 불러오기 위한 학생의 학번입니다.
+     * @param networkLectureId 과제 정보를 불러올 강의의 ID를 가리킵니다.
+     * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
+     */
+    public static void sendHomeworkListRequest(final Context context, final String studentId, final int networkLectureId, final Response.Listener listener) {
+        sendHomeworkListRequest(context, studentId, networkLectureId, listener, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(LOG_TAG, "네트워크 전송 작업에 실패했습니다. 다음 내용을 참고하세요.\n" + error.getMessage());
+                Toast.makeText(context, "정보 수신에 실패했습니다.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }
