@@ -48,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
 
                 // TODO 드로어 아이템 클릭 시 해야되는 일 적기
-
+                if(item.getItemId() == R.id.drawer_setting){
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.container, PrefsFragment.newInstance())
+                            .commit();
+                }
                 return false;
             }
         });
@@ -91,6 +95,12 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        if(savedInstanceState == null){
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container, PrefsFragment.newInstance())
+                    .commit();
         }
     }
 

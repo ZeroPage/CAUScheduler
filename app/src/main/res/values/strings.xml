@@ -22,4 +22,9 @@
     <string name="label_meals">Meals</string>
     <string name="label_setting">Setting</string>
     <string name="label_logout">Log out</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="pref_sync">Sync</string>
+    <string name="pref_sync_summ">Sync manually</string>
+    
 </resources>
