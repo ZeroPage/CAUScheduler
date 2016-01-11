@@ -142,7 +142,7 @@ public class PortalXmlParser {
      * @return 해당 Xml로부터 가져올 수 있는 모든 과제들을 저장하고 있는 리스트입니다.
      */
     public void parseHomeworkList(String homeworkListXmlContent) {
-        List<Lecture> lectureList = new ArrayList<>();
+        List<Lecture> homeworkList = new ArrayList<>();
 
         try {
             // Encoding 재조정 작업.
@@ -196,6 +196,8 @@ public class PortalXmlParser {
         } catch (XPathExpressionException e) {
             Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         }
+
+        return;
     }
 
     /**
