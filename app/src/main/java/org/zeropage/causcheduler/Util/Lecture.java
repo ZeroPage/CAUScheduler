@@ -9,8 +9,6 @@ public class Lecture {
     private String professorName;
     private String lectureDeptName;
     private int sectionNum;
-
-    // Member for testing.
     private String studyPeriod;
 
     public Lecture(String lectureName, String professorName, String lectureDeptName, int sectionNum, String studyPeriod) {
@@ -55,6 +53,10 @@ public class Lecture {
         return this.sectionNum;
     }
 
+    /**
+     * 해당 강의의 수강 기간을 가져옵니다.
+     * @return 강의의 수강 기간입니다.
+     */
     public String getStudyPeriod() {
         return this.studyPeriod;
     }

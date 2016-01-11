@@ -9,4 +9,12 @@
         android:text="New Button"
         android:id="@+id/button"
         android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
