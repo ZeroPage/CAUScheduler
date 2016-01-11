@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -84,7 +85,9 @@ public class PortalXmlParser {
      * 주어진 Xml 내용으로부터 식단의 상세한 내역을 가져옵니다.
      * @param mealXmlContent 식단 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      */
-    public void parseMealInfo(String mealXmlContent) {
+    public List<Meal> parseMealInfo(String mealXmlContent) {
+        List<Meal> mealList = new ArrayList<>();
+
         try {
             // Encoding 재조정 작업.
             mealXmlContent = new String(mealXmlContent.getBytes("ISO_8859_1"));
@@ -103,17 +106,22 @@ public class PortalXmlParser {
                 NodeList infoNode = mealInfoList.item(i).getChildNodes();
 
                 // 구체적인 Parsing 시작.
-                String mealMenuName = infoNode.item(0).getAttributes().item(0).getTextContent();
+                String mealName = infoNode.item(0).getAttributes().item(0).getTextContent();
                 String mealTime = infoNode.item(1).getAttributes().item(0).getTextContent();
-                String mealPrice = infoNode.item(2).getAttributes().item(0).getTextContent().replaceAll(" ", "");
-                String mealMenuContent = infoNode.item(3).getAttributes().item(0).getTextContent().replaceAll("<br>", "\n");
+                int mealPrice = Integer.parseInt(infoNode.item(2).getAttributes().item(0).getTextContent().split(" ")[0]);
 
+                String[] mealContent = infoNode.item(3).getAttributes().item(0).getTextContent().split("<br>");
+                float mealTotalCalorie = Float.parseFloat(mealContent[0].replaceAll("Kcal", ""));
+                String[] mealMenu = Arrays.copyOfRange(mealContent, 1, mealContent.length);
 
                 // For Logging.
-                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 이름 : " + mealMenuName);
+                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 이름 : " + mealName);
                 Log.e(LOG_TAG, "현재 Parsing 중인 식단 배식 시간 : " + mealTime);
                 Log.e(LOG_TAG, "현재 Parsing 중인 식단의 가격 : " + mealPrice);
-                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 메뉴 구성 : " + mealMenuContent);
+                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 총 칼로리 : " + mealTotalCalorie);
+                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 메뉴 구성 : " + Arrays.toString(mealMenu));
+
+                mealList.add(new Meal(mealPrice, mealTotalCalorie, mealTime, mealName, mealMenu));
             }
 
         } catch (ParserConfigurationException e) {
@@ -123,6 +131,8 @@ public class PortalXmlParser {
         } catch (XPathExpressionException e) {
             Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         }
+
+        return mealList;
     }
 
     public void parseHomeworkList(String homeworkListXmlContent) {
