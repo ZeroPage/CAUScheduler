@@ -1,5 +1,7 @@
 package org.zeropage.causcheduler.Activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -15,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import org.zeropage.causcheduler.R;
+import org.zeropage.causcheduler.Util.RConverter;
+import org.zeropage.causcheduler.Util.SharedConstant;
 
 public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -53,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.container, PrefsFragment.newInstance())
                             .commit();
                 }
+
+                if (item.getItemId() == R.id.drawer_logout) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_num_key), SharedConstant.EMPTY_STRING).apply();
+                    prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_dept_key), SharedConstant.EMPTY_STRING).apply();
+                    prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_name_key), SharedConstant.EMPTY_STRING).apply();
+
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+
                 return false;
             }
         });

@@ -2,7 +2,6 @@ package org.zeropage.causcheduler.Activity;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.preference.PreferenceFragment;
 
 import org.zeropage.causcheduler.R;
