@@ -3,6 +3,7 @@ package org.zeropage.causcheduler.Util;
 import android.util.Log;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -29,7 +30,6 @@ public class PortalXmlParser {
 
     /**
      * 강의 리스트 정보를 가지고 있는 Xml 정보를 Parsing합니다.
-     *
      * @param lectureListXmlContent 강의 리스트 정보를 가지고 있는 Xml 내용물을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 모든 강의 정보를 가지고 있는 List입니다.
      */
@@ -84,6 +84,7 @@ public class PortalXmlParser {
     /**
      * 주어진 Xml 내용으로부터 식단의 상세한 내역을 가져옵니다.
      * @param mealXmlContent 식단 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
+     * @return 해당 Xml로부터 가져올 수 있는 모든 식단들을 저장하고 있는 리스트입니다.
      */
     public List<Meal> parseMealInfo(String mealXmlContent) {
         List<Meal> mealList = new ArrayList<>();
@@ -135,6 +136,11 @@ public class PortalXmlParser {
         return mealList;
     }
 
+    /**
+     * 주어진 Xml 내용으로부터 과제의 리스트를 가져옵니다.
+     * @param homeworkListXmlContent 과제 리스트 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
+     * @return 해당 Xml로부터 가져올 수 있는 모든 과제들을 저장하고 있는 리스트입니다.
+     */
     public void parseHomeworkList(String homeworkListXmlContent) {
         List<Lecture> lectureList = new ArrayList<>();
 
@@ -159,6 +165,8 @@ public class PortalXmlParser {
                     pumpedIndex = 1;
                 }
 
+                int homeworkOrderNum = Integer.parseInt(homeworkNode.item(0).getAttributes().item(0).getTextContent());
+
                 String homeworkName = homeworkNode.item(2).getAttributes().item(0).getTextContent();
                 String homeworkStartTime = homeworkNode.item(3).getAttributes().item(0).getTextContent();
                 String homeworkEndTime = homeworkNode.item(4).getAttributes().item(0).getTextContent();
@@ -171,6 +179,7 @@ public class PortalXmlParser {
                 String currentSubmitStatus = homeworkNode.item(12 + pumpedIndex).getAttributes().item(0).getTextContent();
 
                 // For Logging.
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 번호 : " + homeworkOrderNum);
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 이름 : " + homeworkName);
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 시작 시간 : " + homeworkStartTime);
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 종료 시간 : " + homeworkEndTime);
@@ -180,6 +189,53 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제를 수행하는 총 학생 수 : " + totalStudentNum);
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 여부 : " + currentSubmitStatus);
             }
+        } catch (ParserConfigurationException e) {
+            Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        } catch (IOException | SAXException e) {
+            Log.e(LOG_TAG, "IO 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        } catch (XPathExpressionException e) {
+            Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        }
+    }
+
+    /**
+     * 주어진 Xml 내용으로부터 특정 과제의 상세 내용을 가져옵니다.
+     * @param homeworkViewXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
+     * @return 해당 Xml로부터 가져올 수 있는 과제 내용을 담고있는 객체입니다.
+     */
+    public void parseHomeworkView(String homeworkViewXmlContent) {
+        List<Lecture> lectureList = new ArrayList<>();
+
+        try {
+            // Encoding 재조정 작업.
+            homeworkViewXmlContent = new String(homeworkViewXmlContent.getBytes("ISO_8859_1"));
+            Log.e(LOG_TAG, "LectureList Parsing에 전달된 Xml : " + homeworkViewXmlContent);
+
+            InputSource inputSource = new InputSource(new StringReader(homeworkViewXmlContent));
+            Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
+            XPath xmlPath = XPathFactory.newInstance().newXPath();
+
+            // 노드 탐색
+            NodeList homeworkNodeList = ((Node) xmlPath.compile("map/map[@id='task']").evaluate(homeworkDocument, XPathConstants.NODE)).getChildNodes();
+            int pumpedIndex = 0;
+
+            // 과제 연장이 있는 경우
+            if (homeworkNodeList.item(3).getNodeName().equals("taskextend")) {
+                pumpedIndex = 1;
+            }
+
+            String homeworkName = homeworkNodeList.item(0).getAttributes().item(0).getTextContent();
+            String homeworkStartTime = homeworkNodeList.item(1).getAttributes().item(0).getTextContent();
+            String homeworkEndTime = homeworkNodeList.item(2).getAttributes().item(0).getTextContent();
+            String homeworkExtendEndTime = ((pumpedIndex == 0) ? SharedConstant.EMPTY_STRING : homeworkNodeList.item(3).getAttributes().item(0).getTextContent());
+            String homeworkContent = homeworkNodeList.item(8 + pumpedIndex).getAttributes().item(0).getTextContent();
+
+            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 이름 : " + homeworkName);
+            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 시작 시간 : " + homeworkStartTime);
+            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 종료 시간 : " + homeworkEndTime);
+            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 연장 종료 시간 : " + homeworkExtendEndTime);
+            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
+
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         } catch (IOException | SAXException e) {
