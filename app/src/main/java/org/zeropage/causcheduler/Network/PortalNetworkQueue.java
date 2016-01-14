@@ -1,6 +1,7 @@
 package org.zeropage.causcheduler.Network;
 
 import android.content.Context;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ import com.android.volley.toolbox.Volley;
 import org.zeropage.causcheduler.Util.Restaurant;
 import org.zeropage.causcheduler.Util.Semester;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -41,7 +44,15 @@ public class PortalNetworkQueue {
      */
     public static void sendLoginRequest(final Context context, final String userId, final String userPassword, final Response.Listener listener, final Response.ErrorListener errorListener) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://cautis.cau.ac.kr/SMT/getList.jsp?id=" + userId + "&pw=" + userPassword, listener, errorListener);
+        String encodedPW = "";
+
+        try {
+            encodedPW = URLEncoder.encode(userPassword, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://cautis.cau.ac.kr/SMT/getList.jsp?id=" + userId + "&pw=" + encodedPW, listener, errorListener);
         requestQueue.add(stringRequest);
 
         Log.e(LOG_TAG, "로그인 작업에 전달된 ID : " + userId);

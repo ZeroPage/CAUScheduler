@@ -78,6 +78,8 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
         final String[] studentInfo  = responseInfo.split(",");
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        Log.i("response", responseInfo);
+
         // NG2가 Response로 나옴. 즉, 로그인이 실패함.
         if (studentInfo.length == 1) {
             Toast.makeText(getApplicationContext(), RConverter.getString(getApplicationContext(), R.string.login_fail_msg), Toast.LENGTH_LONG).show();
