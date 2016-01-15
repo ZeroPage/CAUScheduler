@@ -265,7 +265,7 @@ public class PortalXmlParser {
             XPath xmlPath = XPathFactory.newInstance().newXPath();
 
             // 노드 탐색
-            NodeList noticeNodeGroup = ((Node) xmlPath.compile("map/vector[@id='result']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODE)).getChildNodes();
+            NodeList noticeNodeGroup = (NodeList) xmlPath.compile("map/vector[@id='result']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
 
             for (int i = 0; i < noticeNodeGroup.getLength(); i++) {
                 NodeList noticeNode = noticeNodeGroup.item(i).getChildNodes();
@@ -279,11 +279,11 @@ public class PortalXmlParser {
 
                 // For Logging.
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeTitle);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeContent);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeAuthor);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeWritingDate);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeHitCount);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + isImportantNotice);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 내용 : " + noticeContent);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성자 : " + noticeAuthor);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성 날짜 : " + noticeWritingDate);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 조회수 : " + noticeHitCount);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 중요 여부 : " + isImportantNotice);
             }
 
         } catch (ParserConfigurationException e) {
