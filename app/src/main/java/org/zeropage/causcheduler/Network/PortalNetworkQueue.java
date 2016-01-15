@@ -42,21 +42,12 @@ public class PortalNetworkQueue {
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      * @param errorListener 네트워크 작업 중 오류가 발생했을 때 수행되는 작업을 가리키는 Listener입니다.
      */
-    public static void sendLoginRequest(final Context context, final String userId, final String userPassword, final Response.Listener listener, final Response.ErrorListener errorListener) {
+    public static void sendLoginRequest(final Context context, final String userId, final String userPassword, final Response.Listener listener, final Response.ErrorListener errorListener) throws UnsupportedEncodingException {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String encodedPW = "";
-
-        try {
-            encodedPW = URLEncoder.encode(userPassword, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        String encodedPW = URLEncoder.encode(userPassword, "utf-8");
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://cautis.cau.ac.kr/SMT/getList.jsp?id=" + userId + "&pw=" + encodedPW, listener, errorListener);
         requestQueue.add(stringRequest);
-
-        Log.e(LOG_TAG, "로그인 작업에 전달된 ID : " + userId);
-        Log.e(LOG_TAG, "로그인 작업에 전달된 Password : " + userPassword);
     }
 
     /**
@@ -66,7 +57,7 @@ public class PortalNetworkQueue {
      * @param userPassword 로그인에 사용할 Password를 가리킵니다.
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      */
-    public static void sendLoginRequest(final Context context, final String userId, final String userPassword, final Response.Listener listener) {
+    public static void sendLoginRequest(final Context context, final String userId, final String userPassword, final Response.Listener listener) throws UnsupportedEncodingException {
         sendLoginRequest(context, userId, userPassword, listener, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -216,5 +207,22 @@ public class PortalNetworkQueue {
                 Toast.makeText(context, "정보 수신에 실패했습니다.", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    /**
+     * 포탈에 특정 과목의 공지사항을 불러오도록 Request를 보냅니다.
+     * @param context 네트워크 작업에 사용할 Context입니다.
+     * @param studentId 공지사항을 불러오는데 필요한 학생의 학번입니다.
+     * @param networkLectureId 공지사항을 불러올 강의의 ID를 가리킵니다.
+     * @param pageIndex 공지사항을 불러올 페이지 번호를 가리킵니다.
+     * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
+     * @param errorListener 네트워크 작업 중 오류가 발생했을 때 수행할 작업을 가리키는 Listener입니다.
+     */
+    public static void sendNoticeRequest(final Context context, final String studentId, final int networkLectureId, final int pageIndex, final Response.Listener listener, final Response.ErrorListener errorListener) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/std/lec/sLmsLec070/selectTaskList.do",
+                "<map><userId value=\"" + studentId + "\"/><lectureNo value=\"" + networkLectureId + "\"/><boardType value=\"NOTICE\"/><recordCountPerPage value=\"10\"/><pageIndex value=\"" + pageIndex + "\"/><searchWord value=\"\"/><searchType value=\"inqAll\"/></map>", listener, errorListener);
+        requestQueue.add(stringRequest);
     }
 }
