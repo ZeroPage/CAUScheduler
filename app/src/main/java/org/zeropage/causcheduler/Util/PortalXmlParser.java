@@ -147,7 +147,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             homeworkListXmlContent = new String(homeworkListXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "LectureList Parsing에 전달된 Xml : " + homeworkListXmlContent);
+            Log.e(LOG_TAG, "HomeworkList Parsing에 전달된 Xml : " + homeworkListXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(homeworkListXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -211,7 +211,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             homeworkViewXmlContent = new String(homeworkViewXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "LectureList Parsing에 전달된 Xml : " + homeworkViewXmlContent);
+            Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkViewXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(homeworkViewXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -237,6 +237,54 @@ public class PortalXmlParser {
             Log.e(LOG_TAG, "현재 Parsing 중인 과제의 종료 시간 : " + homeworkEndTime);
             Log.e(LOG_TAG, "현재 Parsing 중인 과제의 연장 종료 시간 : " + homeworkExtendEndTime);
             Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
+
+        } catch (ParserConfigurationException e) {
+            Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        } catch (IOException | SAXException e) {
+            Log.e(LOG_TAG, "IO 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        } catch (XPathExpressionException e) {
+            Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
+        }
+    }
+
+    /**
+     * 주어진 Xml 내용으로부터 공지사항의 내용을 가져옵니다.
+     * @param noticeXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
+     * @return 해당 Xml로부터 가져올 수 있는 공지사항 내용을 담고있는 객체입니다.
+     */
+    public void parseNotice(String noticeXmlContent) {
+        List<Lecture> lectureList = new ArrayList<>();
+
+        try {
+            // Encoding 재조정 작업.
+            noticeXmlContent = new String(noticeXmlContent.getBytes("ISO_8859_1"));
+            Log.e(LOG_TAG, "Notice Parsing에 전달된 Xml : " + noticeXmlContent);
+
+            InputSource inputSource = new InputSource(new StringReader(noticeXmlContent));
+            Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
+            XPath xmlPath = XPathFactory.newInstance().newXPath();
+
+            // 노드 탐색
+            NodeList noticeNodeGroup = ((Node) xmlPath.compile("map/vector[@id='result']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODE)).getChildNodes();
+
+            for (int i = 0; i < noticeNodeGroup.getLength(); i++) {
+                NodeList noticeNode = noticeNodeGroup.item(i).getChildNodes();
+
+                String noticeTitle = noticeNode.item(3).getAttributes().item(0).getTextContent();
+                String noticeContent = noticeNode.item(4).getAttributes().item(0).getTextContent();
+                String noticeAuthor = noticeNode.item(6).getAttributes().item(0).getTextContent();
+                String noticeWritingDate = noticeNode.item(7).getAttributes().item(0).getTextContent();
+                String noticeHitCount = noticeNode.item(8).getAttributes().item(0).getTextContent();
+                boolean isImportantNotice = noticeNode.item(13).getAttributes().item(0).getTextContent().equals("Y");
+
+                // For Logging.
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeTitle);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeContent);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeAuthor);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeWritingDate);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeHitCount);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + isImportantNotice);
+            }
 
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
