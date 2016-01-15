@@ -252,8 +252,8 @@ public class PortalXmlParser {
      * @param noticeXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 공지사항 내용을 담고있는 객체입니다.
      */
-    public void parseNotice(String noticeXmlContent) {
-        List<Lecture> lectureList = new ArrayList<>();
+    public List<LectureNotice> parseNotice(String noticeXmlContent) {
+        List<LectureNotice> noticeList = new ArrayList<>();
 
         try {
             // Encoding 재조정 작업.
@@ -273,17 +273,19 @@ public class PortalXmlParser {
                 String noticeTitle = noticeNode.item(3).getAttributes().item(0).getTextContent();
                 String noticeContent = noticeNode.item(4).getAttributes().item(0).getTextContent();
                 String noticeAuthor = noticeNode.item(6).getAttributes().item(0).getTextContent();
-                String noticeWritingDate = noticeNode.item(7).getAttributes().item(0).getTextContent();
-                String noticeHitCount = noticeNode.item(8).getAttributes().item(0).getTextContent();
+                String noticeWrittenDate = noticeNode.item(7).getAttributes().item(0).getTextContent();
+                int noticeHitCount = Integer.parseInt(noticeNode.item(8).getAttributes().item(0).getTextContent());
                 boolean isImportantNotice = noticeNode.item(13).getAttributes().item(0).getTextContent().equals("Y");
 
                 // For Logging.
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeTitle);
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 내용 : " + noticeContent);
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성자 : " + noticeAuthor);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성 날짜 : " + noticeWritingDate);
+                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성 날짜 : " + noticeWrittenDate);
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 조회수 : " + noticeHitCount);
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 중요 여부 : " + isImportantNotice);
+
+                noticeList.add(new LectureNotice(noticeTitle, noticeContent, noticeAuthor, noticeWrittenDate, noticeHitCount, isImportantNotice));
             }
 
         } catch (ParserConfigurationException e) {
@@ -293,5 +295,7 @@ public class PortalXmlParser {
         } catch (XPathExpressionException e) {
             Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         }
+
+        return noticeList;
     }
 }

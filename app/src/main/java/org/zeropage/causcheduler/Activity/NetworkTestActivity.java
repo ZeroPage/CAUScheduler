@@ -91,7 +91,7 @@ public class NetworkTestActivity extends AppCompatActivity {
 //                    }
 //                });
 
-                PortalNetworkQueue.sendNoticeRequest(getApplicationContext(), "20146824", 99382, 1, new Response.Listener() {
+                PortalNetworkQueue.sendNoticeRequest(getApplicationContext(), "20146824", 99382, new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
                         try {
