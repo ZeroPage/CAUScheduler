@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (item.getItemId() == R.id.drawer_logout) {
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_num_key), SharedConstant.EMPTY_STRING).apply();
-                    prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_dept_key), SharedConstant.EMPTY_STRING).apply();
-                    prefs.edit().putString(RConverter.getString(getApplicationContext(), R.string.student_name_key), SharedConstant.EMPTY_STRING).apply();
+                    prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_num_key), SharedConstant.EMPTY_STRING).apply();
+                    prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_dept_key), SharedConstant.EMPTY_STRING).apply();
+                    prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_name_key), SharedConstant.EMPTY_STRING).apply();
 
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     finish();

@@ -34,17 +34,9 @@ public enum Restaurant {
      */
     SensibleMaru("02");
 
-    String code;
+    public final String code;
 
     Restaurant(String code) {
         this.code = code;
-    }
-
-    /**
-     * 해당 식당에 부여된 코드를 가져옵니다.
-     * @return 식당에 부여된 코드입니다.
-     */
-    public String getCode() {
-        return this.code;
     }
 }

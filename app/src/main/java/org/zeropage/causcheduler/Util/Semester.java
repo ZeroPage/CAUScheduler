@@ -22,17 +22,9 @@ public enum Semester {
      */
     WinterVacation(4);
 
-    private final int semesterCode;
+    public final int semesterCode;
 
     Semester(int semesterCode) {
         this.semesterCode = semesterCode;
-    }
-
-    /**
-     * 지정된 학기에 부여된 고유 코드를 가져옵니다.
-     * @return 현재 지정된 학기에 부여된 고유 코드입니다.
-     */
-    public int getSemesterCode() {
-        return this.semesterCode;
     }
 }

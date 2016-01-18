@@ -10,11 +10,11 @@ public class RConverter {
     /**
      * R.string에 들어있는 문자열을 가져옵니다.
      * @param context 문자열을 가져올 때 사용할 Context를 가리킵니다.
-     * @param stringAddress 문자열이 들어있는 주소를 가리킵니다. ex) R.string.[....]
+     * @param stringId 문자열이 들어있는 주소를 가리킵니다. ex) R.string.[....]
      * @return 가져온 문자열을 반환합니다.
      */
-    public static String getString(final Context context, final int stringAddress) {
-        return context.getResources().getString(stringAddress);
+    public static String getStringFromR(final Context context, final int stringId) {
+        return context.getResources().getString(stringId);
     }
 
     /**

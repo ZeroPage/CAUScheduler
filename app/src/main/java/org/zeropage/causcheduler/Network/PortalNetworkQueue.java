@@ -84,7 +84,7 @@ public class PortalNetworkQueue {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/prof/myp/pLmsMyp050/selectStudDataInCourseList.do",
                 "<map><userId value=\"" + studentId + "\"/><groupCode value=\"cau\"/><recordCountPerPage value=\"20\"/><pageIndex value=\"1\"/>" +
-                        "<kisuYear value=\"" + lectureYear + "\"/><kisuNo value=\"" + Integer.toString(lectureYear) + semester.getSemesterCode() + "\"/></map>", listener, errorListener);
+                        "<kisuYear value=\"" + lectureYear + "\"/><kisuNo value=\"" + Integer.toString(lectureYear) + semester.semesterCode + "\"/></map>", listener, errorListener);
         requestQueue.add(stringRequest);
     }
 
@@ -120,8 +120,8 @@ public class PortalNetworkQueue {
         String timeShortcut = Integer.toString(calendar.get(calendar.YEAR)) + String.format("%02d", calendar.get(calendar.MONTH)) + String.format("%02d", calendar.get(calendar.DATE));
 
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/TIS/portlet/comm/cPortlet001/selectList.do",
-                "<map><userid value=\"" + studentId + "\"/><calvalue value=\"0\"/><gb value=\"1\"/><storediv value=\"" + restaurant.getCode() + "\"/><campfg value=\"1\"/>" +
-                        "<today value=\"" + timeShortcut + "\"/><store value=\"" + restaurant.getCode() + "\"/></map>", listener, errorListener);
+                "<map><userid value=\"" + studentId + "\"/><calvalue value=\"0\"/><gb value=\"1\"/><storediv value=\"" + restaurant.code + "\"/><campfg value=\"1\"/>" +
+                        "<today value=\"" + timeShortcut + "\"/><store value=\"" + restaurant.code + "\"/></map>", listener, errorListener);
         requestQueue.add(stringRequest);
     }
 
