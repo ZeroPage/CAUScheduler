@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
 
                 // TODO 드로어 아이템 클릭 시 해야되는 일 적기
+                if (item.getItemId() == R.id.drawer_assignments){
+                    getFragmentManager().beginTransaction().replace(R.id.container, AssignmentFragment.newInstance())
+                            .commit();
+                }
                 if(item.getItemId() == R.id.drawer_setting){
                     getFragmentManager().beginTransaction()
                             .replace(R.id.container, PrefsFragment.newInstance())
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 헤더에 계정 정보를 보여주기
         View header = mNavigationView.getHeaderView(0);
         TextView studentNameTextView = (TextView)header.findViewById(R.id.header_student_name);
         TextView studentNumTextView = (TextView)header.findViewById(R.id.header_student_num);
@@ -85,49 +90,46 @@ public class MainActivity extends AppCompatActivity {
         studentDeptTextView.setText(PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext()).getString(getString(R.string.student_dept_key), getString(R.string.student_dept_default)));
 
+        // 드로어 레이아웃 설정
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.string.drawer_open,  /* "open drawer" description */
-                R.string.drawer_close  /* "close drawer" description */
-        ) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely closed state. */
+            // 드로어가 완전히 닫히면 호출
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu(); // onPrepareOptionsMenu()을 호출하기 위해 만듬
             }
 
-            /** Called when a drawer has settled in a completely open state. */
+            // 드로어가 완전히 열리면 호출
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu(); // onPrepareOptionsMenu()을 호출하기 위해 만듬
             }
         };
 
-        // Set the drawer toggle as the DrawerListener
+        // 드로어 토글을 리스너로 설정
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        // 초기 화면을 보여줄 프래그먼트를 추가함
+        // TODO 초기 화면을 보여줄 프래그먼트를 설정 값에 따라 바꿔야 함
         if(savedInstanceState == null){
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, PrefsFragment.newInstance())
+                    .add(R.id.container, AssignmentFragment.newInstance())
                     .commit();
         }
     }
 
 
 
-    /* Called whenever we call invalidateOptionsMenu() */
+    // invalidateOptionsMenu()를 호출할 때 호출됨
     // 이 메소드는 드로어가 열릴 경우, 그에 따라 자연스럽게 화면에서 특정 컴포넌트를 없애는 데 사용합니다.
     // ex) 드로어가 열리면 툴바의 검색 버튼이 자동으로 사라져야 함.
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
         // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -136,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
 
