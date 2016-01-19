@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.Util;
+package org.zeropage.causcheduler.util;
 
 /**
  * 학기 정보를 나열하고 있는 열거형입니다.

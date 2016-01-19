@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.Util;
+package org.zeropage.causcheduler.util;
 
 /**
  * 한 강의에 대한 정보를 담고 있는 클래스입니다.

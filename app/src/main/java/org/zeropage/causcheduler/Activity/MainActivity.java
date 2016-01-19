@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.Activity;
+package org.zeropage.causcheduler.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,8 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import org.zeropage.causcheduler.R;
-import org.zeropage.causcheduler.Util.RConverter;
-import org.zeropage.causcheduler.Util.SharedConstant;
+import org.zeropage.causcheduler.util.RConverter;
+import org.zeropage.causcheduler.util.SharedConstant;
 
 public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = MainActivity.class.getSimpleName();

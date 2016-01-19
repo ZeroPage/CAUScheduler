@@ -1,7 +1,6 @@
-package org.zeropage.causcheduler.Network;
+package org.zeropage.causcheduler.network;
 
 import android.content.Context;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,12 +11,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.zeropage.causcheduler.Util.Restaurant;
-import org.zeropage.causcheduler.Util.Semester;
+import org.zeropage.causcheduler.util.Restaurant;
+import org.zeropage.causcheduler.util.Semester;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**

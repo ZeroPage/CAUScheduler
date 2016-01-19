@@ -1,26 +1,18 @@
-package org.zeropage.causcheduler.Activity;
+package org.zeropage.causcheduler.activity;
 
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 
-import org.zeropage.causcheduler.Network.PortalNetworkQueue;
+import org.zeropage.causcheduler.network.PortalNetworkQueue;
 import org.zeropage.causcheduler.R;
-import org.zeropage.causcheduler.Util.PortalXmlParser;
-import org.zeropage.causcheduler.Util.Restaurant;
-import org.zeropage.causcheduler.Util.Semester;
-
-import java.nio.charset.StandardCharsets;
-import java.util.GregorianCalendar;
+import org.zeropage.causcheduler.util.PortalXmlParser;
 
 /**
  * Created by Lumin on 2016-01-09.

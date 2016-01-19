@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.Network;
+package org.zeropage.causcheduler.network;
 
 import android.util.Log;
 
@@ -7,10 +7,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * POST 작업을 수행하기 위해 StringRequest를 확장시킨 클래스입니다.

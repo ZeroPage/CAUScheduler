@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.Util;
+package org.zeropage.causcheduler.util;
 
 import android.util.Log;
 

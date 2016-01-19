@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.Activity;
+package org.zeropage.causcheduler.activity;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;

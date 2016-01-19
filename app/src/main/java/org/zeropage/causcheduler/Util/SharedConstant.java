@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.Util;
+package org.zeropage.causcheduler.util;
 
 /**
  * Created by Lumin on 2016-01-08.

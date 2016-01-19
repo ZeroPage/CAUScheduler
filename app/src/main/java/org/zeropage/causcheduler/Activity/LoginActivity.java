@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.Activity;
+package org.zeropage.causcheduler.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,11 +14,11 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 
-import org.zeropage.causcheduler.Network.PortalNetworkQueue;
+import org.zeropage.causcheduler.network.PortalNetworkQueue;
 import org.zeropage.causcheduler.R;
-import org.zeropage.causcheduler.Util.RConverter;
-import org.zeropage.causcheduler.Util.SharedConstant;
-import org.zeropage.causcheduler.Util.Student;
+import org.zeropage.causcheduler.util.RConverter;
+import org.zeropage.causcheduler.util.SharedConstant;
+import org.zeropage.causcheduler.util.Student;
 
 /**
  * Created by Lumin on 2016-01-08.
