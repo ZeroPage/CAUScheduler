@@ -1,7 +1,8 @@
-package org.zeropage.causcheduler.data;
+package org.zeropage.causcheduler.data.realmObject;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 import java.util.Date;
 
@@ -18,14 +19,14 @@ import java.util.Date;
 // * @param menu 해당 식단의 구성 메뉴들을 가리킵니다.
 // */
 public class Meal extends RealmObject{
-    @PrimaryKey
-    private String mealCode; //date + restaurantCode + name의 조합, 합성키를 기본키로 지정 못해서 이걸 씀.
-
+    @Required
     private String name;
     private int restaurantCode;
+    @Required
     private Date date;
     private int price;
     private float totalCalorie;
+    @Required
     private String distributeTime;
     private String[] menu;
 

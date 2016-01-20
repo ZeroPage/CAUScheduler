@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.data;
+package org.zeropage.causcheduler.data.realmObject;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by Donghwan on 2016-01-20.
  */
 public class Homework extends RealmObject {
-    @PrimaryKey
+    @Required
     private String name;
     @Required
     private Date startTime;
