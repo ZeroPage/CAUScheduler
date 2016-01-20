@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.util;
+package org.zeropage.causcheduler.data;
 
 /**
  * 한 식단의 정보를 가지고 있는 클래스입니다.

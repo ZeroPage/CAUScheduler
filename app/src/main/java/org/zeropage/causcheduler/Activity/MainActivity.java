@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // TODO 드로어 아이템 클릭 시 해야되는 일 적기
                 if (item.getItemId() == R.id.drawer_assignments){
-                    getFragmentManager().beginTransaction().replace(R.id.container, AssignmentFragment.newInstance())
+                    getFragmentManager().beginTransaction().replace(R.id.container, HomeworkFragment.newInstance())
                             .commit();
                 }
                 if(item.getItemId() == R.id.drawer_setting){
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO 초기 화면을 보여줄 프래그먼트를 설정 값에 따라 바꿔야 함
         if(savedInstanceState == null){
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, AssignmentFragment.newInstance())
+                    .add(R.id.container, HomeworkFragment.newInstance())
                     .commit();
         }
     }

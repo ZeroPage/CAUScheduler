@@ -7,7 +7,7 @@
                 android:id="@+id/drawer_assignments"
                 android:checked="false"
                 android:icon="@drawable/ic_assignment_black_24dp"
-                android:title="@string/label_assignments" />
+                android:title="@string/label_homework" />
         <item
                 android:id="@+id/drawer_meals"
                 android:checked="false"

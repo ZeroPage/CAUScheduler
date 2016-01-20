@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.util;
+package org.zeropage.causcheduler.data;
 
 /**
  * 과목 공지사항에 대한 정보를 담고 있는 클래스입니다.

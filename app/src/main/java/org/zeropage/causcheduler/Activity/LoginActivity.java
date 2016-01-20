@@ -18,7 +18,7 @@ import org.zeropage.causcheduler.network.PortalNetworkQueue;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.util.RConverter;
 import org.zeropage.causcheduler.util.SharedConstant;
-import org.zeropage.causcheduler.util.Student;
+import org.zeropage.causcheduler.data.Student;
 
 /**
  * Created by Lumin on 2016-01-08.

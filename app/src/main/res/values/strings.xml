@@ -18,7 +18,7 @@
     <string name="student_dept_default">No dept</string>
     <string name="student_name_default">No name</string>
 
-    <string name="label_assignments">Assignments</string>
+    <string name="label_homework">Homeworks</string>
     <string name="label_meals">Meals</string>
     <string name="label_setting">Setting</string>
     <string name="label_logout">Log out</string>

@@ -11,8 +11,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.zeropage.causcheduler.util.Restaurant;
-import org.zeropage.causcheduler.util.Semester;
+import org.zeropage.causcheduler.data.Restaurant;
+import org.zeropage.causcheduler.data.Semester;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

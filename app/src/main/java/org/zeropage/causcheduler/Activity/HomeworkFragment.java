@@ -7,14 +7,14 @@ import android.view.*;
 import android.widget.ListView;
 import org.zeropage.causcheduler.R;
 
-public class AssignmentFragment extends Fragment {
+public class HomeworkFragment extends Fragment {
 
-    public static AssignmentFragment newInstance() {
-        AssignmentFragment fragment = new AssignmentFragment();
+    public static HomeworkFragment newInstance() {
+        HomeworkFragment fragment = new HomeworkFragment();
         return fragment;
     }
 
-    public AssignmentFragment() {
+    public HomeworkFragment() {
         // Required empty public constructor
     }
 
@@ -28,7 +28,7 @@ public class AssignmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_assignment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_homework, container, false);
         ListView listView = (ListView)rootView.findViewById(R.id.listView_assignment);
         // TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
 
@@ -38,7 +38,7 @@ public class AssignmentFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_assignment, menu);
+        inflater.inflate(R.menu.menu_homework, menu);
     }
 
     @Override
