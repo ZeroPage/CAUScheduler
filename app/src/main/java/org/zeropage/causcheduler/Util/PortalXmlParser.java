@@ -8,7 +8,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.zeropage.causcheduler.data.*;
-import org.zeropage.causcheduler.data.realmObject.Meal;
+import org.zeropage.causcheduler.data.Meal;
+import org.zeropage.causcheduler.data.original.DefaultHomework;
+import org.zeropage.causcheduler.data.original.DetailHomework;
+import org.zeropage.causcheduler.data.original.Lecture;
 
 import java.io.IOException;
 import java.io.StringReader;
