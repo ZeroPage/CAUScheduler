@@ -177,6 +177,7 @@ public class PortalXmlParser {
                 int totalStudentNum = Integer.parseInt(homeworkNode.item(8 + pumpedIndex).getAttributes().item(0).getTextContent());
 
                 boolean currentSubmitStatus = homeworkNode.item(12 + pumpedIndex).getAttributes().item(0).getTextContent().equals("제출");
+                boolean isOpenTask = homeworkNode.item(6 + pumpedIndex).getAttributes().item(0).getTextContent().equals("Y");
 
                 // For Logging.
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 번호 : " + homeworkOrderNum);
@@ -188,8 +189,9 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 학생 수 : " + submitStudentNum);
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제를 수행하는 총 학생 수 : " + totalStudentNum);
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 여부 : " + currentSubmitStatus);
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 공개 여부 : " + isOpenTask);
 
-                homeworkList.add(new DetailHomework(homeworkName, homeworkStartTime, homeworkEndTime, homeworkExtendEndTime, currentSubmitStatus, currentHomeworkStatus, submitStudentNum, totalStudentNum, homeworkOrderNum));
+                homeworkList.add(new DetailHomework(homeworkName, homeworkStartTime, homeworkEndTime, homeworkExtendEndTime, currentSubmitStatus, currentHomeworkStatus, submitStudentNum, totalStudentNum, homeworkOrderNum, isOpenTask));
             }
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
