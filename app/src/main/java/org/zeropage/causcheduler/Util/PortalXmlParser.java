@@ -127,7 +127,13 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 식단의 총 칼로리 : " + mealTotalCalorie);
                 Log.e(LOG_TAG, "현재 Parsing 중인 식단의 메뉴 구성 : " + Arrays.toString(mealMenu));
 
-                mealList.add(new Meal(mealPrice, mealTotalCalorie, mealTime, mealName, mealMenu));
+                Meal meal = new Meal();
+                meal.setPrice(mealPrice);
+                meal.setTotalCalorie(mealTotalCalorie);
+                meal.setDistributeTime(mealTime);
+                meal.setName(mealName);
+                meal.setMenu(mealMenu);
+                mealList.add(meal);
             }
 
         } catch (ParserConfigurationException e) {
@@ -141,6 +147,8 @@ public class PortalXmlParser {
         return mealList;
     }
 
+
+    // TODO DefaultHomework가 내용을 포함한 과제 객체이고, DetailHomework가 상태값을 가지고 있는 과제 객체임
     /**
      * 주어진 Xml 내용으로부터 과제의 리스트를 가져옵니다.
      * @param homeworkListXmlContent 과제 리스트 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
@@ -262,8 +270,8 @@ public class PortalXmlParser {
      * @param noticeXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 공지사항 내용을 담고있는 객체입니다.
      */
-    public List<LectureNotice> parseNotice(String noticeXmlContent) {
-        List<LectureNotice> noticeList = new ArrayList<>();
+    public List<org.zeropage.causcheduler.data.original.LectureNotice> parseNotice(String noticeXmlContent) {
+        List<org.zeropage.causcheduler.data.original.LectureNotice> noticeList = new ArrayList<>();
 
         try {
             // Encoding 재조정 작업.
@@ -295,7 +303,7 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 조회수 : " + noticeHitCount);
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 중요 여부 : " + isImportantNotice);
 
-                noticeList.add(new LectureNotice(noticeTitle, noticeContent, noticeAuthor, noticeWrittenDate, noticeHitCount, isImportantNotice));
+                noticeList.add(new org.zeropage.causcheduler.data.original.LectureNotice(noticeTitle, noticeContent, noticeAuthor, noticeWrittenDate, noticeHitCount, isImportantNotice));
             }
 
         } catch (ParserConfigurationException e) {

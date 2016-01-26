@@ -2,12 +2,13 @@ package org.zeropage.causcheduler.activity;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.view.*;
 
 import android.widget.ListView;
 import org.zeropage.causcheduler.R;
 
-public class HomeworkFragment extends Fragment {
+public class HomeworkFragment extends Fragment{
 
     public static HomeworkFragment newInstance() {
         HomeworkFragment fragment = new HomeworkFragment();

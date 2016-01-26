@@ -18,4 +18,52 @@ public class LectureNotice extends RealmObject {
     @Ignore
     private int hitCount;               // 조회수
     private boolean isImportant;       // 중요 여부
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getWrittenDate() {
+        return writtenDate;
+    }
+
+    public void setWrittenDate(String writtenDate) {
+        this.writtenDate = writtenDate;
+    }
+
+    public int getHitCount() {
+        return hitCount;
+    }
+
+    public void setHitCount(int hitCount) {
+        this.hitCount = hitCount;
+    }
+
+    public boolean isImportant() {
+        return isImportant;
+    }
+
+    public void setIsImportant(boolean isImportant) {
+        this.isImportant = isImportant;
+    }
 }
