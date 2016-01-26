@@ -2,7 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-
+        <item
+                android:id="@+id/drawer_lectureNotices"
+                android:checked="false"
+                android:icon="@drawable/ic_announcement_black_24dp"
+                android:title="@string/label_lectureNotice" />
         <item
                 android:id="@+id/drawer_assignments"
                 android:checked="false"

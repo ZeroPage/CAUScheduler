@@ -30,6 +30,7 @@ public class HomeworkFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_homework, container, false);
+        getActivity().setTitle(R.string.label_homework);
         ListView listView = (ListView)rootView.findViewById(R.id.listView_assignment);
         // TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
 

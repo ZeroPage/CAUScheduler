@@ -27,7 +27,7 @@ public class Meal extends RealmObject{
     private float totalCalorie;
     @Required
     private String distributeTime;
-    private String[] menu;
+    private String menu;
 
     public String getName() {
         return name;
@@ -61,11 +61,27 @@ public class Meal extends RealmObject{
         this.distributeTime = distributeTime;
     }
 
-    public String[] getMenu() {
+    public String getMenu() {
         return menu;
     }
 
-    public void setMenu(String[] menu) {
+    public void setMenu(String menu) {
         this.menu = menu;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getRestaurantCode() {
+        return restaurantCode;
+    }
+
+    public void setRestaurantCode(int restaurantCode) {
+        this.restaurantCode = restaurantCode;
     }
 }

@@ -19,8 +19,7 @@ public class PrefsFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getActivity().setTitle(R.string.label_setting);
         addPreferencesFromResource(R.xml.preferences);
     }
-
 }

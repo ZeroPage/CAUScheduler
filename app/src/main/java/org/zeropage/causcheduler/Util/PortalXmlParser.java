@@ -132,7 +132,7 @@ public class PortalXmlParser {
                 meal.setTotalCalorie(mealTotalCalorie);
                 meal.setDistributeTime(mealTime);
                 meal.setName(mealName);
-                meal.setMenu(mealMenu);
+                meal.setMenu(mealMenu.toString());
                 mealList.add(meal);
             }
 

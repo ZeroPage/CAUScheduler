@@ -52,14 +52,19 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
 
                 // TODO 드로어 아이템 클릭 시 해야되는 일 적기
-                if (item.getItemId() == R.id.drawer_assignments){
-                    getFragmentManager().beginTransaction().replace(R.id.container, HomeworkFragment.newInstance())
-                            .commit();
-                }
-                if(item.getItemId() == R.id.drawer_setting){
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.container, PrefsFragment.newInstance())
-                            .commit();
+                switch(item.getItemId()){
+                    case R.id.drawer_lectureNotices:
+                        getFragmentManager().beginTransaction().replace(R.id.container, LectureNoticeFragment.newInstance())
+                                .commit(); break;
+                    case R.id.drawer_assignments:
+                        getFragmentManager().beginTransaction().replace(R.id.container, HomeworkFragment.newInstance())
+                                .commit(); break;
+                    case R.id.drawer_meals:
+                        getFragmentManager().beginTransaction().replace(R.id.container, MealFragment.newInstance())
+                                .commit(); break;
+                    case R.id.drawer_setting:
+                        getFragmentManager().beginTransaction().replace(R.id.container, PrefsFragment.newInstance())
+                            .commit(); break;
                 }
 
                 if (item.getItemId() == R.id.drawer_logout) {
