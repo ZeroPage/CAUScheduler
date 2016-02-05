@@ -8,15 +8,14 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.zeropage.causcheduler.data.*;
-import org.zeropage.causcheduler.data.Meal;
-import org.zeropage.causcheduler.data.original.DefaultHomework;
-import org.zeropage.causcheduler.data.original.DetailHomework;
-import org.zeropage.causcheduler.data.original.Lecture;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -51,7 +50,7 @@ public class PortalXmlParser {
             XPath xPath = XPathFactory.newInstance().newXPath();
 
             // map 하위의 vector id = result를 담는 노드를 탐색
-            NodeList allLectureListNode = (NodeList) xPath.compile("map/vector[@id='result']/map[@id]").evaluate(lectureListDoc, XPathConstants.NODESET);
+            NodeList allLectureListNode = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(lectureListDoc, XPathConstants.NODESET);
 
             Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + allLectureListNode.getLength());
 
@@ -59,6 +58,7 @@ public class PortalXmlParser {
                 NodeList lectureNode = allLectureListNode.item(i).getChildNodes();
 
                 // 하나의 강의 정보에 대해 Parsing.
+                int lectureNum = Integer.parseInt(lectureNode.item(1).getAttributes().item(0).getTextContent());
                 int sectionNum = Integer.parseInt(lectureNode.item(2).getAttributes().item(0).getTextContent());
                 String lectureName = lectureNode.item(3).getAttributes().item(0).getTextContent();
                 String professorName = lectureNode.item(4).getAttributes().item(0).getTextContent();
@@ -66,6 +66,7 @@ public class PortalXmlParser {
                 String lectureDeptName = lectureNode.item(6).getAttributes().item(0).getTextContent();
 
                 // For Logging.
+                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 번호 : " + lectureNum);
                 Log.e(LOG_TAG, "현재 Parsing 중인 강의의 이름 : " + lectureName);
                 Log.e(LOG_TAG, "현재 Parsing 중인 강의의 교수자 이름 : " + professorName);
                 Log.e(LOG_TAG, "현재 Parsing 중인 강의의 분반 : " + sectionNum);
@@ -73,7 +74,7 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 강의의 학습 기간 : " + studyPeriod);
 
                 // 강의 리스트에 추가
-                lectureList.add(new Lecture(lectureName, professorName, lectureDeptName, sectionNum, studyPeriod));
+                lectureList.add(new Lecture(lectureName, lectureNum, professorName, lectureDeptName, sectionNum, studyPeriod));
             }
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
@@ -91,7 +92,7 @@ public class PortalXmlParser {
      * @param mealXmlContent 식단 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 모든 식단들을 저장하고 있는 리스트입니다.
      */
-    public List<Meal> parseMealInfo(String mealXmlContent) {
+    public List<Meal> parseMealInfo(String mealXmlContent, Restaurant restaurant) {
         List<Meal> mealList = new ArrayList<>();
 
         try {
@@ -103,8 +104,13 @@ public class PortalXmlParser {
             Document mealInfoDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
             XPath xPath = XPathFactory.newInstance().newXPath();
 
+            // today value
+            Node todayNode = (Node)xPath.compile("/map/today").evaluate(mealInfoDoc, XPathConstants.NODE);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            Date date = dateFormat.parse(todayNode.getNodeValue());
+
             // vector id = result를 담는 노드 탐색
-            NodeList mealInfoList = (NodeList) xPath.compile("map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
+            NodeList mealInfoList = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
 
             Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + mealInfoList.getLength());
 
@@ -127,16 +133,11 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 식단의 총 칼로리 : " + mealTotalCalorie);
                 Log.e(LOG_TAG, "현재 Parsing 중인 식단의 메뉴 구성 : " + Arrays.toString(mealMenu));
 
-                Meal meal = new Meal();
-                meal.setPrice(mealPrice);
-                meal.setTotalCalorie(mealTotalCalorie);
-                meal.setDistributeTime(mealTime);
-                meal.setName(mealName);
-                meal.setMenu(mealMenu.toString());
+                Meal meal = new Meal(mealName, restaurant.code, date, mealPrice, mealTotalCalorie, mealTime, Arrays.toString(mealMenu));
                 mealList.add(meal);
             }
 
-        } catch (ParserConfigurationException e) {
+        } catch (ParserConfigurationException|ParseException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         } catch (IOException | SAXException e) {
             Log.e(LOG_TAG, "IO 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
@@ -154,8 +155,8 @@ public class PortalXmlParser {
      * @param homeworkListXmlContent 과제 리스트 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 모든 과제들을 저장하고 있는 리스트입니다.
      */
-    public List<DetailHomework> parseHomeworkList(String homeworkListXmlContent) {
-        List<DetailHomework> homeworkList = new ArrayList<>();
+    public List<Homework> parseHomeworkList(String homeworkListXmlContent) {
+        List<Homework> homeworkList = new ArrayList<>();
 
         try {
             // Encoding 재조정 작업.
@@ -167,7 +168,7 @@ public class PortalXmlParser {
             XPath xmlPath = XPathFactory.newInstance().newXPath();
 
             // vector id = tasklist를 담는 노드를 탐색
-            NodeList homeworkNodeList = (NodeList) xmlPath.compile("map/vector[@id='tasklist']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
+            NodeList homeworkNodeList = (NodeList) xmlPath.compile("/map/vector[@id='tasklist']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
 
             for (int i = 0; i < homeworkNodeList.getLength(); i++) {
                 NodeList homeworkNode = homeworkNodeList.item(i).getChildNodes();
@@ -202,7 +203,7 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제를 수행하는 총 학생 수 : " + totalStudentNum);
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 여부 : " + currentSubmitStatus);
 
-                homeworkList.add(new DetailHomework(homeworkName, homeworkStartTime, homeworkEndTime, homeworkExtendEndTime, currentSubmitStatus, currentHomeworkStatus, submitStudentNum, totalStudentNum, homeworkOrderNum));
+                homeworkList.add(new Homework(homeworkName, homeworkStartTime, homeworkEndTime, homeworkExtendEndTime, currentSubmitStatus, currentHomeworkStatus, submitStudentNum, totalStudentNum, homeworkOrderNum));
             }
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
@@ -220,8 +221,8 @@ public class PortalXmlParser {
      * @param homeworkViewXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 과제 내용을 담고있는 객체입니다.
      */
-    public DefaultHomework parseHomeworkView(String homeworkViewXmlContent) {
-        DefaultHomework parsedHomework = null;
+    public Homework parseHomeworkContent(String homeworkViewXmlContent, Homework homework) {
+        Homework parsedHomework = null;
 
         try {
             // Encoding 재조정 작업.
@@ -233,7 +234,7 @@ public class PortalXmlParser {
             XPath xmlPath = XPathFactory.newInstance().newXPath();
 
             // 노드 탐색
-            NodeList homeworkNodeList = ((Node) xmlPath.compile("map/map[@id='task']").evaluate(homeworkDocument, XPathConstants.NODE)).getChildNodes();
+            NodeList homeworkNodeList = ((Node) xmlPath.compile("/map/map[@id='task']").evaluate(homeworkDocument, XPathConstants.NODE)).getChildNodes();
             int pumpedIndex = 0;
 
             // 과제 연장이 있는 경우
@@ -253,7 +254,7 @@ public class PortalXmlParser {
             Log.e(LOG_TAG, "현재 Parsing 중인 과제의 연장 종료 시간 : " + homeworkExtendEndTime);
             Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
 
-            parsedHomework = new DefaultHomework(homeworkName, homeworkStartTime, homeworkEndTime, homeworkExtendEndTime, homeworkContent);
+            homework.setContent(homeworkContent);
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         } catch (IOException | SAXException e) {
@@ -262,7 +263,7 @@ public class PortalXmlParser {
             Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         }
 
-        return parsedHomework;
+        return homework;
     }
 
     /**
@@ -270,8 +271,8 @@ public class PortalXmlParser {
      * @param noticeXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 공지사항 내용을 담고있는 객체입니다.
      */
-    public List<org.zeropage.causcheduler.data.original.LectureNotice> parseNotice(String noticeXmlContent) {
-        List<org.zeropage.causcheduler.data.original.LectureNotice> noticeList = new ArrayList<>();
+    public List<LectureNotice> parseNotice(String noticeXmlContent) {
+        List<LectureNotice> noticeList = new ArrayList<>();
 
         try {
             // Encoding 재조정 작업.
@@ -283,7 +284,7 @@ public class PortalXmlParser {
             XPath xmlPath = XPathFactory.newInstance().newXPath();
 
             // 노드 탐색
-            NodeList noticeNodeGroup = (NodeList) xmlPath.compile("map/vector[@id='result']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
+            NodeList noticeNodeGroup = (NodeList) xmlPath.compile("/map/vector[@id='result']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
 
             for (int i = 0; i < noticeNodeGroup.getLength(); i++) {
                 NodeList noticeNode = noticeNodeGroup.item(i).getChildNodes();
@@ -303,7 +304,7 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 조회수 : " + noticeHitCount);
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 중요 여부 : " + isImportantNotice);
 
-                noticeList.add(new org.zeropage.causcheduler.data.original.LectureNotice(noticeTitle, noticeContent, noticeAuthor, noticeWrittenDate, noticeHitCount, isImportantNotice));
+                noticeList.add(new LectureNotice(noticeTitle, noticeContent, noticeAuthor, noticeWrittenDate, noticeHitCount, isImportantNotice));
             }
 
         } catch (ParserConfigurationException e) {

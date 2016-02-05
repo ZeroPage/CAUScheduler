@@ -4,9 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
 import android.widget.ListView;
 import org.zeropage.causcheduler.R;
@@ -38,5 +36,17 @@ public class LectureNoticeFragment extends Fragment {
 		// TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
 
 		return rootView;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_lecturenotice, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		return super.onOptionsItemSelected(item);
 	}
 }

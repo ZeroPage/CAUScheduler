@@ -23,7 +23,7 @@ public class HomeworksAdapter extends RealmBaseAdapter<Homework> implements List
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder;
 		if(convertView == null){
-			convertView = inflater.inflate(R.layout.list_item_assignment, parent, false);
+			convertView = inflater.inflate(R.layout.list_item_homework, parent, false);
 			viewHolder = new ViewHolder();
 			viewHolder.item = (TextView)convertView.findViewById(R.id.assignment_item_text);
 			convertView.setTag(viewHolder);

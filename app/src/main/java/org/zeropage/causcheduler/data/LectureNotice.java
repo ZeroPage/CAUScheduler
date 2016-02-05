@@ -15,9 +15,22 @@ public class LectureNotice extends RealmObject {
     private String authorName;          // 작성자
     @Required
     private String writtenDate;         // 작성 일자
+    private boolean isImportant;       // 중요 여부
+
     @Ignore
     private int hitCount;               // 조회수
-    private boolean isImportant;       // 중요 여부
+
+    public LectureNotice() {
+    }
+
+    public LectureNotice(String title, String content, String authorName, String writtenDate, int hitCount, boolean isImportant) {
+        this.title = title;
+        this.content = content;
+        this.authorName = authorName;
+        this.writtenDate = writtenDate;
+        this.hitCount = hitCount;
+        this.isImportant = isImportant;
+    }
 
     public String getTitle() {
         return title;

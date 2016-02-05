@@ -13,7 +13,7 @@
         </activity>
 
         <activity android:name=".activity.LoginActivity">
-
+            <!-- 현재 로그인 액티비티가 메인 액티비티임 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,9 +23,6 @@
         <activity android:name=".activity.NetworkTestActivity">
         </activity>
 
-        <provider
-            android:authorities="org.zeropage.causcheduler"
-            android:name=".data.PortalInfoProvider"/>
     </application>
 
 </manifest>

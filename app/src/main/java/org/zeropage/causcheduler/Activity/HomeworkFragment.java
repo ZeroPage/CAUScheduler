@@ -2,13 +2,16 @@ package org.zeropage.causcheduler.activity;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v4.app.LoaderManager;
 import android.view.*;
 
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import org.zeropage.causcheduler.R;
+import org.zeropage.causcheduler.data.original.Homework;
 
 public class HomeworkFragment extends Fragment{
+
+    private ArrayAdapter<Homework> mAdapter;
 
     public static HomeworkFragment newInstance() {
         HomeworkFragment fragment = new HomeworkFragment();
@@ -33,7 +36,6 @@ public class HomeworkFragment extends Fragment{
         getActivity().setTitle(R.string.label_homework);
         ListView listView = (ListView)rootView.findViewById(R.id.listView_assignment);
         // TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
-
         return rootView;
     }
 

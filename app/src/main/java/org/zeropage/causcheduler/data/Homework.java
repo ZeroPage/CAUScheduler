@@ -4,8 +4,6 @@ import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.Required;
 
-import java.util.Date;
-
 /**
  * Created by Donghwan on 2016-01-20.
  */
@@ -13,7 +11,7 @@ public class Homework extends RealmObject {
     @Required
     private String name;
     @Required
-    private Date startTime;
+    private String startTime;
     @Required
     private String endTime;
     @Required
@@ -27,7 +25,22 @@ public class Homework extends RealmObject {
     private int submitStudentNum;
     private int totalStudentNum;
     @Ignore
-    private int index;
+    private int index; // 포탈 서버 내에서 과제의 순서를 분류하는 번호
+
+    public Homework() {
+    }
+
+    public Homework(String name, String startTime, String endTime, String extendEndTime, boolean isSubmitted, String currentProgressStatus, int submitStudentNum, int totalStudentNum, int index) {
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.extendEndTime = extendEndTime;
+        this.isSubmitted = isSubmitted;
+        this.currentProgressStatus = currentProgressStatus;
+        this.submitStudentNum = submitStudentNum;
+        this.totalStudentNum = totalStudentNum;
+        this.index = index;
+    }
 
     public String getName() {
         return name;
@@ -37,11 +50,11 @@ public class Homework extends RealmObject {
         this.name = name;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 

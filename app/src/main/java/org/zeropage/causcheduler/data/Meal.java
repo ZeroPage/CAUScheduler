@@ -20,7 +20,7 @@ import java.util.Date;
 public class Meal extends RealmObject{
     @Required
     private String name;
-    private int restaurantCode;
+    private String restaurantCode;
     @Required
     private Date date;
     private int price;
@@ -28,6 +28,19 @@ public class Meal extends RealmObject{
     @Required
     private String distributeTime;
     private String menu;
+
+    public Meal() {
+    }
+
+    public Meal(String name, String restaurantCode, Date date, int price, float totalCalorie, String distributeTime, String menu) {
+        this.name = name;
+        this.restaurantCode = restaurantCode;
+        this.date = date;
+        this.price = price;
+        this.totalCalorie = totalCalorie;
+        this.distributeTime = distributeTime;
+        this.menu = menu;
+    }
 
     public String getName() {
         return name;
@@ -77,11 +90,11 @@ public class Meal extends RealmObject{
         this.date = date;
     }
 
-    public int getRestaurantCode() {
+    public String getRestaurantCode() {
         return restaurantCode;
     }
 
-    public void setRestaurantCode(int restaurantCode) {
+    public void setRestaurantCode(String restaurantCode) {
         this.restaurantCode = restaurantCode;
     }
 }

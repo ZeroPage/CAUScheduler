@@ -123,12 +123,16 @@ public class MainActivity extends AppCompatActivity {
         // TODO 초기 화면을 보여줄 프래그먼트를 설정 값에 따라 바꿔야 함
         if(savedInstanceState == null){
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, HomeworkFragment.newInstance())
+                    .add(R.id.container, LectureNoticeFragment.newInstance())
                     .commit();
         }
+    } // onCreate() end
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // TODO realm.close()
     }
-
-
 
     // invalidateOptionsMenu()를 호출할 때 호출됨
     // 이 메소드는 드로어가 열릴 경우, 그에 따라 자연스럽게 화면에서 특정 컴포넌트를 없애는 데 사용합니다.

@@ -75,7 +75,7 @@ public class NetworkTestActivity extends AppCompatActivity {
 //                    public void onResponse(Object response) {
 //                        try {
 //                            PortalXmlParser portalXmlParser = new PortalXmlParser();
-//                            portalXmlParser.parseHomeworkView(response.toString());
+//                            portalXmlParser.parseHomeworkContent(response.toString());
 //                            Toast.makeText(NetworkTestActivity.this, "성공", Toast.LENGTH_SHORT).show();
 //                        } catch (Exception e) {
 //
@@ -83,18 +83,18 @@ public class NetworkTestActivity extends AppCompatActivity {
 //                    }
 //                });
 
-                PortalNetworkQueue.sendNoticeRequest(getApplicationContext(), "20146824", 99382, new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        try {
-                            PortalXmlParser portalXmlParser = new PortalXmlParser();
-                            portalXmlParser.parseNotice(response.toString());
-                            Toast.makeText(NetworkTestActivity.this, "성공", Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-
-                        }
-                    }
-                });
+//                PortalNetworkQueue.sendNoticeRequest(getApplicationContext(), "20146824", 99382, new Response.Listener() {
+//                    @Override
+//                    public void onResponse(Object response) {
+//                        try {
+//                            PortalXmlParser portalXmlParser = new PortalXmlParser();
+//                            portalXmlParser.parseNotice(response.toString());
+//                            Toast.makeText(NetworkTestActivity.this, "성공", Toast.LENGTH_SHORT).show();
+//                        } catch (Exception e) {
+//
+//                        }
+//                    }
+//                });
             }
         });
     }
