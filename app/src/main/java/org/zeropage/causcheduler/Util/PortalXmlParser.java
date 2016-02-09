@@ -109,6 +109,8 @@ public class PortalXmlParser {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
             Date date = dateFormat.parse(todayNode.getNodeValue());
 
+            Log.e(LOG_TAG, "현재 Parsing 중인 식단의 날짜 : " + dateFormat.format(date));
+
             // vector id = result를 담는 노드 탐색
             NodeList mealInfoList = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
 

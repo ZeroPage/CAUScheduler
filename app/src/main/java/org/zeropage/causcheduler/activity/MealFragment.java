@@ -43,7 +43,6 @@ public class MealFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		return super.onOptionsItemSelected(item);
 	}
 }

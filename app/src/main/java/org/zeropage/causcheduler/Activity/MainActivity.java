@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
+import android.support.annotation.WorkerThread;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.util.RConverter;
 import org.zeropage.causcheduler.util.SharedConstant;
@@ -29,10 +32,17 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private Realm realm;
+    private WorkerThread workerThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
+        Realm.deleteRealm(realmConfig);
+        realm = Realm.getInstance(this);
 
         // Toolbar 초기화
         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -131,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // TODO realm.close()
+        realm.close();
     }
 
     // invalidateOptionsMenu()를 호출할 때 호출됨
@@ -161,6 +171,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(mDrawerToggle.onOptionsItemSelected(item)){
             return true;
+        }
+        int itemId = item.getItemId();
+        if(itemId == R.id.action_sync){
+
         }
         return super.onOptionsItemSelected(item);
     }
