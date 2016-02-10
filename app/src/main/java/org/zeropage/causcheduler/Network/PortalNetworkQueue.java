@@ -16,7 +16,8 @@ import org.zeropage.causcheduler.data.Semester;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by Lumin on 2015-12-24.
@@ -113,9 +114,10 @@ public class PortalNetworkQueue {
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      * @param errorListener 네트워크 작업 중 오류가 발생했을 때 수행할 작업을 가리키는 Listener입니다.
      */
-    public static void sendMealInfoRequest(final Context context, final GregorianCalendar calendar, final Restaurant restaurant, final String studentId, final Response.Listener listener, final Response.ErrorListener errorListener) {
+    public static void sendMealInfoRequest(final Context context, final Calendar calendar, final Restaurant restaurant, final String studentId, final Response.Listener listener, final Response.ErrorListener errorListener) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String timeShortcut = Integer.toString(calendar.get(calendar.YEAR)) + String.format("%02d", calendar.get(calendar.MONTH)) + String.format("%02d", calendar.get(calendar.DATE));
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String timeShortcut = format.format(calendar.getTime());
 
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/TIS/portlet/comm/cPortlet001/selectList.do",
                 "<map><userid value=\"" + studentId + "\"/><calvalue value=\"0\"/><gb value=\"1\"/><storediv value=\"" + restaurant.code + "\"/><campfg value=\"1\"/>" +
@@ -131,7 +133,7 @@ public class PortalNetworkQueue {
      * @param studentId 식단을 불러오기 위해 필요한 학생의 학번을 가리킵니다.
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      */
-    public static void sendMealInfoRequest(final Context context, final GregorianCalendar calendar, final Restaurant restaurant, final String studentId, final Response.Listener listener) {
+    public static void sendMealInfoRequest(final Context context, final Calendar calendar, final Restaurant restaurant, final String studentId, final Response.Listener listener) {
         sendMealInfoRequest(context, calendar, restaurant, studentId, listener, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

@@ -32,9 +32,8 @@ public class MealsAdapter extends RealmBaseAdapter<Meal> implements ListAdapter 
 		}
 
 		// TODO 데이터 소스에서 해당 위치의 결과값 받아오기
-		// Object obj = realmResults.get(position);
-		// viewHolder.item.setText(obj.get());
-
+		Meal item = realmResults.get(position);
+		viewHolder.item.setText(item.getName());
 		return convertView;
 	}
 

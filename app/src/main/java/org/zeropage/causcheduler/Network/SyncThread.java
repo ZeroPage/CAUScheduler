@@ -19,14 +19,8 @@ public class SyncThread extends Thread {
 
 	@Override
 	public void run() {
-		Realm realm = null;
-		try{
-			Looper.prepare();
-			realm = Realm.getInstance(context);
-			handler = new SyncHandler(realm);
-			Looper.loop();
-		}finally {
-			if(realm != null) realm.close();
-		}
+		Looper.prepare();
+		handler = new SyncHandler(context);
+		Looper.loop();
 	}
 }

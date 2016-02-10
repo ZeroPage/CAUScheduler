@@ -47,7 +47,6 @@ public class HomeworkFragment extends Fragment{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         return super.onOptionsItemSelected(item);
     }
 }

@@ -3,6 +3,7 @@ package org.zeropage.causcheduler.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.WorkerThread;
 import android.support.design.widget.NavigationView;
@@ -20,6 +21,8 @@ import android.widget.*;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import org.zeropage.causcheduler.R;
+import org.zeropage.causcheduler.network.SyncHandler;
+import org.zeropage.causcheduler.network.SyncThread;
 import org.zeropage.causcheduler.util.RConverter;
 import org.zeropage.causcheduler.util.SharedConstant;
 
@@ -32,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private Realm realm;
-    private WorkerThread workerThread;
+    private SyncThread syncThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
         Realm.deleteRealm(realmConfig);
-        realm = Realm.getInstance(this);
+        Realm.setDefaultConfiguration(realmConfig);
 
         // Toolbar 초기화
         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -139,9 +141,21 @@ public class MainActivity extends AppCompatActivity {
     } // onCreate() end
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        syncThread.handler.getLooper().quit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        syncThread = new SyncThread(getApplicationContext());
+        syncThread.start();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
     }
 
     // invalidateOptionsMenu()를 호출할 때 호출됨
@@ -174,7 +188,10 @@ public class MainActivity extends AppCompatActivity {
         }
         int itemId = item.getItemId();
         if(itemId == R.id.action_sync){
-
+            Message msg = buildMessage(SyncHandler.SYNC,
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).
+                            getString(getString(R.string.student_num_key), getString(R.string.student_num_default)));
+            syncThread.handler.sendMessage(msg);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -183,5 +200,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private static Message buildMessage(int action, String studentId) {
+        Bundle bundle = new Bundle(2);
+        bundle.putInt(SyncHandler.ACTION, action);
+        bundle.putString(SyncHandler.STUDENT_ID, studentId);
+        Message message = new Message();
+        message.setData(bundle);
+        return message;
     }
 }

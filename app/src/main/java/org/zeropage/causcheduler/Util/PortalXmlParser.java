@@ -105,9 +105,9 @@ public class PortalXmlParser {
             XPath xPath = XPathFactory.newInstance().newXPath();
 
             // today value
-            Node todayNode = (Node)xPath.compile("/map/today").evaluate(mealInfoDoc, XPathConstants.NODE);
+            String today = (String)xPath.compile("/map/today/@value").evaluate(mealInfoDoc, XPathConstants.STRING);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            Date date = dateFormat.parse(todayNode.getNodeValue());
+            Date date = dateFormat.parse(today);
 
             Log.e(LOG_TAG, "현재 Parsing 중인 식단의 날짜 : " + dateFormat.format(date));
 
