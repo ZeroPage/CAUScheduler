@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.annotation.WorkerThread;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -21,6 +20,9 @@ import android.widget.*;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import org.zeropage.causcheduler.R;
+import org.zeropage.causcheduler.activity.ListViewFragment.HomeworksFragment;
+import org.zeropage.causcheduler.activity.ListViewFragment.LectureNoticesFragment;
+import org.zeropage.causcheduler.activity.ListViewFragment.MealsFragment;
 import org.zeropage.causcheduler.network.SyncHandler;
 import org.zeropage.causcheduler.network.SyncThread;
 import org.zeropage.causcheduler.util.RConverter;
@@ -66,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
                 // TODO 드로어 아이템 클릭 시 해야되는 일 적기
                 switch(item.getItemId()){
                     case R.id.drawer_lectureNotices:
-                        getFragmentManager().beginTransaction().replace(R.id.container, LectureNoticeFragment.newInstance())
+                        getFragmentManager().beginTransaction().replace(R.id.container, LectureNoticesFragment.newInstance())
                                 .commit(); break;
                     case R.id.drawer_assignments:
-                        getFragmentManager().beginTransaction().replace(R.id.container, HomeworkFragment.newInstance())
+                        getFragmentManager().beginTransaction().replace(R.id.container, HomeworksFragment.newInstance())
                                 .commit(); break;
                     case R.id.drawer_meals:
-                        getFragmentManager().beginTransaction().replace(R.id.container, MealFragment.newInstance())
+                        getFragmentManager().beginTransaction().replace(R.id.container, MealsFragment.newInstance())
                                 .commit(); break;
                     case R.id.drawer_setting:
                         getFragmentManager().beginTransaction().replace(R.id.container, PrefsFragment.newInstance())
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO 초기 화면을 보여줄 프래그먼트를 설정 값에 따라 바꿔야 함
         if(savedInstanceState == null){
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, LectureNoticeFragment.newInstance())
+                    .add(R.id.container, LectureNoticesFragment.newInstance())
                     .commit();
         }
     } // onCreate() end

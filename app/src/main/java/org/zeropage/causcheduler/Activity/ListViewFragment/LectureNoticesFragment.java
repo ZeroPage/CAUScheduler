@@ -1,7 +1,5 @@
-package org.zeropage.causcheduler.activity;
+package org.zeropage.causcheduler.activity.ListViewFragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.*;
@@ -9,15 +7,15 @@ import android.view.*;
 import android.widget.ListView;
 import org.zeropage.causcheduler.R;
 
-public class LectureNoticeFragment extends Fragment {
+public class LectureNoticesFragment extends Fragment {
 
-	public LectureNoticeFragment() {
+	public LectureNoticesFragment() {
 		// Required empty public constructor
 	}
 
 	// TODO: Rename and change types and number of parameters
-	public static LectureNoticeFragment newInstance() {
-		LectureNoticeFragment fragment = new LectureNoticeFragment();
+	public static LectureNoticesFragment newInstance() {
+		LectureNoticesFragment fragment = new LectureNoticesFragment();
 		return fragment;
 	}
 

@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.activity;
+package org.zeropage.causcheduler.activity.ListViewFragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -9,16 +9,16 @@ import android.widget.ListView;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.data.original.Homework;
 
-public class HomeworkFragment extends Fragment{
+public class HomeworksFragment extends Fragment{
 
     private ArrayAdapter<Homework> mAdapter;
 
-    public static HomeworkFragment newInstance() {
-        HomeworkFragment fragment = new HomeworkFragment();
+    public static HomeworksFragment newInstance() {
+        HomeworksFragment fragment = new HomeworksFragment();
         return fragment;
     }
 
-    public HomeworkFragment() {
+    public HomeworksFragment() {
         // Required empty public constructor
     }
 

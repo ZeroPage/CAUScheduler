@@ -1,7 +1,5 @@
-package org.zeropage.causcheduler.activity;
+package org.zeropage.causcheduler.activity.ListViewFragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.*;
@@ -14,12 +12,12 @@ import org.zeropage.causcheduler.adapter.MealsAdapter;
 import org.zeropage.causcheduler.data.Meal;
 
 
-public class MealFragment extends Fragment {
+public class MealsFragment extends Fragment {
 
 	private Realm realm;
 
-	public static MealFragment newInstance() {
-		MealFragment fragment = new MealFragment();
+	public static MealsFragment newInstance() {
+		MealsFragment fragment = new MealsFragment();
 		return fragment;
 	}
 

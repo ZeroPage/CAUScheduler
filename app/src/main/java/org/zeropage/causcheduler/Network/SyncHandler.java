@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import com.android.volley.Response;
 import io.realm.DynamicRealm;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import org.zeropage.causcheduler.data.Meal;
 import org.zeropage.causcheduler.data.Restaurant;
 import org.zeropage.causcheduler.util.PortalXmlParser;
@@ -52,8 +53,10 @@ public class SyncHandler extends Handler {
 					@Override
 					public void onResponse(Object response) {
 						Realm realm = Realm.getDefaultInstance();
+						RealmResults<Meal> oldMeals = realm.where(Meal.class).equalTo("restaurantCode", Restaurant.Dormitory.code).findAll();
 						List<Meal> mealList = portalXmlParser.parseMealInfo(response.toString(), Restaurant.Dormitory);
 						realm.beginTransaction();
+						oldMeals.clear();
 						mealList = realm.copyToRealm(mealList);
 						realm.commitTransaction();
 						realm.close();

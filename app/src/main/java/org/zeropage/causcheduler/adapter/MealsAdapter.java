@@ -3,6 +3,7 @@ package org.zeropage.causcheduler.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import io.realm.RealmBaseAdapter;
@@ -16,7 +17,11 @@ import org.zeropage.causcheduler.data.Meal;
 public class MealsAdapter extends RealmBaseAdapter<Meal> implements ListAdapter {
 
 	private static class ViewHolder{
-		TextView item;
+		TextView name;
+		TextView distributeTime;
+		TextView price;
+		TextView totalCalorie;
+		TextView menu;
 	}
 
 	@Override
@@ -25,7 +30,11 @@ public class MealsAdapter extends RealmBaseAdapter<Meal> implements ListAdapter 
 		if(convertView == null){
 			convertView = inflater.inflate(R.layout.list_item_meal, parent, false);
 			viewHolder = new ViewHolder();
-			viewHolder.item = (TextView)convertView.findViewById(R.id.meal_item_text);
+			viewHolder.name = (TextView)convertView.findViewById(R.id.meal_item_name);
+			viewHolder.distributeTime = (TextView)convertView.findViewById(R.id.meal_item_distribute_time);
+			viewHolder.price = (TextView)convertView.findViewById(R.id.meal_item_price);
+			viewHolder.totalCalorie = (TextView)convertView.findViewById(R.id.meal_item_calorie);
+			viewHolder.menu = (TextView)convertView.findViewById(R.id.meal_item_menu);
 			convertView.setTag(viewHolder);
 		}else{
 			viewHolder = (ViewHolder)convertView.getTag();
@@ -33,7 +42,11 @@ public class MealsAdapter extends RealmBaseAdapter<Meal> implements ListAdapter 
 
 		// TODO 데이터 소스에서 해당 위치의 결과값 받아오기
 		Meal item = realmResults.get(position);
-		viewHolder.item.setText(item.getName());
+		viewHolder.name.setText(item.getName());
+		viewHolder.distributeTime.setText(item.getDistributeTime());
+		viewHolder.price.setText(Integer.toString(item.getPrice()));
+		viewHolder.totalCalorie.setText(Float.toString(item.getTotalCalorie()));
+		viewHolder.menu.setText(item.getMenu());
 		return convertView;
 	}
 
