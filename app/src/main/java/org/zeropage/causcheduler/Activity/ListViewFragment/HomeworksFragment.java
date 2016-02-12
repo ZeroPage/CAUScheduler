@@ -10,6 +10,7 @@ import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.data.original.Homework;
 
 public class HomeworksFragment extends Fragment{
+    private final String LOG_TAG = HomeworksFragment.class.getSimpleName();
 
     private ArrayAdapter<Homework> mAdapter;
 
@@ -32,7 +33,7 @@ public class HomeworksFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_homework, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_homeworks, container, false);
         getActivity().setTitle(R.string.label_homework);
         ListView listView = (ListView)rootView.findViewById(R.id.listView_assignment);
         // TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
@@ -42,7 +43,7 @@ public class HomeworksFragment extends Fragment{
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_homework, menu);
+        inflater.inflate(R.menu.menu_homeworks, menu);
     }
 
     @Override

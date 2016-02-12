@@ -8,6 +8,7 @@ import android.widget.ListView;
 import org.zeropage.causcheduler.R;
 
 public class LectureNoticesFragment extends Fragment {
+	private final String LOG_TAG = LectureNoticesFragment.class.getSimpleName();
 
 	public LectureNoticesFragment() {
 		// Required empty public constructor
@@ -29,7 +30,7 @@ public class LectureNoticesFragment extends Fragment {
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		getActivity().setTitle(R.string.label_lectureNotice);
-		View rootView = inflater.inflate(R.layout.fragment_lecture_notice, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_lecture_notices, container, false);
 		ListView listView = (ListView)rootView.findViewById(R.id.listView_lectureNotice);
 		// TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
 
@@ -39,7 +40,7 @@ public class LectureNoticesFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.menu_lecturenotice, menu);
+		inflater.inflate(R.menu.menu_lecturenotices, menu);
 	}
 
 	@Override

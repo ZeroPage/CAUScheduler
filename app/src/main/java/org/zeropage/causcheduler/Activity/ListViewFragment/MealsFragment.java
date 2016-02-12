@@ -2,6 +2,7 @@ package org.zeropage.causcheduler.activity.ListViewFragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.*;
 
 import android.widget.ListView;
@@ -13,7 +14,7 @@ import org.zeropage.causcheduler.data.Meal;
 
 
 public class MealsFragment extends Fragment {
-
+	private final String LOG_TAG = MealsFragment.class.getSimpleName();
 	private Realm realm;
 
 	public static MealsFragment newInstance() {
@@ -32,10 +33,10 @@ public class MealsFragment extends Fragment {
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		getActivity().setTitle(R.string.label_meals);
-		View rootView = inflater.inflate(R.layout.fragment_meal, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_meals, container, false);
 		ListView listView = (ListView)rootView.findViewById(R.id.listView_meal);
-		// TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
 		RealmResults<Meal> meals = realm.where(Meal.class).findAll();
+		Log.d(LOG_TAG, "realmResultSize: " + meals.size());
 		final MealsAdapter mealsAdapter = new MealsAdapter(getActivity().getApplicationContext(), meals, true);
 		listView.setAdapter(mealsAdapter);
 		return rootView;
@@ -50,7 +51,7 @@ public class MealsFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.menu_meal, menu);
+		inflater.inflate(R.menu.menu_meals, menu);
 	}
 
 	@Override

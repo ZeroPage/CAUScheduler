@@ -8,19 +8,27 @@ import io.realm.Realm;
 /**
  * Created by Donghwan on 2016-02-10.
  */
-public class SyncThread extends Thread {
+public class WorkerThread extends Thread {
 
 	public Handler handler;
 	private Context context;
 
-	public SyncThread(Context context) {
+	public WorkerThread(Context context) {
 		this.context = context;
 	}
 
 	@Override
 	public void run() {
-		Looper.prepare();
-		handler = new SyncHandler(context);
-		Looper.loop();
+		Realm realm = null;
+		try{
+			Looper.prepare();
+			realm = Realm.getDefaultInstance();
+			handler = new WorkerHandler(context, realm);
+			Looper.loop();
+		}finally {
+			if (realm != null) {
+				realm.close();
+			}
+		}
 	}
 }

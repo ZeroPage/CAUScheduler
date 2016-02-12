@@ -23,8 +23,8 @@ import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.activity.ListViewFragment.HomeworksFragment;
 import org.zeropage.causcheduler.activity.ListViewFragment.LectureNoticesFragment;
 import org.zeropage.causcheduler.activity.ListViewFragment.MealsFragment;
-import org.zeropage.causcheduler.network.SyncHandler;
-import org.zeropage.causcheduler.network.SyncThread;
+import org.zeropage.causcheduler.network.WorkerHandler;
+import org.zeropage.causcheduler.network.WorkerThread;
 import org.zeropage.causcheduler.util.RConverter;
 import org.zeropage.causcheduler.util.SharedConstant;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private SyncThread syncThread;
+    private WorkerThread workerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,14 +145,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        syncThread.handler.getLooper().quit();
+        workerThread.handler.getLooper().quit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        syncThread = new SyncThread(getApplicationContext());
-        syncThread.start();
+        workerThread = new WorkerThread(getApplicationContext());
+        workerThread.start();
     }
 
     @Override
@@ -190,10 +190,10 @@ public class MainActivity extends AppCompatActivity {
         }
         int itemId = item.getItemId();
         if(itemId == R.id.action_sync){
-            Message msg = buildMessage(SyncHandler.SYNC,
+            Message msg = buildMessage(WorkerHandler.SYNC,
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).
                             getString(getString(R.string.student_num_key), getString(R.string.student_num_default)));
-            syncThread.handler.sendMessage(msg);
+            workerThread.handler.sendMessage(msg);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -206,8 +206,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static Message buildMessage(int action, String studentId) {
         Bundle bundle = new Bundle(2);
-        bundle.putInt(SyncHandler.ACTION, action);
-        bundle.putString(SyncHandler.STUDENT_ID, studentId);
+        bundle.putInt(WorkerHandler.ACTION, action);
+        bundle.putString(WorkerHandler.STUDENT_ID, studentId);
         Message message = new Message();
         message.setData(bundle);
         return message;
