@@ -13,6 +13,8 @@ import org.zeropage.causcheduler.data.Meal;
 
 /**
  * Created by Donghwan on 2016-01-27.
+ *
+ * 식단 정보를 리스트뷰에 출력하고 갱신하는 어뎁터
  */
 public class MealsAdapter extends RealmBaseAdapter<Meal> implements ListAdapter {
 
@@ -40,7 +42,6 @@ public class MealsAdapter extends RealmBaseAdapter<Meal> implements ListAdapter 
 			viewHolder = (ViewHolder)convertView.getTag();
 		}
 
-		// TODO 데이터 소스에서 해당 위치의 결과값 받아오기
 		Meal item = realmResults.get(position);
 		viewHolder.name.setText(item.getName());
 		viewHolder.distributeTime.setText(item.getDistributeTime());

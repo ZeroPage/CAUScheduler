@@ -20,9 +20,17 @@ public class LectureNotice extends RealmObject {
     @Ignore
     private int hitCount;               // 조회수
 
-    public LectureNotice() {
-    }
+    public LectureNotice() {}
 
+    /**
+     * LectureNotice의 인스턴스를 초기화합니다
+     * @param title 제목을 가리킵니다.
+     * @param content 내용을 가리킵니다.
+     * @param authorName 작성자를 가리킵니다.
+     * @param writtenDate 작성 일자를 가리킵니다.
+     * @param hitCount 조회수를 가리킵니다.
+     * @param isImportant 중요 여부를 가리킵니다.
+     */
     public LectureNotice(String title, String content, String authorName, String writtenDate, int hitCount, boolean isImportant) {
         this.title = title;
         this.content = content;

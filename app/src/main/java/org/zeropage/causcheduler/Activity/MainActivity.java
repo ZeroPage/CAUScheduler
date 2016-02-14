@@ -44,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
-        Realm.deleteRealm(realmConfig);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
+                .name("portalInfo.realm")
+                .build();
         Realm.setDefaultConfiguration(realmConfig);
 
         // Toolbar 초기화

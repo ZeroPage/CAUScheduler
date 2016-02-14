@@ -22,6 +22,15 @@ public class Lecture extends RealmObject {
 	public Lecture() {
 	}
 
+	/**
+	 * Lecture 인스턴스를 초기화합니다.
+	 * @param lectureName 과목의 이름을 가리킵니다.
+	 * @param lectureNum 과목의 포탈 서버 내의 id 값을 가리킵니다.
+	 * @param professorName 과목을 담당하는 교수님의 성함을 가리킵니다.
+	 * @param lectureDeptName 과목이 소속된 학과를 가리킵니다.
+	 * @param sectionNum 해당 과목의 분반 번호를 가리킵니다.
+	 * @param studyPeriod 과목의 수강기간을 가리킵니다.
+	 */
 	public Lecture(String lectureName, int lectureNum, String professorName, String lectureDeptName, int sectionNum, String studyPeriod) {
 		this.lectureName = lectureName;
 		this.lectureNum = lectureNum;

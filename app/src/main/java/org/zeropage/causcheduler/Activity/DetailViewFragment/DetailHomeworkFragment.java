@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import org.zeropage.causcheduler.R;
 
+/**
+ * 과제의 상세한 내용을 출력하는 화면입니다.
+ */
 
 public class DetailHomeworkFragment extends Fragment {
 	private final String LOG_TAG = DetailHomeworkFragment.class.getSimpleName();

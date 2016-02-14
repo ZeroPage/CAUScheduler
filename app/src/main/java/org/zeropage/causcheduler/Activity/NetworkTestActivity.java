@@ -70,7 +70,7 @@ public class NetworkTestActivity extends AppCompatActivity {
 //                    }
 //                });
 
-//                PortalNetworkQueue.sendHomeworkViewRequest(getApplicationContext(), "20146824", 99382, 5, new Response.Listener() {
+//                PortalNetworkQueue.sendHomeworkContentRequest(getApplicationContext(), "20146824", 99382, 5, new Response.Listener() {
 //                    @Override
 //                    public void onResponse(Object response) {
 //                        try {

@@ -187,7 +187,7 @@ public class PortalNetworkQueue {
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      * @param errorListener 네트워크 작업 중 오류가 발생했을 때 수행할 작업을 가리키는 Listener입니다.
      */
-    public static void sendHomeworkViewRequest(final Context context, final String studentId, final int networkLectureId, final int homeworkTaskId, final Response.Listener listener, final Response.ErrorListener errorListener) {
+    public static void sendHomeworkContentRequest(final Context context, final String studentId, final int networkLectureId, final int homeworkTaskId, final Response.Listener listener, final Response.ErrorListener errorListener) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/std/lec/sLmsLec070/getTaskView.do",
@@ -203,8 +203,8 @@ public class PortalNetworkQueue {
      * @param homeworkTaskId 해당 과제에 부여된 ID를 가리킵니다.
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      */
-    public static void sendHomeworkViewRequest(final Context context, final String studentId, final int networkLectureId, final int homeworkTaskId, final Response.Listener listener) {
-        sendHomeworkViewRequest(context, studentId, networkLectureId, homeworkTaskId, listener, new Response.ErrorListener() {
+    public static void sendHomeworkContentRequest(final Context context, final String studentId, final int networkLectureId, final int homeworkTaskId, final Response.Listener listener) {
+        sendHomeworkContentRequest(context, studentId, networkLectureId, homeworkTaskId, listener, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(LOG_TAG, "네트워크 전송 작업에 실패했습니다. 다음 내용을 참고하세요.\n" + error.getMessage());

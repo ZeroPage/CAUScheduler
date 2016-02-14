@@ -12,6 +12,9 @@ import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.adapter.MealsAdapter;
 import org.zeropage.causcheduler.data.Meal;
 
+/**
+ * 식단 목록을 출력하는 화면입니다.
+ */
 
 public class MealsFragment extends Fragment {
 	private final String LOG_TAG = MealsFragment.class.getSimpleName();

@@ -150,8 +150,6 @@ public class PortalXmlParser {
         return mealList;
     }
 
-
-    // TODO DefaultHomework가 내용을 포함한 과제 객체이고, DetailHomework가 상태값을 가지고 있는 과제 객체임
     /**
      * 주어진 Xml 내용으로부터 과제의 리스트를 가져옵니다.
      * @param homeworkListXmlContent 과제 리스트 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
@@ -220,18 +218,19 @@ public class PortalXmlParser {
 
     /**
      * 주어진 Xml 내용으로부터 특정 과제의 상세 내용을 가져옵니다.
-     * @param homeworkViewXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
+     * @param homeworkContentXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
+     * @param homework Request로 가져온 과제 내용을 담아야 되는 과제 객체를 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 과제 내용을 담고있는 객체입니다.
      */
-    public Homework parseHomeworkContent(String homeworkViewXmlContent, Homework homework) {
+    public Homework parseHomeworkContent(String homeworkContentXmlContent, Homework homework) {
         Homework parsedHomework = null;
 
         try {
             // Encoding 재조정 작업.
-            homeworkViewXmlContent = new String(homeworkViewXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkViewXmlContent);
+            homeworkContentXmlContent = new String(homeworkContentXmlContent.getBytes("ISO_8859_1"));
+            Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkContentXmlContent);
 
-            InputSource inputSource = new InputSource(new StringReader(homeworkViewXmlContent));
+            InputSource inputSource = new InputSource(new StringReader(homeworkContentXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
             XPath xmlPath = XPathFactory.newInstance().newXPath();
 

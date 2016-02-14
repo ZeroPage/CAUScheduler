@@ -12,6 +12,8 @@ import org.zeropage.causcheduler.data.Homework;
 
 /**
  * Created by Donghwan on 2016-01-27.
+ *
+ * 과제의 내용을 리스트뷰에 출력하고 갱신해주는 어뎁터
  */
 public class HomeworksAdapter extends RealmBaseAdapter<Homework> implements ListAdapter{
 

@@ -13,6 +13,8 @@ import org.zeropage.causcheduler.data.original.Lecture;
 
 /**
  * Created by Donghwan on 2016-01-27.
+ *
+ * 과목의 공지사항의 내용을 출력하고 갱신해주는 어뎁터
  */
 public class LectureNoticesAdapter extends RealmBaseAdapter<LectureNotice> implements ListAdapter{
 

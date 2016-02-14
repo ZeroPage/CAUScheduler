@@ -31,6 +31,13 @@ public enum Semester {
         this.semesterCode = semesterCode;
     }
 
+    /**
+     * 해당 날짜에 따라서 무슨 학기인지 반환합니다.
+     * 현재 값은 3월 2일을 봄학기, 16주 이후를 여름학기,
+     * 9월 1일을 가을학기, 16주 이후를 겨울학기로 설정해놨습니다.
+     * @param calendar 날짜를 표현하는 Calendar 객체를 가리킵니다.
+     * @return 해당 날짜의 Semester 값을 반환합니다.
+     */
     public static Semester toSemester(Calendar calendar){
         Calendar springSemester = new GregorianCalendar(calendar.get(Calendar.YEAR), Calendar.MARCH, 2);
         switch(springSemester.get(Calendar.DAY_OF_WEEK)){

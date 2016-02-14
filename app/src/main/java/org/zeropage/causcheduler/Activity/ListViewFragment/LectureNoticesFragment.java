@@ -7,6 +7,10 @@ import android.view.*;
 import android.widget.ListView;
 import org.zeropage.causcheduler.R;
 
+/**
+ * 과목의 공지사항 목록을 출력하는 화면입니다.
+ */
+
 public class LectureNoticesFragment extends Fragment {
 	private final String LOG_TAG = LectureNoticesFragment.class.getSimpleName();
 

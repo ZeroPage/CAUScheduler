@@ -9,6 +9,9 @@ import android.widget.ListView;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.data.original.Homework;
 
+/**
+ * 과제 목록을 출력하는 화면입니다.
+ */
 public class HomeworksFragment extends Fragment{
     private final String LOG_TAG = HomeworksFragment.class.getSimpleName();
 
@@ -37,6 +40,7 @@ public class HomeworksFragment extends Fragment{
         getActivity().setTitle(R.string.label_homework);
         ListView listView = (ListView)rootView.findViewById(R.id.listView_assignment);
         // TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
+
         return rootView;
     }
 

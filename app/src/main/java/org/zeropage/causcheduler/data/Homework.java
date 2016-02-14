@@ -30,6 +30,18 @@ public class Homework extends RealmObject {
     public Homework() {
     }
 
+    /**
+     * Homework 인스턴스를 초기화힙니다.
+     * @param name 제목을 가리킵니다.
+     * @param startTime 시작 시간을 가리킵니다.
+     * @param endTime 마감 시간을 가리킵니다.
+     * @param extendEndTime 연장된 마감 시간을 가리킵니다.
+     * @param isSubmitted 제출 여부를 가리킵니다.
+     * @param currentProgressStatus 현재 진행 상황을 가리킵니다.
+     * @param submitStudentNum 제출 학생 수를 가리킵니다.
+     * @param totalStudentNum 전체 학생 수를 가리킵니다.
+     * @param index 해당 과제의 포탈 서버 내에서의 순서를 나타냅니다.
+     */
     public Homework(String name, String startTime, String endTime, String extendEndTime, boolean isSubmitted, String currentProgressStatus, int submitStudentNum, int totalStudentNum, int index) {
         this.name = name;
         this.startTime = startTime;

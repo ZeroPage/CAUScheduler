@@ -9,17 +9,10 @@ import java.util.Date;
  * 한 식단의 정보를 가지고 있는 클래스입니다.
  * Created by Lumin on 2016-01-11.
  */
-///**
-// * Meal 인스턴스를 초기화합니다.
-// * @param price 해당 식단의 가격을 가리킵니다.
-// * @param totalCalorie 해당 식단의 총 칼로리를 가리킵니다.
-// * @param distributeTime 해당 식단의 배급 시간을 가리킵니다.
-// * @param name 해당 식단의 이름을 가리킵니다.
-// * @param menu 해당 식단의 구성 메뉴들을 가리킵니다.
-// */
 public class Meal extends RealmObject{
     @Required
     private String name;
+    @Required
     private String restaurantCode;
     @Required
     private Date date;
@@ -32,6 +25,15 @@ public class Meal extends RealmObject{
     public Meal() {
     }
 
+    /**
+     * Meal 인스턴스를 초기화합니다.
+     * @param name 해당 식단의 이름을 가리킵니다.
+     * @param restaurantCode 해당 식단을 제공하는 식당의 코드를 가리킵니다.
+     * @param price 해당 식단의 가격을 가리킵니다.
+     * @param totalCalorie 해당 식단의 총 칼로리를 가리킵니다.
+     * @param distributeTime 해당 식단의 배급 시간을 가리킵니다.
+     * @param menu 해당 식단의 구성 메뉴들을 가리킵니다.
+     */
     public Meal(String name, String restaurantCode, Date date, int price, float totalCalorie, String distributeTime, String menu) {
         this.name = name;
         this.restaurantCode = restaurantCode;

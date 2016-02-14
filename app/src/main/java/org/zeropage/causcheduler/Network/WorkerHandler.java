@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by Donghwan on 2016-02-10.
+ * 백그라운드에서 처리할 일을 처리함.
  */
 public class WorkerHandler extends Handler {
 	private Context context;
@@ -49,10 +50,59 @@ public class WorkerHandler extends Handler {
 				// 예전에 저장된 정보는 지움
 				clearRealm();
 
-				// TODO 포탈에서 정보 가져오기
+				// TODO 에러 메세지를 표현해야 함.(지금은 기본 Toast)
+
+				Calendar calendar = GregorianCalendar.getInstance();
+				// 강의 목록 정보 불러오기
+				PortalNetworkQueue.sendLectureListRequest(context, studentId, calendar.get(Calendar.YEAR), Semester.toSemester(calendar), new Response.Listener() {
+					@Override
+					public void onResponse(Object response) {
+						Realm realm = Realm.getDefaultInstance();
+						List<Lecture> lectureList = portalXmlParser.parseLectureList(response.toString());
+						realm.beginTransaction();
+						lectureList = realm.copyToRealm(lectureList);
+						realm.commitTransaction();
+						realm.close();
+						// 강의 공지사항 목록 정보 불러오기
+						for(final Lecture lecture : lectureList) {
+							PortalNetworkQueue.sendNoticeRequest(context, studentId, lecture.getLectureNum(), new Response.Listener() {
+								@Override
+								public void onResponse(Object response) {
+									Realm realm = Realm.getDefaultInstance();
+									List<LectureNotice> lectureNoticeList = portalXmlParser.parseNotice(response.toString());
+									realm.beginTransaction();
+									realm.copyToRealm(lectureNoticeList);
+									realm.commitTransaction();
+									realm.close();
+								}
+							});
+
+							// 과제 목록 정보 불러오기
+							PortalNetworkQueue.sendHomeworkListRequest(context, studentId, lecture.getLectureNum(), new Response.Listener() {
+								@Override
+								public void onResponse(Object response) {
+									Realm realm = Realm.getDefaultInstance();
+									List<Homework> homeworkList = portalXmlParser.parseHomeworkList(response.toString());
+									realm.beginTransaction();
+									homeworkList = realm.copyToRealm(homeworkList);
+									realm.commitTransaction();
+									realm.close();
+									// 각 과제에 과제 내용 넣기
+									for (final Homework homework : homeworkList) {
+										PortalNetworkQueue.sendHomeworkContentRequest(context, studentId, lecture.getLectureNum(), homework.getIndex(), new Response.Listener() {
+											@Override
+											public void onResponse(Object response) {
+												portalXmlParser.parseHomeworkContent(response.toString(), homework);
+											}
+										});
+									}
+								}
+							});
+						}
+					}
+				});
 
 				// 식단 정보 불러오기
-				Calendar calendar = GregorianCalendar.getInstance();
 				for (final Restaurant restaurant : Restaurant.values()){
 					PortalNetworkQueue.sendMealInfoRequest(context, calendar, restaurant, studentId, new Response.Listener() {
 						@Override
@@ -66,23 +116,7 @@ public class WorkerHandler extends Handler {
 						}
 					});
 				}
-				// 강의 목록 정보 불러오기
-				PortalNetworkQueue.sendLectureListRequest(context, studentId, calendar.get(Calendar.YEAR), Semester.toSemester(calendar), new Response.Listener() {
-					@Override
-					public void onResponse(Object response) {
-						Realm realm = Realm.getDefaultInstance();
-						List<Lecture> lectureList = portalXmlParser.parseLectureList(response.toString());
-						realm.beginTransaction();
-						realm.copyToRealm(lectureList);
-						realm.commitTransaction();
-						realm.close();
-					}
-				});
-
-				// 과제 목록 정보 불러오기
-				
-
-				break;
+				break; // case SYNC end
 		}
 	}
 
