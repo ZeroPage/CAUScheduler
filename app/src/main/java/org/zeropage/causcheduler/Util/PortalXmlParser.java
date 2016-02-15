@@ -155,7 +155,7 @@ public class PortalXmlParser {
      * @param homeworkListXmlContent 과제 리스트 Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 모든 과제들을 저장하고 있는 리스트입니다.
      */
-    public List<Homework> parseHomeworkList(String homeworkListXmlContent) {
+    public List<Homework> parseHomeworkList(String homeworkListXmlContent, Lecture lecture) {
         List<Homework> homeworkList = new ArrayList<>();
 
         try {
@@ -203,7 +203,7 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제를 수행하는 총 학생 수 : " + totalStudentNum);
                 Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 여부 : " + currentSubmitStatus);
 
-                homeworkList.add(new Homework(homeworkName, homeworkStartTime, homeworkEndTime, homeworkExtendEndTime, currentSubmitStatus, currentHomeworkStatus, submitStudentNum, totalStudentNum, homeworkOrderNum));
+                homeworkList.add(new Homework(homeworkName, lecture, homeworkStartTime, homeworkEndTime, homeworkExtendEndTime, currentSubmitStatus, currentHomeworkStatus, submitStudentNum, totalStudentNum, homeworkOrderNum));
             }
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
@@ -219,12 +219,9 @@ public class PortalXmlParser {
     /**
      * 주어진 Xml 내용으로부터 특정 과제의 상세 내용을 가져옵니다.
      * @param homeworkContentXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
-     * @param homework Request로 가져온 과제 내용을 담아야 되는 과제 객체를 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 과제 내용을 담고있는 객체입니다.
      */
-    public Homework parseHomeworkContent(String homeworkContentXmlContent, Homework homework) {
-        Homework parsedHomework = null;
-
+    public String parseHomeworkContent(String homeworkContentXmlContent) {
         try {
             // Encoding 재조정 작업.
             homeworkContentXmlContent = new String(homeworkContentXmlContent.getBytes("ISO_8859_1"));
@@ -235,27 +232,9 @@ public class PortalXmlParser {
             XPath xmlPath = XPathFactory.newInstance().newXPath();
 
             // 노드 탐색
-            NodeList homeworkNodeList = ((Node) xmlPath.compile("/map/map[@id='task']").evaluate(homeworkDocument, XPathConstants.NODE)).getChildNodes();
-            int pumpedIndex = 0;
-
-            // 과제 연장이 있는 경우
-            if (homeworkNodeList.item(3).getNodeName().equals("taskextend")) {
-                pumpedIndex = 1;
-            }
-
-            String homeworkName = homeworkNodeList.item(0).getAttributes().item(0).getTextContent();
-            String homeworkStartTime = homeworkNodeList.item(1).getAttributes().item(0).getTextContent();
-            String homeworkEndTime = homeworkNodeList.item(2).getAttributes().item(0).getTextContent();
-            String homeworkExtendEndTime = ((pumpedIndex == 0) ? SharedConstant.EMPTY_STRING : homeworkNodeList.item(3).getAttributes().item(0).getTextContent());
-            String homeworkContent = homeworkNodeList.item(8 + pumpedIndex).getAttributes().item(0).getTextContent();
-
-            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 이름 : " + homeworkName);
-            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 시작 시간 : " + homeworkStartTime);
-            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 종료 시간 : " + homeworkEndTime);
-            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 연장 종료 시간 : " + homeworkExtendEndTime);
+            String homeworkContent = (String)xmlPath.compile("/map/map[@id='task']/taskContent/@value").evaluate(homeworkDocument, XPathConstants.STRING);
             Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
-
-            homework.setContent(homeworkContent);
+            if(homeworkContent != null) return homeworkContent;
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         } catch (IOException | SAXException e) {
@@ -264,7 +243,7 @@ public class PortalXmlParser {
             Log.e(LOG_TAG, "XPath Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         }
 
-        return homework;
+        return SharedConstant.EMPTY_STRING;
     }
 
     /**
@@ -272,7 +251,7 @@ public class PortalXmlParser {
      * @param noticeXmlContent Request를 요청한 결과가 담겨있는 Xml을 가리킵니다.
      * @return 해당 Xml로부터 가져올 수 있는 공지사항 내용을 담고있는 객체입니다.
      */
-    public List<LectureNotice> parseNotice(String noticeXmlContent) {
+    public List<LectureNotice> parseNotice(String noticeXmlContent, Lecture lecture) {
         List<LectureNotice> noticeList = new ArrayList<>();
 
         try {
@@ -305,7 +284,7 @@ public class PortalXmlParser {
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 조회수 : " + noticeHitCount);
                 Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 중요 여부 : " + isImportantNotice);
 
-                noticeList.add(new LectureNotice(noticeTitle, noticeContent, noticeAuthor, noticeWrittenDate, noticeHitCount, isImportantNotice));
+                noticeList.add(new LectureNotice(noticeTitle, lecture, noticeContent, noticeAuthor, noticeWrittenDate, isImportantNotice, noticeHitCount));
             }
 
         } catch (ParserConfigurationException e) {

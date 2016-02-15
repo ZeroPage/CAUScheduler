@@ -18,7 +18,7 @@ import org.zeropage.causcheduler.data.Homework;
 public class HomeworksAdapter extends RealmBaseAdapter<Homework> implements ListAdapter{
 
 	private static class ViewHolder{
-		TextView item;
+		TextView name;
 	}
 
 	@Override
@@ -27,16 +27,14 @@ public class HomeworksAdapter extends RealmBaseAdapter<Homework> implements List
 		if(convertView == null){
 			convertView = inflater.inflate(R.layout.list_item_homework, parent, false);
 			viewHolder = new ViewHolder();
-			viewHolder.item = (TextView)convertView.findViewById(R.id.assignment_item_text);
+			viewHolder.name = (TextView)convertView.findViewById(R.id.homework_item_name);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		// TODO 데이터 소스에서 해당 위치의 결과값 받아오기
-		// Object obj = realmResults.get(position);
-		// viewHolder.item.setText(obj.get());
-
+		Homework item = realmResults.get(position);
+		viewHolder.name.setText((item.isSubmitted() ? "[제출됨] " : "[제출안됨] ") + item.getName());
 		return convertView;
 	}
 

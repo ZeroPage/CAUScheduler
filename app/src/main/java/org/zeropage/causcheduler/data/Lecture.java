@@ -8,9 +8,10 @@ import io.realm.annotations.Required;
  * Created by Donghwan on 2016-02-04.
  */
 public class Lecture extends RealmObject {
-	@PrimaryKey
-	private String lectureName;
+	@Required
 	private int lectureNum;
+	@Required
+	private String lectureName;
 	@Required
 	private String professorName;
 	@Required

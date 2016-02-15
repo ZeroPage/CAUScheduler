@@ -4,16 +4,22 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.view.*;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import io.realm.Realm;
+import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
-import org.zeropage.causcheduler.data.original.Homework;
+import org.zeropage.causcheduler.adapter.HomeworksAdapter;
+import org.zeropage.causcheduler.data.Homework;
 
 /**
  * 과제 목록을 출력하는 화면입니다.
  */
 public class HomeworksFragment extends Fragment{
     private final String LOG_TAG = HomeworksFragment.class.getSimpleName();
+    private Realm realm;
+    private HomeworksAdapter homeworksAdapter;
 
     private ArrayAdapter<Homework> mAdapter;
 
@@ -29,6 +35,7 @@ public class HomeworksFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        realm = Realm.getDefaultInstance();
         setHasOptionsMenu(true);
     }
 
@@ -36,11 +43,20 @@ public class HomeworksFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_homeworks, container, false);
         getActivity().setTitle(R.string.label_homework);
-        ListView listView = (ListView)rootView.findViewById(R.id.listView_assignment);
+        View rootView = inflater.inflate(R.layout.fragment_homeworks, container, false);
+        ListView listView = (ListView)rootView.findViewById(R.id.listView_homework);
         // TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
+        final RealmResults<Homework> homeworks = realm.where(Homework.class).findAll();
+        homeworksAdapter = new HomeworksAdapter(getActivity().getApplicationContext(), homeworks, true);
+        listView.setAdapter(homeworksAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Homework homework = homeworks.get(position);
 
+            }
+        });
         return rootView;
     }
 

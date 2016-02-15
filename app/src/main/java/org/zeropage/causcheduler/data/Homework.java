@@ -11,6 +11,8 @@ public class Homework extends RealmObject {
     @Required
     private String name;
     @Required
+    private Lecture lecture;
+    @Required
     private String startTime;
     @Required
     private String endTime;
@@ -33,6 +35,7 @@ public class Homework extends RealmObject {
     /**
      * Homework 인스턴스를 초기화힙니다.
      * @param name 제목을 가리킵니다.
+     * @param lecture 과제가 게시된 과목을 가리킵니다.
      * @param startTime 시작 시간을 가리킵니다.
      * @param endTime 마감 시간을 가리킵니다.
      * @param extendEndTime 연장된 마감 시간을 가리킵니다.
@@ -42,8 +45,9 @@ public class Homework extends RealmObject {
      * @param totalStudentNum 전체 학생 수를 가리킵니다.
      * @param index 해당 과제의 포탈 서버 내에서의 순서를 나타냅니다.
      */
-    public Homework(String name, String startTime, String endTime, String extendEndTime, boolean isSubmitted, String currentProgressStatus, int submitStudentNum, int totalStudentNum, int index) {
+    public Homework(String name, Lecture lecture, String startTime, String endTime, String extendEndTime, boolean isSubmitted, String currentProgressStatus, int submitStudentNum, int totalStudentNum, int index) {
         this.name = name;
+        this.lecture = lecture;
         this.startTime = startTime;
         this.endTime = endTime;
         this.extendEndTime = extendEndTime;
@@ -60,6 +64,14 @@ public class Homework extends RealmObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Lecture getLecture() {
+        return lecture;
+    }
+
+    public void setLecture(Lecture lecture) {
+        this.lecture = lecture;
     }
 
     public String getStartTime() {

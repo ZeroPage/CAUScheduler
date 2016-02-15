@@ -19,6 +19,7 @@ import org.zeropage.causcheduler.data.Meal;
 public class MealsFragment extends Fragment {
 	private final String LOG_TAG = MealsFragment.class.getSimpleName();
 	private Realm realm;
+	private MealsAdapter mealsAdapter;
 
 	public static MealsFragment newInstance() {
 		MealsFragment fragment = new MealsFragment();
@@ -40,7 +41,7 @@ public class MealsFragment extends Fragment {
 		ListView listView = (ListView)rootView.findViewById(R.id.listView_meal);
 		RealmResults<Meal> meals = realm.where(Meal.class).findAll();
 		Log.d(LOG_TAG, "realmResultSize: " + meals.size());
-		final MealsAdapter mealsAdapter = new MealsAdapter(getActivity().getApplicationContext(), meals, true);
+		mealsAdapter = new MealsAdapter(getActivity().getApplicationContext(), meals, true);
 		listView.setAdapter(mealsAdapter);
 		return rootView;
 	}

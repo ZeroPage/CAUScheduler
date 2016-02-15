@@ -6,5 +6,5 @@
     <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listView_assignment" android:layout_gravity="center"/>
+            android:id="@+id/listView_homework" android:layout_gravity="center"/>
 </FrameLayout>

@@ -52,7 +52,7 @@ public class WorkerHandler extends Handler {
 
 				// TODO 에러 메세지를 표현해야 함.(지금은 기본 Toast)
 
-				Calendar calendar = GregorianCalendar.getInstance();
+				Calendar calendar = new GregorianCalendar(2015, 4, 1);
 				// 강의 목록 정보 불러오기
 				PortalNetworkQueue.sendLectureListRequest(context, studentId, calendar.get(Calendar.YEAR), Semester.toSemester(calendar), new Response.Listener() {
 					@Override
@@ -69,7 +69,7 @@ public class WorkerHandler extends Handler {
 								@Override
 								public void onResponse(Object response) {
 									Realm realm = Realm.getDefaultInstance();
-									List<LectureNotice> lectureNoticeList = portalXmlParser.parseNotice(response.toString());
+									List<LectureNotice> lectureNoticeList = portalXmlParser.parseNotice(response.toString(), lecture);
 									realm.beginTransaction();
 									realm.copyToRealm(lectureNoticeList);
 									realm.commitTransaction();
@@ -82,7 +82,7 @@ public class WorkerHandler extends Handler {
 								@Override
 								public void onResponse(Object response) {
 									Realm realm = Realm.getDefaultInstance();
-									List<Homework> homeworkList = portalXmlParser.parseHomeworkList(response.toString());
+									List<Homework> homeworkList = portalXmlParser.parseHomeworkList(response.toString(), lecture);
 									realm.beginTransaction();
 									homeworkList = realm.copyToRealm(homeworkList);
 									realm.commitTransaction();
@@ -92,7 +92,11 @@ public class WorkerHandler extends Handler {
 										PortalNetworkQueue.sendHomeworkContentRequest(context, studentId, lecture.getLectureNum(), homework.getIndex(), new Response.Listener() {
 											@Override
 											public void onResponse(Object response) {
-												portalXmlParser.parseHomeworkContent(response.toString(), homework);
+												Realm realm = Realm.getDefaultInstance();
+												realm.beginTransaction();
+												homework.setContent(portalXmlParser.parseHomeworkContent(response.toString()));
+												realm.commitTransaction();
+												realm.close();
 											}
 										});
 									}
