@@ -9,4 +9,6 @@ public interface SharedConstant {
      * 빈 문자열을 가리킵니다.
      */
     String EMPTY_STRING = "";
+    String NAME = "name";
+    String LEC_NUM = "lectureNum";
 }

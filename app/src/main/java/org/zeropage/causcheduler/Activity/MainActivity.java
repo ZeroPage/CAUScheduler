@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         if(itemId == R.id.action_sync){
             Message msg = buildMessage(WorkerHandler.SYNC,
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).
-                            getString(getString(R.string.student_num_key), getString(R.string.student_num_default)));
+                            getString(getString(R.string.student_num_key), SharedConstant.EMPTY_STRING));
             workerThread.handler.sendMessage(msg);
         }
         return super.onOptionsItemSelected(item);

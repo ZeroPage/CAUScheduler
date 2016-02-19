@@ -39,19 +39,15 @@ public class WorkerHandler extends Handler {
 			case SYNC:
 				// 학번 불러오기
 				final String studentId = bundle.getString(STUDENT_ID);
-				try{
-					// TODO 학번 검사(parseInt는 대충 넣은 거임)
-					Integer.parseInt(studentId);
-				}catch(NumberFormatException e){
-					// 학번이 아닌 값이 들어올 때,
-					return;
-				}
+				// TODO 학번 검사
+
 				final PortalXmlParser portalXmlParser = new PortalXmlParser();
 				// 예전에 저장된 정보는 지움
 				clearRealm();
 
 				// TODO 에러 메세지를 표현해야 함.(지금은 기본 Toast)
 
+				//TODO 테스트용 날짜값을 GregorianCalendar.getInstance()로 고치기
 				Calendar calendar = new GregorianCalendar(2015, 4, 1);
 				// 강의 목록 정보 불러오기
 				PortalNetworkQueue.sendLectureListRequest(context, studentId, calendar.get(Calendar.YEAR), Semester.toSemester(calendar), new Response.Listener() {

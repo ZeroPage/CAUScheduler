@@ -10,7 +10,6 @@ import io.realm.annotations.Required;
 public class Homework extends RealmObject {
     @Required
     private String name;
-    @Required
     private Lecture lecture;
     @Required
     private String startTime;

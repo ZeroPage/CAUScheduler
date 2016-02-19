@@ -1,5 +1,6 @@
 package org.zeropage.causcheduler.activity.ListViewFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.*;
@@ -10,8 +11,10 @@ import android.widget.ListView;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
+import org.zeropage.causcheduler.activity.DetailViewFragment.DetailHomeworkActivity;
 import org.zeropage.causcheduler.adapter.HomeworksAdapter;
 import org.zeropage.causcheduler.data.Homework;
+import org.zeropage.causcheduler.util.SharedConstant;
 
 /**
  * 과제 목록을 출력하는 화면입니다.
@@ -55,6 +58,10 @@ public class HomeworksFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Homework homework = homeworks.get(position);
 
+                Intent detailViewIntent = new Intent(getActivity().getApplicationContext(), DetailHomeworkActivity.class);
+                detailViewIntent.putExtra(SharedConstant.NAME, homework.getName());
+                detailViewIntent.putExtra(SharedConstant.LEC_NUM, homework.getLecture().getLectureNum());
+                startActivity(detailViewIntent);
             }
         });
         return rootView;

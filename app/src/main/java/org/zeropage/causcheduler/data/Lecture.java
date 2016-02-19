@@ -9,9 +9,9 @@ import io.realm.annotations.Required;
  */
 public class Lecture extends RealmObject {
 	@Required
-	private int lectureNum;
-	@Required
 	private String lectureName;
+	@PrimaryKey
+	private int lectureNum;
 	@Required
 	private String professorName;
 	@Required

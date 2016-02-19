@@ -10,7 +10,6 @@ import io.realm.annotations.Required;
 public class LectureNotice extends RealmObject {
     @Required
     private String title;               // 제목
-    @Required
     private Lecture lecture;
 
     private String content;             // 내용
