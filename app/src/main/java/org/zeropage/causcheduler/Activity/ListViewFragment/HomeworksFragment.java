@@ -24,8 +24,6 @@ public class HomeworksFragment extends Fragment{
     private Realm realm;
     private HomeworksAdapter homeworksAdapter;
 
-    private ArrayAdapter<Homework> mAdapter;
-
     public static HomeworksFragment newInstance() {
         HomeworksFragment fragment = new HomeworksFragment();
         return fragment;
@@ -65,6 +63,12 @@ public class HomeworksFragment extends Fragment{
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override

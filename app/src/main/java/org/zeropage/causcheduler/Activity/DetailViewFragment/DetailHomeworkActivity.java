@@ -65,6 +65,4 @@ public class DetailHomeworkActivity extends AppCompatActivity {
 		content.append(homework.getContent());
 		realm.close();
 	}
-
-
 }

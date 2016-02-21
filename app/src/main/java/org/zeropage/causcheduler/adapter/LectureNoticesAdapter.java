@@ -37,6 +37,8 @@ public class LectureNoticesAdapter extends RealmBaseAdapter<LectureNotice> imple
 		// TODO 데이터 소스에서 해당 위치의 결과값 받아오기
 		// Object obj = realmResults.get(position);
 		// viewHolder.item.setText(obj.get());
+		LectureNotice lectureNotice = realmResults.get(position);
+		viewHolder.item.setText((lectureNotice.isImportant() ? "[중요]": "") + lectureNotice.getTitle());
 
 		return convertView;
 	}

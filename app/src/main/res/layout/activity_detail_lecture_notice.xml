@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="org.zeropage.causcheduler.activity.DetailViewFragment.DetailHomeworkActivity">
+        tools:context="org.zeropage.causcheduler.activity.DetailViewFragment.DetailLectureNoticeActivity">
         <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -21,33 +21,23 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/homework_item_name"
-                        android:text="@string/label_detail_homework_name"/>
+                        android:id="@+id/lecture_notice_item_title"
+                        android:text=""/>
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/homework_item_start_time"
-                        android:text="@string/label_detail_homework_start_time"/>
+                        android:id="@+id/lecture_notice_item_written_date"/>
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/homework_item_end_time"
-                        android:text="@string/label_detail_homework_end_time"/>
+                        android:id="@+id/lecture_notice_item_is_important"/>
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/homework_item_extend_end_time"
-                        android:text="@string/label_detail_homework_extend_end_time"/>
+                        android:id="@+id/lecture_notice_item_hit_count"/>
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/homework_item_cur_prog_stat"
-                        android:text="@string/label_detail_homework_status"/>
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/homework_item_content"
-                        android:text="@string/label_detail_homework_content"/>
-
+                        android:id="@+id/lecture_notice_item_content"/>
         </LinearLayout>
 </LinearLayout>

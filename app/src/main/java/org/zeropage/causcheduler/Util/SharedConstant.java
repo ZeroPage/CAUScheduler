@@ -11,4 +11,5 @@ public interface SharedConstant {
     String EMPTY_STRING = "";
     String NAME = "name";
     String LEC_NUM = "lectureNum";
+    String TITLE = "title";
 }

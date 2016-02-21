@@ -30,11 +30,16 @@
     <string name="action_sort">Sort</string>
     <string name="action_sync">Sync</string>
 
-    <string name="label_detail_homework_name">Name: </string>
-    <string name="label_detail_homework_start_time">Since: </string>
-    <string name="label_detail_homework_end_time">Until: </string>
-    <string name="label_detail_homework_extend_end_time">Extended: </string>
-    <string name="label_detail_homework_status">Status: </string>
-    <string name="label_detail_homework_content">Content: </string>
+    <string name="label_detail_homework_name">Name:</string>
+    <string name="label_detail_homework_start_time">Since:</string>
+    <string name="label_detail_homework_end_time">Until:</string>
+    <string name="label_detail_homework_extend_end_time">Extended:</string>
+    <string name="label_detail_homework_status">Status:</string>
+    <string name="label_detail_homework_content">Content:</string>
+
+    <string name="label_detail_lec_notice_title">Title: </string>
+    <string name="label_detail_lec_notice_written_date">Written Date: </string>
+    <string name="label_detail_lec_notice_hit_count">Hit Count: </string>
+    <string name="lebel_detail_lec_notice_content">Content: </string>
 
 </resources>
