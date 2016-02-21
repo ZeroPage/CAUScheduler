@@ -9,13 +9,15 @@ public class Homework extends AbstractHomework {
     public final int submitStudentNum;
     public final int totalStudentNum;
     public final int orderingNum;
+    public final boolean isOpenTask;
 
-    public Homework(String name, String startTime, String endTime, String extendEndTime, boolean isSubmitted, String currentProgressStatus, int submitStudentNum, int totalStudentNum, int orderingNum) {
+    public Homework(String name, String startTime, String endTime, String extendEndTime, boolean isSubmitted, String currentProgressStatus, int submitStudentNum, int totalStudentNum, int orderingNum, boolean isOpenTask) {
         super(name, startTime, endTime, extendEndTime);
         this.isSubmitted = isSubmitted;
         this.currentProgressStatus = currentProgressStatus;
         this.submitStudentNum = submitStudentNum;
         this.totalStudentNum = totalStudentNum;
         this.orderingNum = orderingNum;
+        this.isOpenTask = isOpenTask;
     }
 }

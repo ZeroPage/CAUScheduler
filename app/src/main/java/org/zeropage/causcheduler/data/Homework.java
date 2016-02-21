@@ -21,6 +21,7 @@ public class Homework extends RealmObject {
     private String content;
 
     private boolean isSubmitted;
+    private boolean isOpenTask;
     @Required
     private String currentProgressStatus;
     private int submitStudentNum;
@@ -44,13 +45,14 @@ public class Homework extends RealmObject {
      * @param totalStudentNum 전체 학생 수를 가리킵니다.
      * @param index 해당 과제의 포탈 서버 내에서의 순서를 나타냅니다.
      */
-    public Homework(String name, Lecture lecture, String startTime, String endTime, String extendEndTime, boolean isSubmitted, String currentProgressStatus, int submitStudentNum, int totalStudentNum, int index) {
+    public Homework(String name, Lecture lecture, String startTime, String endTime, String extendEndTime, boolean isSubmitted, boolean isOpenTask, String currentProgressStatus, int submitStudentNum, int totalStudentNum, int index) {
         this.name = name;
         this.lecture = lecture;
         this.startTime = startTime;
         this.endTime = endTime;
         this.extendEndTime = extendEndTime;
         this.isSubmitted = isSubmitted;
+        this.isOpenTask = isOpenTask;
         this.currentProgressStatus = currentProgressStatus;
         this.submitStudentNum = submitStudentNum;
         this.totalStudentNum = totalStudentNum;
@@ -111,6 +113,14 @@ public class Homework extends RealmObject {
 
     public void setIsSubmitted(boolean isSubmitted) {
         this.isSubmitted = isSubmitted;
+    }
+
+    public boolean isOpenTask() {
+        return isOpenTask;
+    }
+
+    public void setIsOpenTask(boolean isOpenTask) {
+        this.isOpenTask = isOpenTask;
     }
 
     public String getCurrentProgressStatus() {

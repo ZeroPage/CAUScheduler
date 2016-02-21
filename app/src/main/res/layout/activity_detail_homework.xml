@@ -46,6 +46,16 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/homework_item_is_open"
+                        android:text="@string/label_detail_homework_is_open"/>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/homework_item_submit_student_num"
+                        android:text="@string/label_detail_homework_submit_student_num"/>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:id="@+id/homework_item_content"
                         android:text="@string/label_detail_homework_content"/>
 

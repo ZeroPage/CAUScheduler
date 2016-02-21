@@ -43,7 +43,7 @@ public class DetailLectureNoticeActivity extends AppCompatActivity {
 		TextView content = (TextView)findViewById(R.id.lecture_notice_item_content);
 		title.append(lectureNotice.getTitle());
 		writtenDate.append(lectureNotice.getWrittenDate());
-		isImportant.append(Boolean.toString(lectureNotice.isImportant()));
+		isImportant.append(lectureNotice.isImportant() ? "중요" : "중요하지 않음");
 		hitCount.append(Integer.toString(lectureNotice.getHitCount()));
 		content.append(lectureNotice.getContent());
 		realm.close();
