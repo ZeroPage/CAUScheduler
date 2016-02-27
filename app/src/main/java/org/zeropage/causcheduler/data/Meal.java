@@ -6,7 +6,7 @@ import io.realm.annotations.Required;
 import java.util.Date;
 
 /**
- * 한 식단의 정보를 가지고 있는 클래스입니다.
+ * DB에 저장할 식단 객체입니다.
  * Created by Lumin on 2016-01-11.
  */
 public class Meal extends RealmObject{

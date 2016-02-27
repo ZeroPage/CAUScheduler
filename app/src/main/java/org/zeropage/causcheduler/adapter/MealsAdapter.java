@@ -3,7 +3,6 @@ package org.zeropage.causcheduler.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import io.realm.RealmBaseAdapter;

@@ -5,6 +5,7 @@ import android.preference.PreferenceFragment;
 
 import org.zeropage.causcheduler.R;
 
+
 public class PrefsFragment extends PreferenceFragment {
 
     public static PrefsFragment newInstance() {

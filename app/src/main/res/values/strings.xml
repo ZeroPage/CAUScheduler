@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">CAUScheduler</string>
+
+    <!-- 로그인액티비티에서 사용하는 문자열입니다 -->
     <string name="prompt_email">아이디를 입력하세요!</string>
     <string name="prompt_password">패스워드를 입력하세요!</string>
     <string name="action_sign_in">로그인!</string>
@@ -11,25 +13,31 @@
     <string name="login_fail_msg">잘못된 아이디 혹은 패스워드를 입력하셨습니다.</string>
     <string name="welcome_msg">자동 로그인 되었습니다.</string>
 
+    <!-- 드로어 조작에서 사용하는 문자열입니다. -->
     <string name="drawer_close">drawer closed</string>
     <string name="drawer_open">drawer opened</string>
 
+    <!-- 드로어에서 사용자 정보가 없는 경우 사용할 기본값입니다. -->
     <string name="student_num_default">No SID</string>
     <string name="student_dept_default">No dept</string>
     <string name="student_name_default">No name</string>
 
+    <!-- 드로어에 표시할 메뉴 리스트 이름 입니다 -->
     <string name="label_lectureNotice">Notices</string>
     <string name="label_homework">Homeworks</string>
     <string name="label_meals">Meals</string>
     <string name="label_setting">Setting</string>
     <string name="label_logout">Log out</string>
 
+    <!-- 설정 프래그먼트에서 사용할 문자열입니다 -->
     <string name="pref_sync">AutoSync</string>
     <string name="pref_sync_summ">Sync Automatically</string>
 
+    <!-- 액티비티 상의 메뉴 항목들의 이름입니다. -->
     <string name="action_sort">Sort</string>
     <string name="action_sync">Sync</string>
 
+    <!-- DetailHomeworkActivity에서 사용하는 문자열입니다. -->
     <string name="label_detail_homework_name">Name: </string>
     <string name="label_detail_homework_start_time">Since: </string>
     <string name="label_detail_homework_end_time">Until: </string>
@@ -39,6 +47,7 @@
     <string name="label_detail_homework_status">Status: </string>
     <string name="label_detail_homework_content">Content: </string>
 
+    <!-- DetailLectureNoticeActivity에서 사용하는 문자열입니다. -->
     <string name="label_detail_lec_notice_title">Title: </string>
     <string name="label_detail_lec_notice_written_date">Written Date: </string>
     <string name="label_detail_lec_notice_hit_count">Hit Count: </string>

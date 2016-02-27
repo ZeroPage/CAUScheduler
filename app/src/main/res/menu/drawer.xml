@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- 드로어에서 보여주는 메뉴 리스트입니다. -->
+    <!-- 모든 아이콘 표시는 구글의 마테리얼 디자인 아이콘을 사용해야 합니다. -->
     <group android:checkableBehavior="single">
         <item
                 android:id="@+id/drawer_lectureNotices"

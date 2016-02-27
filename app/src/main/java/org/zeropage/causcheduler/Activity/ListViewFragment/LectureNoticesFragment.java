@@ -10,10 +10,8 @@ import android.widget.ListView;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
-import org.zeropage.causcheduler.activity.DetailViewFragment.DetailHomeworkActivity;
 import org.zeropage.causcheduler.activity.DetailViewFragment.DetailLectureNoticeActivity;
 import org.zeropage.causcheduler.adapter.LectureNoticesAdapter;
-import org.zeropage.causcheduler.data.Homework;
 import org.zeropage.causcheduler.data.LectureNotice;
 import org.zeropage.causcheduler.util.SharedConstant;
 

@@ -18,9 +18,9 @@ import org.zeropage.causcheduler.network.PortalNetworkQueue;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.util.RConverter;
 import org.zeropage.causcheduler.util.SharedConstant;
-import org.zeropage.causcheduler.data.original.Student;
 
 /**
+ * 사용자에게 중앙대 포탈 아이디와 패스워드를 입력받는 액티비티입니다.
  * Created by Lumin on 2016-01-08.
  */
 public class LoginActivity extends AppCompatActivity implements Response.Listener{
@@ -110,19 +110,15 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
             Toast.makeText(getApplicationContext(), RConverter.getStringFromR(getApplicationContext(), R.string.login_fail_msg), Toast.LENGTH_LONG).show();
         } else {
             // 불러와진 정보의 예 : [Name],[StudentID],[Major],???
-            saveNewStudent(new Student(studentInfo[1], studentInfo[0], studentInfo[2]));
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+            prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_name_key), studentInfo[1]).apply();
+            prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_num_key), studentInfo[0]).apply();
+            prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_dept_key), studentInfo[2]).apply();
             LoggingSavedStudent();
             switchActivity(MainActivity.class);
         }
 
         dialog.dismiss();
-    }
-
-    private void saveNewStudent(Student student) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_name_key), student.name).apply();
-        prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_num_key), student.id).apply();
-        prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_dept_key), student.major).apply();
     }
 }

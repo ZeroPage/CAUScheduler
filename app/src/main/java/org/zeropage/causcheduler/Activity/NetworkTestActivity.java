@@ -15,6 +15,7 @@ import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.util.PortalXmlParser;
 
 /**
+ * PortalXmlParser 만든 사람이 UnitTest 안 쓰고 눈으로 때려 맞추려고 만든 액티비티
  * Created by Lumin on 2016-01-09.
  */
 public class NetworkTestActivity extends AppCompatActivity {

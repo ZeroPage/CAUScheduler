@@ -1,8 +1,8 @@
 package org.zeropage.causcheduler.data;
 
 /**
- * Created by Lumin on 2016-01-09.
  * 이용 가능한 식당의 목록을 가져옵니다.
+ * Created by Lumin on 2016-01-09.
  */
 public enum Restaurant {
     /**

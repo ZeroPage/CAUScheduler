@@ -5,6 +5,7 @@ import io.realm.annotations.Ignore;
 import io.realm.annotations.Required;
 
 /**
+ * DB에 저장할 강의 공지사항 객체입니다.
  * Created by Donghwan on 2016-01-21.
  */
 public class LectureNotice extends RealmObject {

@@ -5,6 +5,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 /**
+ * DB에 저장할 강의 정보 객체입니다.
  * Created by Donghwan on 2016-02-04.
  */
 public class Lecture extends RealmObject {

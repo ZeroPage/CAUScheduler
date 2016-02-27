@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Created by Donghwan on 2016-02-10.
  * 백그라운드에서 처리할 일을 처리함.
+ * 주로 중앙대 포탈 서버에서 컨텐츠를 가져오는 명령을 받아서 처리합니다.
  */
 public class WorkerHandler extends Handler {
 	private Context context;

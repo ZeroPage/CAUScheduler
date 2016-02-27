@@ -9,10 +9,12 @@ import android.widget.TextView;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
-import org.zeropage.causcheduler.data.Homework;
 import org.zeropage.causcheduler.data.LectureNotice;
 import org.zeropage.causcheduler.util.SharedConstant;
 
+/**
+ * 강의 공지사항 목록에서 선택한 공지사항에 대한 자세한 내용을 표시합니다.
+ */
 public class DetailLectureNoticeActivity extends AppCompatActivity {
 	private final String LOG_TAG = DetailLectureNoticeActivity.class.getSimpleName();
 	private Toolbar toolbar;

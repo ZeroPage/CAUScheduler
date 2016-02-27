@@ -5,6 +5,7 @@ import io.realm.annotations.Ignore;
 import io.realm.annotations.Required;
 
 /**
+ * DB에 저장할 과제 객체입니다.
  * Created by Donghwan on 2016-01-20.
  */
 public class Homework extends RealmObject {

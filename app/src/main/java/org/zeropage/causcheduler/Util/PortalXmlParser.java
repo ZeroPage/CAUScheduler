@@ -3,7 +3,6 @@ package org.zeropage.causcheduler.util;
 import android.util.Log;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -66,14 +65,15 @@ public class PortalXmlParser {
                 String lectureDeptName = lectureNode.item(6).getAttributes().item(0).getTextContent();
 
                 // For Logging.
-                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 번호 : " + lectureNum);
-                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 이름 : " + lectureName);
-                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 교수자 이름 : " + professorName);
-                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 분반 : " + sectionNum);
-                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 개설 학과 : " + lectureDeptName);
-                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 학습 기간 : " + studyPeriod);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 번호 : " + lectureNum);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 이름 : " + lectureName);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 교수자 이름 : " + professorName);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 분반 : " + sectionNum);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 개설 학과 : " + lectureDeptName);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 학습 기간 : " + studyPeriod);
 
                 // 강의 리스트에 추가
+                // TODO 너무 긴 생성자를 고쳐야 함
                 lectureList.add(new Lecture(lectureName, lectureNum, professorName, lectureDeptName, sectionNum, studyPeriod));
             }
         } catch (ParserConfigurationException e) {
@@ -109,7 +109,7 @@ public class PortalXmlParser {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
             Date date = dateFormat.parse(today);
 
-            Log.e(LOG_TAG, "현재 Parsing 중인 식단의 날짜 : " + dateFormat.format(date));
+//            Log.e(LOG_TAG, "현재 Parsing 중인 식단의 날짜 : " + dateFormat.format(date));
 
             // vector id = result를 담는 노드 탐색
             NodeList mealInfoList = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
@@ -129,12 +129,12 @@ public class PortalXmlParser {
                 String[] mealMenu = Arrays.copyOfRange(mealContent, 1, mealContent.length);
 
                 // For Logging.
-                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 이름 : " + mealName);
-                Log.e(LOG_TAG, "현재 Parsing 중인 식단 배식 시간 : " + mealTime);
-                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 가격 : " + mealPrice);
-                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 총 칼로리 : " + mealTotalCalorie);
-                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 메뉴 구성 : " + Arrays.toString(mealMenu));
-
+//                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 이름 : " + mealName);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 식단 배식 시간 : " + mealTime);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 가격 : " + mealPrice);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 총 칼로리 : " + mealTotalCalorie);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 메뉴 구성 : " + Arrays.toString(mealMenu));
+                // TODO 너무 긴 생성자를 고쳐야 함
                 Meal meal = new Meal(mealName, restaurant.code, date, mealPrice, mealTotalCalorie, mealTime, Arrays.toString(mealMenu));
                 mealList.add(meal);
             }
@@ -194,17 +194,17 @@ public class PortalXmlParser {
                 boolean isOpenTask = homeworkNode.item(6 + pumpedIndex).getAttributes().item(0).getTextContent().equals("Y");
 
                 // For Logging.
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 번호 : " + homeworkOrderNum);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 이름 : " + homeworkName);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 시작 시간 : " + homeworkStartTime);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 종료 시간 : " + homeworkEndTime);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 연장 종료 시간 : " + homeworkExtendEndTime);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 진행 상황 : " + currentHomeworkStatus);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 학생 수 : " + submitStudentNum);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제를 수행하는 총 학생 수 : " + totalStudentNum);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 여부 : " + currentSubmitStatus);
-                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 공개 여부 : " + isOpenTask);
-
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 번호 : " + homeworkOrderNum);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 이름 : " + homeworkName);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 시작 시간 : " + homeworkStartTime);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 종료 시간 : " + homeworkEndTime);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 연장 종료 시간 : " + homeworkExtendEndTime);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 진행 상황 : " + currentHomeworkStatus);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 학생 수 : " + submitStudentNum);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제를 수행하는 총 학생 수 : " + totalStudentNum);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 제출 여부 : " + currentSubmitStatus);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 공개 여부 : " + isOpenTask);
+                // TODO 너무 긴 생성자를 고쳐야 함
                 homeworkList.add(new Homework(homeworkName, lecture, homeworkStartTime, homeworkEndTime, homeworkExtendEndTime, currentSubmitStatus, isOpenTask, currentHomeworkStatus, submitStudentNum, totalStudentNum, homeworkOrderNum));
             }
         } catch (ParserConfigurationException e) {
@@ -235,7 +235,7 @@ public class PortalXmlParser {
 
             // 노드 탐색
             String homeworkContent = (String)xmlPath.compile("/map/map[@id='task']/taskContent/@value").evaluate(homeworkDocument, XPathConstants.STRING);
-            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
+//            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
             if(homeworkContent != null) return homeworkContent;
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
@@ -279,13 +279,13 @@ public class PortalXmlParser {
                 boolean isImportantNotice = noticeNode.item(13).getAttributes().item(0).getTextContent().equals("Y");
 
                 // For Logging.
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeTitle);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 내용 : " + noticeContent);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성자 : " + noticeAuthor);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성 날짜 : " + noticeWrittenDate);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 조회수 : " + noticeHitCount);
-                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 중요 여부 : " + isImportantNotice);
-
+//                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeTitle);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 내용 : " + noticeContent);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성자 : " + noticeAuthor);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 작성 날짜 : " + noticeWrittenDate);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 조회수 : " + noticeHitCount);
+//                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 중요 여부 : " + isImportantNotice);
+                // TODO 너무 긴 생성자를 고쳐야 함
                 noticeList.add(new LectureNotice(noticeTitle, lecture, noticeContent, noticeAuthor, noticeWrittenDate, isImportantNotice, noticeHitCount));
             }
 

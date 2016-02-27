@@ -12,6 +12,9 @@ import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.data.Homework;
 import org.zeropage.causcheduler.util.SharedConstant;
 
+/**
+ * 과제 목록에서 선택한 과제에 대한 자세한 내용을 표시합니다.
+ */
 public class DetailHomeworkActivity extends AppCompatActivity {
 
 	private final String LOG_TAG = DetailHomeworkActivity.class.getSimpleName();

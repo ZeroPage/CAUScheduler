@@ -28,6 +28,10 @@ import org.zeropage.causcheduler.network.WorkerThread;
 import org.zeropage.causcheduler.util.RConverter;
 import org.zeropage.causcheduler.util.SharedConstant;
 
+/**
+ * 주로 선택한 컨텐츠(과제, 공지사항)의 목록을 보여주고, 설정창, 로그아웃 등의 전체적으로 중요한 기능에 접근하는 액티비티
+ */
+
 public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 

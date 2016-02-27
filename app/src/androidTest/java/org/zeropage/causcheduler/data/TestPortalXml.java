@@ -1,19 +1,10 @@
 package org.zeropage.causcheduler.data;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
-import android.widget.Toast;
-import com.android.volley.Response;
 import io.realm.Realm;
-import org.zeropage.causcheduler.activity.NetworkTestActivity;
-import org.zeropage.causcheduler.data.original.Lecture;
-import org.zeropage.causcheduler.network.PortalNetworkQueue;
-import org.zeropage.causcheduler.util.PortalXmlParser;
-
-import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
+ * PortalXmlParser 테스트
  * Created by Donghwan on 2016-01-26.
  */
 public class TestPortalXml extends AndroidTestCase{
@@ -24,27 +15,7 @@ public class TestPortalXml extends AndroidTestCase{
 		super.setUp();
     }
 
-
-	/**
-	 * 서버에서 받은 데이터를 DB에 저장할 수 있는지 테스트
-	 * @throws Throwable
-	 */
-	public void testDownloadPortalInfo() throws Throwable{
-                        PortalNetworkQueue.sendMealInfoRequest(getContext(), GregorianCalendar.getInstance(), Restaurant.Dormitory, "20146824", new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        try {
-                            PortalXmlParser portalXmlParser = new PortalXmlParser();
-                            portalXmlParser.parseMealInfo(response.toString(), Restaurant.Dormitory);
-                            Log.d(LOG_TAG, "success");
-                        } catch (Exception e) {
-
-                        }
-                    }
-                });
-
-    }
-
+    // TODO 비정상적인 XML 값에 따라서(필요한 노드가 없다든지 순서가 바뀌었다든지...) 테스트를 해야 함
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();

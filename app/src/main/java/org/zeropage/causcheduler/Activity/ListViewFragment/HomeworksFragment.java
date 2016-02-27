@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.view.*;
 
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import io.realm.Realm;
 import io.realm.RealmResults;

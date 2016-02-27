@@ -9,7 +9,6 @@ import io.realm.RealmBaseAdapter;
 import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.data.LectureNotice;
-import org.zeropage.causcheduler.data.original.Lecture;
 
 /**
  * Created by Donghwan on 2016-01-27.
