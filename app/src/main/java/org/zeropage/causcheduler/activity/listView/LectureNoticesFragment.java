@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.activity.ListViewFragment;
+package org.zeropage.causcheduler.activity.listView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.widget.ListView;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
-import org.zeropage.causcheduler.activity.DetailViewFragment.DetailLectureNoticeActivity;
+import org.zeropage.causcheduler.activity.detailView.DetailLectureNoticeActivity;
 import org.zeropage.causcheduler.adapter.LectureNoticesAdapter;
 import org.zeropage.causcheduler.data.LectureNotice;
 import org.zeropage.causcheduler.util.SharedConstant;
@@ -29,8 +29,7 @@ public class LectureNoticesFragment extends Fragment {
 	}
 
 	public static LectureNoticesFragment newInstance() {
-		LectureNoticesFragment fragment = new LectureNoticesFragment();
-		return fragment;
+		return new LectureNoticesFragment();
 	}
 
 	@Override

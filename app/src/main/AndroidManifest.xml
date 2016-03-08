@@ -23,9 +23,9 @@
         </activity>
         <activity android:name=".activity.NetworkTestActivity">
         </activity>
-        <activity android:name=".activity.DetailViewFragment.DetailHomeworkActivity">
+        <activity android:name=".activity.detailView.DetailHomeworkActivity">
         </activity>
-        <activity android:name=".activity.DetailViewFragment.DetailLectureNoticeActivity">
+        <activity android:name=".activity.detailView.DetailLectureNoticeActivity">
         </activity>
     </application>
 

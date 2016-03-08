@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.activity.ListViewFragment;
+package org.zeropage.causcheduler.activity.listView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.widget.ListView;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
-import org.zeropage.causcheduler.activity.DetailViewFragment.DetailHomeworkActivity;
+import org.zeropage.causcheduler.activity.detailView.DetailHomeworkActivity;
 import org.zeropage.causcheduler.adapter.HomeworksAdapter;
 import org.zeropage.causcheduler.data.Homework;
 import org.zeropage.causcheduler.util.SharedConstant;
@@ -24,8 +24,7 @@ public class HomeworksFragment extends Fragment{
     private HomeworksAdapter homeworksAdapter;
 
     public static HomeworksFragment newInstance() {
-        HomeworksFragment fragment = new HomeworksFragment();
-        return fragment;
+        return new HomeworksFragment();
     }
 
     public HomeworksFragment() {

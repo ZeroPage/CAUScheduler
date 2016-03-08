@@ -1,4 +1,4 @@
-package org.zeropage.causcheduler.activity.ListViewFragment;
+package org.zeropage.causcheduler.activity.listView;
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -22,8 +22,7 @@ public class MealsFragment extends Fragment {
 	private MealsAdapter mealsAdapter;
 
 	public static MealsFragment newInstance() {
-		MealsFragment fragment = new MealsFragment();
-		return fragment;
+		return new MealsFragment();
 	}
 
 	@Override
