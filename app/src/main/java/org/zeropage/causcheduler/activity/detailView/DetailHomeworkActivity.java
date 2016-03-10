@@ -29,6 +29,7 @@ public class DetailHomeworkActivity extends AppCompatActivity {
 		// Toolbar 초기화
 		toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
 		String homeworkName = intent.getStringExtra(SharedConstant.NAME);

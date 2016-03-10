@@ -27,6 +27,7 @@ public class DetailLectureNoticeActivity extends AppCompatActivity {
 		// Toolbar 초기화
 		toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
 		String noticeTitle = intent.getStringExtra(SharedConstant.TITLE);
