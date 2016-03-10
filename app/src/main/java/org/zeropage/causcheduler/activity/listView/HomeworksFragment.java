@@ -3,6 +3,7 @@ package org.zeropage.causcheduler.activity.listView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.*;
 
 import android.widget.AdapterView;

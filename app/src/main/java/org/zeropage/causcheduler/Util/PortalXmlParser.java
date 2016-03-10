@@ -42,7 +42,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             lectureListXmlContent = new String(lectureListXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "LectureList Parsing에 전달된 Xml : " + lectureListXmlContent);
+            //Log.e(LOG_TAG, "LectureList Parsing에 전달된 Xml : " + lectureListXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(lectureListXmlContent));
             Document lectureListDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -51,7 +51,7 @@ public class PortalXmlParser {
             // map 하위의 vector id = result를 담는 노드를 탐색
             NodeList allLectureListNode = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(lectureListDoc, XPathConstants.NODESET);
 
-            Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + allLectureListNode.getLength());
+            //Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + allLectureListNode.getLength());
 
             for (int i = 0; i < allLectureListNode.getLength(); i++) {
                 NodeList lectureNode = allLectureListNode.item(i).getChildNodes();
@@ -98,7 +98,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             mealXmlContent = new String(mealXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "MealList Parsing에 전달된 Xml : " + mealXmlContent);
+            //Log.e(LOG_TAG, "MealList Parsing에 전달된 Xml : " + mealXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(mealXmlContent));
             Document mealInfoDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -114,7 +114,7 @@ public class PortalXmlParser {
             // vector id = result를 담는 노드 탐색
             NodeList mealInfoList = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
 
-            Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + mealInfoList.getLength());
+            //Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + mealInfoList.getLength());
 
             for (int i = 0; i < mealInfoList.getLength(); i++) {
                 NodeList infoNode = mealInfoList.item(i).getChildNodes();
@@ -161,7 +161,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             homeworkListXmlContent = new String(homeworkListXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "HomeworkList Parsing에 전달된 Xml : " + homeworkListXmlContent);
+            //Log.e(LOG_TAG, "HomeworkList Parsing에 전달된 Xml : " + homeworkListXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(homeworkListXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -227,7 +227,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             homeworkContentXmlContent = new String(homeworkContentXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkContentXmlContent);
+            //Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkContentXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(homeworkContentXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -259,7 +259,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             noticeXmlContent = new String(noticeXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "Notice Parsing에 전달된 Xml : " + noticeXmlContent);
+            //Log.e(LOG_TAG, "Notice Parsing에 전달된 Xml : " + noticeXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(noticeXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);

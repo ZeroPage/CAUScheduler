@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import com.android.volley.Response;
 import io.realm.Realm;
 import org.zeropage.causcheduler.data.*;
@@ -40,6 +41,7 @@ public class WorkerHandler extends Handler {
 			case SYNC:
 				// 학번 불러오기
 				final String studentId = bundle.getString(STUDENT_ID);
+				//Log.e("workerThread", studentId);
 				// TODO 학번 검사
 
 				final PortalXmlParser portalXmlParser = new PortalXmlParser();
@@ -49,11 +51,12 @@ public class WorkerHandler extends Handler {
 				// TODO 에러 메세지를 표현해야 함.(지금은 기본 Toast)
 
 				//TODO 테스트용 날짜값을 GregorianCalendar.getInstance()로 고치기
-				Calendar calendar = new GregorianCalendar(2015, 4, 1);
+				final Calendar calendar = GregorianCalendar.getInstance();
 				// 강의 목록 정보 불러오기
 				PortalNetworkQueue.sendLectureListRequest(context, studentId, calendar.get(Calendar.YEAR), Semester.toSemester(calendar), new Response.Listener() {
 					@Override
 					public void onResponse(Object response) {
+						//Log.e("workerThread", String.format("<map><userId value=\"%s\"/><groupCode value=\"cau\"/><recordCountPerPage value=\"20\"/><pageIndex value=\"1\"/><kisuYear value=\"%d\"/><kisuNo value=\"%d%d\"/></map>", studentId, calendar.get(Calendar.YEAR), calendar.get(Calendar.YEAR), Semester.toSemester(calendar).semesterCode));
 						Realm realm = Realm.getDefaultInstance();
 						List<Lecture> lectureList = portalXmlParser.parseLectureList(response.toString());
 						realm.beginTransaction();

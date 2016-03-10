@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
 
         setDialogWithTitleAndMessage(dialogHeader, dialogMessage);
         setDialogNotCancelableAndNotIndeterminate();
-        LoggingSavedStudent();
+        //LoggingSavedStudent();
 
         // 버튼에 Listener 추가.
         final Button loginButton = (Button) findViewById(R.id.login_button);
@@ -103,17 +103,17 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
     @Override
     public void onResponse(Object response) {
         final String responseInfo = response.toString();
+        Log.e(LOG_TAG, responseInfo);
         final String[] studentInfo  = responseInfo.split(",");
 
         // NG2가 Response로 나옴. 즉, 로그인이 실패함.
         if (studentInfo.length == 1) {
             Toast.makeText(getApplicationContext(), RConverter.getStringFromR(getApplicationContext(), R.string.login_fail_msg), Toast.LENGTH_LONG).show();
         } else {
-            // 불러와진 정보의 예 : [Name],[StudentID],[Major],???
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-            prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_name_key), studentInfo[1]).apply();
-            prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_num_key), studentInfo[0]).apply();
+            // studentInfo에서 studentInfo[0] = 학생 이름, studentInfo[1] = 학생 학번, studentInfo[2] = 소속 학과
+            prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_name_key), studentInfo[0]).apply();
+            prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_num_key), studentInfo[1]).apply();
             prefs.edit().putString(RConverter.getStringFromR(getApplicationContext(), R.string.student_dept_key), studentInfo[2]).apply();
             LoggingSavedStudent();
             switchActivity(MainActivity.class);

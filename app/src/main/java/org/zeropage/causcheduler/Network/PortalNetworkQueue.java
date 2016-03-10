@@ -82,8 +82,7 @@ public class PortalNetworkQueue {
     public static void sendLectureListRequest(final Context context, final String studentId, final int lectureYear, final Semester semester, final Response.Listener listener, final Response.ErrorListener errorListener) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/prof/myp/pLmsMyp050/selectStudDataInCourseList.do",
-                "<map><userId value=\"" + studentId + "\"/><groupCode value=\"cau\"/><recordCountPerPage value=\"20\"/><pageIndex value=\"1\"/>" +
-                        "<kisuYear value=\"" + lectureYear + "\"/><kisuNo value=\"" + Integer.toString(lectureYear) + semester.semesterCode + "\"/></map>", listener, errorListener);
+                String.format("<map><userId value=\"%s\"/><groupCode value=\"cau\"/><recordCountPerPage value=\"20\"/><pageIndex value=\"1\"/><kisuYear value=\"%d\"/><kisuNo value=\"%d%d\"/></map>", studentId, lectureYear, lectureYear, semester.semesterCode), listener, errorListener);
         requestQueue.add(stringRequest);
     }
 
@@ -120,8 +119,7 @@ public class PortalNetworkQueue {
         String timeShortcut = format.format(calendar.getTime());
 
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/TIS/portlet/comm/cPortlet001/selectList.do",
-                "<map><userid value=\"" + studentId + "\"/><calvalue value=\"0\"/><gb value=\"1\"/><storediv value=\"" + restaurant.code + "\"/><campfg value=\"1\"/>" +
-                        "<today value=\"" + timeShortcut + "\"/><store value=\"" + restaurant.code + "\"/></map>", listener, errorListener);
+                String.format("<map><userid value=\"%s\"/><calvalue value=\"0\"/><gb value=\"1\"/><storediv value=\"%s\"/><campfg value=\"1\"/><today value=\"%s\"/><store value=\"%s\"/></map>", studentId, restaurant.code, timeShortcut, restaurant.code), listener, errorListener);
         requestQueue.add(stringRequest);
     }
 
@@ -156,7 +154,7 @@ public class PortalNetworkQueue {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/std/lec/sLmsLec070/selectTaskList.do",
-                "<map><lectureNo value=\"" + networkLectureId + "\"/><userId value=\"" + studentId + "\"/></map>", listener, errorListener);
+                String.format("<map><lectureNo value=\"%d\"/><userId value=\"%s\"/></map>", networkLectureId, studentId), listener, errorListener);
         requestQueue.add(stringRequest);
     }
 
@@ -191,7 +189,7 @@ public class PortalNetworkQueue {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/std/lec/sLmsLec070/getTaskView.do",
-                "<map><lectureNo value=\"" + networkLectureId + "\"/><userId value=\"" + studentId + "\"/><taskNo value=\"" + homeworkTaskId + "\"/></map>", listener, errorListener);
+                String.format("<map><lectureNo value=\"%d\"/><userId value=\"%s\"/><taskNo value=\"%d\"/></map>", networkLectureId, studentId, homeworkTaskId), listener, errorListener);
         requestQueue.add(stringRequest);
     }
 
@@ -225,7 +223,7 @@ public class PortalNetworkQueue {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/prof/lec/pLmsLec070/selectLectureBoardList.do",
-                "<map><userId value=\"" + studentId + "\"/><lectureNo value=\"" + networkLectureId + "\"/><boardType value=\"NOTICE\"/><recordCountPerPage value=\"1000\"/><pageIndex value=\"1\"/><searchWord value=\"\"/><searchType value=\"inqAll\"/></map>", listener, errorListener);
+                String.format("<map><userId value=\"%s\"/><lectureNo value=\"%d\"/><boardType value=\"NOTICE\"/><recordCountPerPage value=\"1000\"/><pageIndex value=\"1\"/><searchWord value=\"\"/><searchType value=\"inqAll\"/></map>", studentId, networkLectureId) , listener, errorListener);
         requestQueue.add(stringRequest);
     }
 
