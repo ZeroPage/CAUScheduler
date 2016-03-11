@@ -34,7 +34,7 @@
     <string name="pref_sync_summ">Sync Automatically</string>
 
     <!-- 액티비티 상의 메뉴 항목들의 이름입니다. -->
-    <string name="action_sort">Sort</string>
+    <string name="action_change_lecture">Change Lecture</string>
     <string name="action_sync">Sync</string>
 
     <!-- DetailHomeworkActivity에서 사용하는 문자열입니다. -->
