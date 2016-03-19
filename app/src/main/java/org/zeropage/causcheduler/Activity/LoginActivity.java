@@ -37,9 +37,12 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
         String dialogHeader = RConverter.getStringFromR(getApplicationContext(), R.string.login_introduction_header);
         String dialogMessage = RConverter.getStringFromR(getApplicationContext(), R.string.login_introduction_msg);
 
-        setDialogWithTitleAndMessage(dialogHeader, dialogMessage);
-        setDialogNotCancelableAndNotIndeterminate();
-        //LoggingSavedStudent();
+        dialog.setTitle(dialogHeader);
+        dialog.setMessage(dialogMessage);
+        dialog.setIndeterminate(false);
+        dialog.setCancelable(false);
+
+        LoggingSavedStudent();
 
         // 버튼에 Listener 추가.
         final Button loginButton = (Button) findViewById(R.id.login_button);
@@ -49,20 +52,12 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
                 final EditText idText = (EditText) findViewById(R.id.portal_id);
                 final EditText pwText = (EditText) findViewById(R.id.portal_password);
 
+                loginButton.setEnabled(false);
                 PortalNetworkQueue.sendLoginRequest(LoginActivity.this, idText.getText().toString(), pwText.getText().toString(), LoginActivity.this);
             }
         });
     }
 
-    private void setDialogWithTitleAndMessage(final String title, final String message) {
-        dialog.setTitle(title);
-        dialog.setMessage(message);
-    }
-
-    private void setDialogNotCancelableAndNotIndeterminate() {
-        dialog.setIndeterminate(false);
-        dialog.setCancelable(false);
-    }
 
     private void LoggingSavedStudent() {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -109,6 +104,8 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
         // NG2가 Response로 나옴. 즉, 로그인이 실패함.
         if (studentInfo.length == 1) {
             Toast.makeText(getApplicationContext(), RConverter.getStringFromR(getApplicationContext(), R.string.login_fail_msg), Toast.LENGTH_LONG).show();
+            final Button loginButton = (Button) findViewById(R.id.login_button);
+            loginButton.setEnabled(true);
         } else {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             // studentInfo에서 studentInfo[0] = 학생 이름, studentInfo[1] = 학생 학번, studentInfo[2] = 소속 학과
