@@ -174,30 +174,23 @@ public class PortalXmlParser {
             XPath xmlPath = XPathFactory.newInstance().newXPath();
 
             // vector id = tasklist를 담는 노드를 탐색
-            NodeList homeworkNodeList = (NodeList) xmlPath.compile("/map/vector[@id='tasklist']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
+            NodeList allHomeworkInfoGroup = (NodeList) xmlPath.compile("/map/vector[@id='tasklist']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
 
-            for (int i = 0; i < homeworkNodeList.getLength(); i++) {
-                NodeList homeworkNode = homeworkNodeList.item(i).getChildNodes();
-                int pumpedIndex = 0;
+            for (int i = 0; i < allHomeworkInfoGroup.getLength(); i++) {
+                Element oneHomeworkInformation = (Element) allHomeworkInfoGroup.item(i);
 
-                // 과제 연장이 있는 경우
-                if (homeworkNode.item(5).getNodeName().equals("taskextend")) {
-                    pumpedIndex = 1;
-                }
+                int homeworkOrderNum = Integer.parseInt(oneHomeworkInformation.getElementsByTagName("taskno").item(0).getAttributes().item(0).getTextContent());
+                String homeworkName = oneHomeworkInformation.getElementsByTagName("tasktitle").item(0).getAttributes().item(0).getTextContent();
+                String homeworkStartTime = oneHomeworkInformation.getElementsByTagName("taskstart").item(0).getAttributes().item(0).getTextContent();
+                String homeworkEndTime = oneHomeworkInformation.getElementsByTagName("taskend").item(0).getAttributes().item(0).getTextContent();
+                String currentHomeworkStatus = oneHomeworkInformation.getElementsByTagName("taskendyn").item(0).getAttributes().item(0).getTextContent();
+                String homeworkExtendEndTime = oneHomeworkInformation.getElementsByTagName("taskextend").item(0).getAttributes().item(0).getTextContent();
 
-                int homeworkOrderNum = Integer.parseInt(homeworkNode.item(0).getAttributes().item(0).getTextContent());
+                int submitStudentNum = Integer.parseInt(oneHomeworkInformation.getElementsByTagName("submit").item(0).getAttributes().item(0).getTextContent());
+                int totalStudentNum = Integer.parseInt(oneHomeworkInformation.getElementsByTagName("total").item(0).getAttributes().item(0).getTextContent());
 
-                String homeworkName = homeworkNode.item(2).getAttributes().item(0).getTextContent();
-                String homeworkStartTime = homeworkNode.item(3).getAttributes().item(0).getTextContent();
-                String homeworkEndTime = homeworkNode.item(4).getAttributes().item(0).getTextContent();
-                String currentHomeworkStatus = homeworkNode.item(5 + pumpedIndex).getAttributes().item(0).getTextContent();
-                String homeworkExtendEndTime = (pumpedIndex == 0) ? SharedConstant.EMPTY_STRING : homeworkNode.item(5).getAttributes().item(0).getTextContent();
-
-                int submitStudentNum = Integer.parseInt(homeworkNode.item(7 + pumpedIndex).getAttributes().item(0).getTextContent());
-                int totalStudentNum = Integer.parseInt(homeworkNode.item(8 + pumpedIndex).getAttributes().item(0).getTextContent());
-
-                boolean currentSubmitStatus = homeworkNode.item(12 + pumpedIndex).getAttributes().item(0).getTextContent().equals("제출");
-                boolean isOpenTask = homeworkNode.item(6 + pumpedIndex).getAttributes().item(0).getTextContent().equals("Y");
+                boolean currentSubmitStatus = oneHomeworkInformation.getElementsByTagName("submitstatetxt").item(0).getAttributes().item(0).getTextContent().equals("제출");
+                boolean isOpenTask = oneHomeworkInformation.getElementsByTagName("taskopenyn").item(0).getAttributes().item(0).getTextContent().equals("Y");
 
                 // For Logging.
 //                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 번호 : " + homeworkOrderNum);
