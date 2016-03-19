@@ -51,20 +51,20 @@ public class PortalXmlParser {
             XPath xPath = XPathFactory.newInstance().newXPath();
 
             // map 하위의 vector id = result를 담는 노드를 탐색
-            NodeList allLectureListNode = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(lectureListDoc, XPathConstants.NODESET);
+            NodeList allLectureInfoGroup = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(lectureListDoc, XPathConstants.NODESET);
 
             //Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + allLectureListNode.getLength());
 
-            for (int i = 0; i < allLectureListNode.getLength(); i++) {
-                NodeList lectureNode = allLectureListNode.item(i).getChildNodes();
+            for (int i = 0; i < allLectureInfoGroup.getLength(); i++) {
+                Element oneLectureInfo = (Element) allLectureInfoGroup.item(i);
 
                 // 하나의 강의 정보에 대해 Parsing.
-                int lectureNum = Integer.parseInt(lectureNode.item(1).getAttributes().item(0).getTextContent());
-                int sectionNum = Integer.parseInt(lectureNode.item(2).getAttributes().item(0).getTextContent());
-                String lectureName = lectureNode.item(3).getAttributes().item(0).getTextContent();
-                String professorName = lectureNode.item(4).getAttributes().item(0).getTextContent();
-                String studyPeriod = lectureNode.item(5).getAttributes().item(0).getTextContent();
-                String lectureDeptName = lectureNode.item(6).getAttributes().item(0).getTextContent();
+                int lectureNum = Integer.parseInt(oneLectureInfo.getElementsByTagName("lectureno").item(0).getAttributes().item(0).getTextContent());
+                int sectionNum = Integer.parseInt(oneLectureInfo.getElementsByTagName("lecturenum").item(0).getAttributes().item(0).getTextContent());
+                String lectureName = oneLectureInfo.getElementsByTagName("lecturenamenum").item(0).getAttributes().item(0).getTextContent();
+                String professorName = oneLectureInfo.getElementsByTagName("profname").item(0).getAttributes().item(0).getTextContent();
+                String studyPeriod = oneLectureInfo.getElementsByTagName("studydate").item(0).getAttributes().item(0).getTextContent();
+                String lectureDeptName = oneLectureInfo.getElementsByTagName("subjectname").item(0).getAttributes().item(0).getTextContent();
 
                 // For Logging.
 //                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 번호 : " + lectureNum);
