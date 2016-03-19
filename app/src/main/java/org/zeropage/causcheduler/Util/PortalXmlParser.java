@@ -3,6 +3,7 @@ package org.zeropage.causcheduler.util;
 import android.util.Log;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -42,7 +44,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             lectureListXmlContent = new String(lectureListXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "LectureList Parsing에 전달된 Xml : " + lectureListXmlContent);
+            //Log.e(LOG_TAG, "LectureList Parsing에 전달된 Xml : " + lectureListXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(lectureListXmlContent));
             Document lectureListDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -51,7 +53,7 @@ public class PortalXmlParser {
             // map 하위의 vector id = result를 담는 노드를 탐색
             NodeList allLectureListNode = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(lectureListDoc, XPathConstants.NODESET);
 
-            Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + allLectureListNode.getLength());
+            //Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + allLectureListNode.getLength());
 
             for (int i = 0; i < allLectureListNode.getLength(); i++) {
                 NodeList lectureNode = allLectureListNode.item(i).getChildNodes();
@@ -98,35 +100,39 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             mealXmlContent = new String(mealXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "MealList Parsing에 전달된 Xml : " + mealXmlContent);
+//            Log.e(LOG_TAG, "MealList Parsing에 전달된 Xml : " + mealXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(mealXmlContent));
             Document mealInfoDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
             XPath xPath = XPathFactory.newInstance().newXPath();
 
             // today value
-            String today = (String)xPath.compile("/map/today/@value").evaluate(mealInfoDoc, XPathConstants.STRING);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            String today = (String) xPath.compile("/map/today/@value").evaluate(mealInfoDoc, XPathConstants.STRING);
+
+            // TODO : 날짜가 이상하게 뽑혀나오는 이유는...?
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
             Date date = dateFormat.parse(today);
 
+//            Log.e(LOG_TAG, "현재 Parsing 중인 식단의 원본 날짜 : " + today);
 //            Log.e(LOG_TAG, "현재 Parsing 중인 식단의 날짜 : " + dateFormat.format(date));
 
             // vector id = result를 담는 노드 탐색
             NodeList mealInfoList = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
 
-            Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + mealInfoList.getLength());
+//            Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + mealInfoList.getLength());
 
             for (int i = 0; i < mealInfoList.getLength(); i++) {
-                NodeList infoNode = mealInfoList.item(i).getChildNodes();
+                Element oneMealInformation = (Element) mealInfoList.item(i);
 
                 // 구체적인 Parsing 시작.
-                String mealName = infoNode.item(0).getAttributes().item(0).getTextContent();
-                String mealTime = infoNode.item(1).getAttributes().item(0).getTextContent();
-                int mealPrice = Integer.parseInt(infoNode.item(2).getAttributes().item(0).getTextContent().split(" ")[0]);
+                String mealName = oneMealInformation.getElementsByTagName("menunm").item(0).getAttributes().item(0).getTextContent();
+                String mealTime = oneMealInformation.getElementsByTagName("tm").item(0).getAttributes().item(0).getTextContent();
+                int mealPrice = Integer.parseInt(oneMealInformation.getElementsByTagName("amt").item(0).getAttributes().item(0).getTextContent().split(" ")[0]);
 
-                String[] mealContent = infoNode.item(3).getAttributes().item(0).getTextContent().split("<br>");
+                String[] mealContent = oneMealInformation.getElementsByTagName("menunm1").item(0).getAttributes().item(0).getTextContent().split("<br>");
                 float mealTotalCalorie = Float.parseFloat(mealContent[0].replaceAll("Kcal", ""));
                 String[] mealMenu = Arrays.copyOfRange(mealContent, 1, mealContent.length);
+
 
                 // For Logging.
 //                Log.e(LOG_TAG, "현재 Parsing 중인 식단의 이름 : " + mealName);
@@ -161,7 +167,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             homeworkListXmlContent = new String(homeworkListXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "HomeworkList Parsing에 전달된 Xml : " + homeworkListXmlContent);
+            //Log.e(LOG_TAG, "HomeworkList Parsing에 전달된 Xml : " + homeworkListXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(homeworkListXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -227,7 +233,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             homeworkContentXmlContent = new String(homeworkContentXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkContentXmlContent);
+            //Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkContentXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(homeworkContentXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -259,7 +265,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             noticeXmlContent = new String(noticeXmlContent.getBytes("ISO_8859_1"));
-            Log.e(LOG_TAG, "Notice Parsing에 전달된 Xml : " + noticeXmlContent);
+            //Log.e(LOG_TAG, "Notice Parsing에 전달된 Xml : " + noticeXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(noticeXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
