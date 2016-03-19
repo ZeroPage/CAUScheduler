@@ -117,12 +117,12 @@ public class PortalXmlParser {
 //            Log.e(LOG_TAG, "현재 Parsing 중인 식단의 날짜 : " + dateFormat.format(date));
 
             // vector id = result를 담는 노드 탐색
-            NodeList mealInfoList = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
+            NodeList totalMealInfoGroup = (NodeList) xPath.compile("/map/vector[@id='result']/map[@id]").evaluate(mealInfoDoc, XPathConstants.NODESET);
 
 //            Log.e(LOG_TAG, "전체 Parsing 대상이 되는 노드 개수 : " + mealInfoList.getLength());
 
-            for (int i = 0; i < mealInfoList.getLength(); i++) {
-                Element oneMealInformation = (Element) mealInfoList.item(i);
+            for (int i = 0; i < totalMealInfoGroup.getLength(); i++) {
+                Element oneMealInformation = (Element) totalMealInfoGroup.item(i);
 
                 // 구체적인 Parsing 시작.
                 String mealName = oneMealInformation.getElementsByTagName("menunm").item(0).getAttributes().item(0).getTextContent();
@@ -275,14 +275,15 @@ public class PortalXmlParser {
             NodeList noticeNodeGroup = (NodeList) xmlPath.compile("/map/vector[@id='result']/map[@id]").evaluate(homeworkDocument, XPathConstants.NODESET);
 
             for (int i = 0; i < noticeNodeGroup.getLength(); i++) {
-                NodeList noticeNode = noticeNodeGroup.item(i).getChildNodes();
+                Element oneNoticeInformation = (Element) noticeNodeGroup.item(i);
 
-                String noticeTitle = noticeNode.item(3).getAttributes().item(0).getTextContent();
-                String noticeContent = noticeNode.item(4).getAttributes().item(0).getTextContent();
-                String noticeAuthor = noticeNode.item(6).getAttributes().item(0).getTextContent();
-                String noticeWrittenDate = noticeNode.item(7).getAttributes().item(0).getTextContent();
-                int noticeHitCount = Integer.parseInt(noticeNode.item(8).getAttributes().item(0).getTextContent());
-                boolean isImportantNotice = noticeNode.item(13).getAttributes().item(0).getTextContent().equals("Y");
+                // 구체적인 Parsing 시작.
+                String noticeTitle = oneNoticeInformation.getElementsByTagName("boardtitle").item(0).getAttributes().item(0).getTextContent();
+                String noticeContent = oneNoticeInformation.getElementsByTagName("boardintro").item(0).getAttributes().item(0).getTextContent();
+                String noticeAuthor = oneNoticeInformation.getElementsByTagName("username").item(0).getAttributes().item(0).getTextContent();
+                String noticeWrittenDate = oneNoticeInformation.getElementsByTagName("boarddate").item(0).getAttributes().item(0).getTextContent();
+                int noticeHitCount = Integer.parseInt(oneNoticeInformation.getElementsByTagName("boardhit").item(0).getAttributes().item(0).getTextContent());
+                boolean isImportantNotice = oneNoticeInformation.getElementsByTagName("boardcheck").item(0).getAttributes().item(0).getTextContent().equals("Y");
 
                 // For Logging.
 //                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeTitle);
