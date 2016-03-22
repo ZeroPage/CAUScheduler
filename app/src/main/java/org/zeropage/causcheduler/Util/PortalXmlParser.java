@@ -59,12 +59,12 @@ public class PortalXmlParser {
                 Element oneLectureInfo = (Element) allLectureInfoGroup.item(i);
 
                 // 하나의 강의 정보에 대해 Parsing.
-                int lectureNum = Integer.parseInt(oneLectureInfo.getElementsByTagName("lectureno").item(0).getAttributes().item(0).getTextContent());
-                int sectionNum = Integer.parseInt(oneLectureInfo.getElementsByTagName("lecturenum").item(0).getAttributes().item(0).getTextContent());
-                String lectureName = oneLectureInfo.getElementsByTagName("lecturenamenum").item(0).getAttributes().item(0).getTextContent();
-                String professorName = oneLectureInfo.getElementsByTagName("profname").item(0).getAttributes().item(0).getTextContent();
-                String studyPeriod = oneLectureInfo.getElementsByTagName("studydate").item(0).getAttributes().item(0).getTextContent();
-                String lectureDeptName = oneLectureInfo.getElementsByTagName("subjectname").item(0).getAttributes().item(0).getTextContent();
+                int lectureNum = Integer.parseInt(getFirstAttributeValueByTagName(oneLectureInfo, "lectureno"));
+                int sectionNum = Integer.parseInt(getFirstAttributeValueByTagName(oneLectureInfo, "lecturenum"));
+                String lectureName = getFirstAttributeValueByTagName(oneLectureInfo, "lecturenamenum");
+                String professorName = getFirstAttributeValueByTagName(oneLectureInfo, "profname");
+                String studyPeriod = getFirstAttributeValueByTagName(oneLectureInfo, "studydate");
+                String lectureDeptName = getFirstAttributeValueByTagName(oneLectureInfo, "subjectname");
 
                 // For Logging.
 //                Log.e(LOG_TAG, "현재 Parsing 중인 강의의 번호 : " + lectureNum);
@@ -125,11 +125,11 @@ public class PortalXmlParser {
                 Element oneMealInformation = (Element) totalMealInfoGroup.item(i);
 
                 // 구체적인 Parsing 시작.
-                String mealName = oneMealInformation.getElementsByTagName("menunm").item(0).getAttributes().item(0).getTextContent();
-                String mealTime = oneMealInformation.getElementsByTagName("tm").item(0).getAttributes().item(0).getTextContent();
-                int mealPrice = Integer.parseInt(oneMealInformation.getElementsByTagName("amt").item(0).getAttributes().item(0).getTextContent().split(" ")[0]);
+                String mealName = getFirstAttributeValueByTagName(oneMealInformation, "menunm");
+                String mealTime = getFirstAttributeValueByTagName(oneMealInformation, "tm");
+                int mealPrice = Integer.parseInt(getFirstAttributeValueByTagName(oneMealInformation, "amt").split(" ")[0]);
 
-                String[] mealContent = oneMealInformation.getElementsByTagName("menunm1").item(0).getAttributes().item(0).getTextContent().split("<br>");
+                String[] mealContent = getFirstAttributeValueByTagName(oneMealInformation, "menunm1").split("<br>");
                 float mealTotalCalorie = Float.parseFloat(mealContent[0].replaceAll("Kcal", ""));
                 String[] mealMenu = Arrays.copyOfRange(mealContent, 1, mealContent.length);
 
@@ -179,18 +179,18 @@ public class PortalXmlParser {
             for (int i = 0; i < allHomeworkInfoGroup.getLength(); i++) {
                 Element oneHomeworkInformation = (Element) allHomeworkInfoGroup.item(i);
 
-                int homeworkOrderNum = Integer.parseInt(oneHomeworkInformation.getElementsByTagName("taskno").item(0).getAttributes().item(0).getTextContent());
-                String homeworkName = oneHomeworkInformation.getElementsByTagName("tasktitle").item(0).getAttributes().item(0).getTextContent();
-                String homeworkStartTime = oneHomeworkInformation.getElementsByTagName("taskstart").item(0).getAttributes().item(0).getTextContent();
-                String homeworkEndTime = oneHomeworkInformation.getElementsByTagName("taskend").item(0).getAttributes().item(0).getTextContent();
-                String currentHomeworkStatus = oneHomeworkInformation.getElementsByTagName("taskendyn").item(0).getAttributes().item(0).getTextContent();
-                String homeworkExtendEndTime = oneHomeworkInformation.getElementsByTagName("taskextend").item(0).getAttributes().item(0).getTextContent();
+                int homeworkOrderNum = Integer.parseInt(getFirstAttributeValueByTagName(oneHomeworkInformation, "taskno"));
+                String homeworkName = getFirstAttributeValueByTagName(oneHomeworkInformation, "tasktitle");
+                String homeworkStartTime = getFirstAttributeValueByTagName(oneHomeworkInformation, "taskstart");
+                String homeworkEndTime = getFirstAttributeValueByTagName(oneHomeworkInformation, "taskend");
+                String currentHomeworkStatus = getFirstAttributeValueByTagName(oneHomeworkInformation, "taskendyn");
+                String homeworkExtendEndTime = getFirstAttributeValueByTagName(oneHomeworkInformation, "taskextend");
 
-                int submitStudentNum = Integer.parseInt(oneHomeworkInformation.getElementsByTagName("submit").item(0).getAttributes().item(0).getTextContent());
-                int totalStudentNum = Integer.parseInt(oneHomeworkInformation.getElementsByTagName("total").item(0).getAttributes().item(0).getTextContent());
+                int submitStudentNum = Integer.parseInt(getFirstAttributeValueByTagName(oneHomeworkInformation, "submit"));
+                int totalStudentNum = Integer.parseInt(getFirstAttributeValueByTagName(oneHomeworkInformation, "total"));
 
-                boolean currentSubmitStatus = oneHomeworkInformation.getElementsByTagName("submitstatetxt").item(0).getAttributes().item(0).getTextContent().equals("제출");
-                boolean isOpenTask = oneHomeworkInformation.getElementsByTagName("taskopenyn").item(0).getAttributes().item(0).getTextContent().equals("Y");
+                boolean currentSubmitStatus = getFirstAttributeValueByTagName(oneHomeworkInformation, "submitstatetxt").equals("제출");
+                boolean isOpenTask = getFirstAttributeValueByTagName(oneHomeworkInformation, "taskopenyn").equals("Y");
 
                 // For Logging.
 //                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 번호 : " + homeworkOrderNum);
@@ -271,12 +271,12 @@ public class PortalXmlParser {
                 Element oneNoticeInformation = (Element) noticeNodeGroup.item(i);
 
                 // 구체적인 Parsing 시작.
-                String noticeTitle = oneNoticeInformation.getElementsByTagName("boardtitle").item(0).getAttributes().item(0).getTextContent();
-                String noticeContent = oneNoticeInformation.getElementsByTagName("boardintro").item(0).getAttributes().item(0).getTextContent();
-                String noticeAuthor = oneNoticeInformation.getElementsByTagName("username").item(0).getAttributes().item(0).getTextContent();
-                String noticeWrittenDate = oneNoticeInformation.getElementsByTagName("boarddate").item(0).getAttributes().item(0).getTextContent();
-                int noticeHitCount = Integer.parseInt(oneNoticeInformation.getElementsByTagName("boardhit").item(0).getAttributes().item(0).getTextContent());
-                boolean isImportantNotice = oneNoticeInformation.getElementsByTagName("boardcheck").item(0).getAttributes().item(0).getTextContent().equals("Y");
+                String noticeTitle = getFirstAttributeValueByTagName(oneNoticeInformation, "boardtitle");
+                String noticeContent = getFirstAttributeValueByTagName(oneNoticeInformation, "boardintro");
+                String noticeAuthor = getFirstAttributeValueByTagName(oneNoticeInformation, "username");
+                String noticeWrittenDate = getFirstAttributeValueByTagName(oneNoticeInformation, "boarddate");
+                int noticeHitCount = Integer.parseInt(getFirstAttributeValueByTagName(oneNoticeInformation, "boardhit"));
+                boolean isImportantNotice = getFirstAttributeValueByTagName(oneNoticeInformation, "boardcheck").equals("Y");
 
                 // For Logging.
 //                Log.e(LOG_TAG, "현재 Parsing 중인 공지사항의 제목 : " + noticeTitle);
@@ -298,5 +298,14 @@ public class PortalXmlParser {
         }
 
         return noticeList;
+    }
+
+    private String getFirstAttributeValueByTagName(Element nodeElem, String tagName)
+    {
+        try {
+            return nodeElem.getElementsByTagName(tagName).item(0).getAttributes().item(0).getTextContent();
+        } catch (NullPointerException e) {
+            return SharedConstant.EMPTY_STRING;
+        }
     }
 }
