@@ -36,6 +36,7 @@ public class LectureNoticesFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		realm = Realm.getDefaultInstance();
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -76,7 +77,6 @@ public class LectureNoticesFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		return super.onOptionsItemSelected(item);
 	}
 }

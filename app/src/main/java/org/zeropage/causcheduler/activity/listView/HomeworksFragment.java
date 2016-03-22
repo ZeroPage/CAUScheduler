@@ -1,8 +1,11 @@
 package org.zeropage.causcheduler.activity.listView;
 
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.*;
 
 import android.widget.AdapterView;
@@ -55,8 +58,6 @@ public class HomeworksFragment extends Fragment{
                 Homework homework = homeworks.get(position);
 
                 Intent detailViewIntent = new Intent(getActivity().getApplicationContext(), DetailHomeworkActivity.class);
-                detailViewIntent.putExtra(SharedConstant.NAME, homework.getName());
-                detailViewIntent.putExtra(SharedConstant.LEC_NUM, homework.getLecture().getLectureNum());
                 startActivity(detailViewIntent);
             }
         });

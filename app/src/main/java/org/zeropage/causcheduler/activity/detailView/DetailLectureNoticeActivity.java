@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import io.realm.Realm;
@@ -27,6 +28,7 @@ public class DetailLectureNoticeActivity extends AppCompatActivity {
 		// Toolbar 초기화
 		toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
 		String noticeTitle = intent.getStringExtra(SharedConstant.TITLE);
@@ -47,7 +49,7 @@ public class DetailLectureNoticeActivity extends AppCompatActivity {
 		writtenDate.append(lectureNotice.getWrittenDate());
 		isImportant.append(lectureNotice.isImportant() ? "중요" : "중요하지 않음");
 		hitCount.append(Integer.toString(lectureNotice.getHitCount()));
-		content.append(lectureNotice.getContent());
+		content.append(Html.fromHtml(lectureNotice.getContent()));
 		realm.close();
 	}
 }
