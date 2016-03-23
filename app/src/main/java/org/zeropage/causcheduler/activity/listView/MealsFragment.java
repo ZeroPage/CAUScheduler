@@ -38,6 +38,7 @@ public class MealsFragment extends Fragment {
 		getActivity().setTitle(R.string.label_meals);
 		View rootView = inflater.inflate(R.layout.fragment_meals, container, false);
 		ListView listView = (ListView)rootView.findViewById(R.id.listView_meal);
+		// TODO 설정에서 기본 식당을 선택해야 함
 		RealmResults<Meal> meals = realm.where(Meal.class).findAll();
 		Log.d(LOG_TAG, "realmResultSize: " + meals.size());
 		mealsAdapter = new MealsAdapter(getActivity().getApplicationContext(), meals, true);

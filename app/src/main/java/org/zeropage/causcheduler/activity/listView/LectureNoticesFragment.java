@@ -12,6 +12,7 @@ import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.activity.detailView.DetailLectureNoticeActivity;
 import org.zeropage.causcheduler.adapter.LectureNoticesAdapter;
+import org.zeropage.causcheduler.data.Lecture;
 import org.zeropage.causcheduler.data.LectureNotice;
 import org.zeropage.causcheduler.util.SharedConstant;
 
@@ -23,6 +24,7 @@ public class LectureNoticesFragment extends Fragment {
 	private final String LOG_TAG = LectureNoticesFragment.class.getSimpleName();
 	private Realm realm;
 	private LectureNoticesAdapter lectureNoticesAdapter;
+	private RealmResults<LectureNotice> lectureNotices;
 
 	public LectureNoticesFragment() {
 		// Required empty public constructor
@@ -46,7 +48,8 @@ public class LectureNoticesFragment extends Fragment {
 		getActivity().setTitle(R.string.label_lectureNotice);
 		View rootView = inflater.inflate(R.layout.fragment_lecture_notices, container, false);
 		ListView listView = (ListView)rootView.findViewById(R.id.listView_lectureNotice);
-		final RealmResults<LectureNotice> lectureNotices = realm.where(LectureNotice.class).findAll();
+		final Lecture lecture = realm.where(Lecture.class).findFirst();
+		if(lecture != null) lectureNotices = realm.where(LectureNotice.class).equalTo("lecture.name", lecture.getName()).findAll();
 		lectureNoticesAdapter = new LectureNoticesAdapter(getActivity().getApplicationContext(), lectureNotices, true);
 		listView.setAdapter(lectureNoticesAdapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -55,7 +58,7 @@ public class LectureNoticesFragment extends Fragment {
 				LectureNotice lectureNotice = lectureNotices.get(position);
 				Intent detailViewIntent = new Intent(getActivity().getApplicationContext(), DetailLectureNoticeActivity.class);
 				detailViewIntent.putExtra(SharedConstant.TITLE, lectureNotice.getTitle());
-				detailViewIntent.putExtra(SharedConstant.LEC_NUM, lectureNotice.getLecture().getLectureNum());
+				detailViewIntent.putExtra(SharedConstant.LEC_NUM, lectureNotice.getLecture().getNum());
 				startActivity(detailViewIntent);
 			}
 		});

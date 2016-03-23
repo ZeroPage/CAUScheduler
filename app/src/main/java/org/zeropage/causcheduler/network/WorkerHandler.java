@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import com.android.volley.Response;
 import io.realm.Realm;
 import org.zeropage.causcheduler.data.*;
@@ -56,7 +55,6 @@ public class WorkerHandler extends Handler {
 				PortalNetworkQueue.sendLectureListRequest(context, studentId, calendar.get(Calendar.YEAR), Semester.toSemester(calendar), new Response.Listener() {
 					@Override
 					public void onResponse(Object response) {
-						//Log.e("workerThread", String.format("<map><userId value=\"%s\"/><groupCode value=\"cau\"/><recordCountPerPage value=\"20\"/><pageIndex value=\"1\"/><kisuYear value=\"%d\"/><kisuNo value=\"%d%d\"/></map>", studentId, calendar.get(Calendar.YEAR), calendar.get(Calendar.YEAR), Semester.toSemester(calendar).semesterCode));
 						Realm realm = Realm.getDefaultInstance();
 						List<Lecture> lectureList = portalXmlParser.parseLectureList(response.toString());
 						realm.beginTransaction();
@@ -65,7 +63,7 @@ public class WorkerHandler extends Handler {
 						realm.close();
 						// 강의 공지사항 목록 정보 불러오기
 						for(final Lecture lecture : lectureList) {
-							PortalNetworkQueue.sendNoticeRequest(context, studentId, lecture.getLectureNum(), new Response.Listener() {
+							PortalNetworkQueue.sendNoticeRequest(context, studentId, lecture.getNum(), new Response.Listener() {
 								@Override
 								public void onResponse(Object response) {
 									Realm realm = Realm.getDefaultInstance();
@@ -78,7 +76,7 @@ public class WorkerHandler extends Handler {
 							});
 
 							// 과제 목록 정보 불러오기
-							PortalNetworkQueue.sendHomeworkListRequest(context, studentId, lecture.getLectureNum(), new Response.Listener() {
+							PortalNetworkQueue.sendHomeworkListRequest(context, studentId, lecture.getNum(), new Response.Listener() {
 								@Override
 								public void onResponse(Object response) {
 									Realm realm = Realm.getDefaultInstance();
@@ -89,7 +87,7 @@ public class WorkerHandler extends Handler {
 									realm.close();
 									// 각 과제에 과제 내용 넣기
 									for (final Homework homework : homeworkList) {
-										PortalNetworkQueue.sendHomeworkContentRequest(context, studentId, lecture.getLectureNum(), homework.getIndex(), new Response.Listener() {
+										PortalNetworkQueue.sendHomeworkContentRequest(context, studentId, lecture.getNum(), homework.getIndex(), new Response.Listener() {
 											@Override
 											public void onResponse(Object response) {
 												Realm realm = Realm.getDefaultInstance();

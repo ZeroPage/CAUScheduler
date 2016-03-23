@@ -1,30 +1,31 @@
 package org.zeropage.causcheduler.activity.listView;
 
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.*;
 
 import android.widget.AdapterView;
 import android.widget.ListView;
 import io.realm.Realm;
+import io.realm.RealmBaseAdapter;
 import io.realm.RealmResults;
 import org.zeropage.causcheduler.R;
 import org.zeropage.causcheduler.activity.detailView.DetailHomeworkActivity;
 import org.zeropage.causcheduler.adapter.HomeworksAdapter;
 import org.zeropage.causcheduler.data.Homework;
+import org.zeropage.causcheduler.data.Lecture;
+import org.zeropage.causcheduler.dialog.LectureChangeDialogFragment;
 import org.zeropage.causcheduler.util.SharedConstant;
 
 /**
  * 과제 목록을 출력하는 화면입니다.
  */
-public class HomeworksFragment extends Fragment{
+public class HomeworksFragment extends Fragment implements LectureChangeDialogFragment.LectureChangeListener{
     private final String LOG_TAG = HomeworksFragment.class.getSimpleName();
     private Realm realm;
     private HomeworksAdapter homeworksAdapter;
+    private RealmResults<Homework> homeworks;
 
     public static HomeworksFragment newInstance() {
         return new HomeworksFragment();
@@ -49,7 +50,8 @@ public class HomeworksFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_homeworks, container, false);
         ListView listView = (ListView)rootView.findViewById(R.id.listView_homework);
         // TODO ListView에 어댑터 달고, 과제 정보 받아 와야함.
-        final RealmResults<Homework> homeworks = realm.where(Homework.class).findAll();
+        final Lecture lecture = realm.where(Lecture.class).findFirst();
+        if(lecture != null) homeworks = realm.where(Homework.class).equalTo("lecture.name", lecture.getName()).findAll();
         homeworksAdapter = new HomeworksAdapter(getActivity().getApplicationContext(), homeworks, true);
         listView.setAdapter(homeworksAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,6 +64,12 @@ public class HomeworksFragment extends Fragment{
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onDialogLectureNameClick(String name) {
+        homeworks = realm.where(Homework.class).equalTo("lecture.name", name).findAll();
+        homeworksAdapter.updateRealmResults(homeworks);
     }
 
     @Override
@@ -78,6 +86,13 @@ public class HomeworksFragment extends Fragment{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch(item.getItemId()){
+            case R.id.action_change_lecture:
+                LectureChangeDialogFragment changeLectureDialog = new LectureChangeDialogFragment();
+                changeLectureDialog.show(getActivity().getFragmentManager(), LectureChangeDialogFragment.class.getSimpleName());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

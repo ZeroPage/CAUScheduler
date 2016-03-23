@@ -10,13 +10,13 @@ import io.realm.annotations.Required;
  */
 public class Lecture extends RealmObject {
 	@Required
-	private String lectureName;
+	private String name;
 	@PrimaryKey
-	private int lectureNum;
+	private int num;
 	@Required
 	private String professorName;
 	@Required
-	private String lectureDeptName;
+	private String deptName;
 	private int sectionNum;
 	@Required
 	private String studyPeriod;
@@ -26,36 +26,36 @@ public class Lecture extends RealmObject {
 
 	/**
 	 * Lecture 인스턴스를 초기화합니다.
-	 * @param lectureName 과목의 이름을 가리킵니다.
-	 * @param lectureNum 과목의 포탈 서버 내의 id 값을 가리킵니다.
+	 * @param name 과목의 이름을 가리킵니다.
+	 * @param num 과목의 포탈 서버 내의 id 값을 가리킵니다.
 	 * @param professorName 과목을 담당하는 교수님의 성함을 가리킵니다.
-	 * @param lectureDeptName 과목이 소속된 학과를 가리킵니다.
+	 * @param deptName 과목이 소속된 학과를 가리킵니다.
 	 * @param sectionNum 해당 과목의 분반 번호를 가리킵니다.
 	 * @param studyPeriod 과목의 수강기간을 가리킵니다.
 	 */
-	public Lecture(String lectureName, int lectureNum, String professorName, String lectureDeptName, int sectionNum, String studyPeriod) {
-		this.lectureName = lectureName;
-		this.lectureNum = lectureNum;
+	public Lecture(String name, int num, String professorName, String deptName, int sectionNum, String studyPeriod) {
+		this.name = name;
+		this.num = num;
 		this.professorName = professorName;
-		this.lectureDeptName = lectureDeptName;
+		this.deptName = deptName;
 		this.sectionNum = sectionNum;
 		this.studyPeriod = studyPeriod;
 	}
 
-	public int getLectureNum() {
-		return lectureNum;
+	public int getNum() {
+		return num;
 	}
 
-	public void setLectureNum(int lectureNum) {
-		this.lectureNum = lectureNum;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
-	public String getLectureName() {
-		return lectureName;
+	public String getName() {
+		return name;
 	}
 
-	public void setLectureName(String lectureName) {
-		this.lectureName = lectureName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getProfessorName() {
@@ -66,12 +66,12 @@ public class Lecture extends RealmObject {
 		this.professorName = professorName;
 	}
 
-	public String getLectureDeptName() {
-		return lectureDeptName;
+	public String getDeptName() {
+		return deptName;
 	}
 
-	public void setLectureDeptName(String lectureDeptName) {
-		this.lectureDeptName = lectureDeptName;
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
 
 	public int getSectionNum() {

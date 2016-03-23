@@ -53,4 +53,8 @@
     <string name="label_detail_lec_notice_hit_count">Hit Count: </string>
     <string name="lebel_detail_lec_notice_content">Content: </string>
 
+    <!-- Dialog에서 사용하는 문자열입니다. -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
 </resources>
