@@ -14,13 +14,14 @@ import org.zeropage.causcheduler.activity.detailView.DetailLectureNoticeActivity
 import org.zeropage.causcheduler.adapter.LectureNoticesAdapter;
 import org.zeropage.causcheduler.data.Lecture;
 import org.zeropage.causcheduler.data.LectureNotice;
+import org.zeropage.causcheduler.dialog.LectureChangeDialogFragment;
 import org.zeropage.causcheduler.util.SharedConstant;
 
 /**
  * 과목의 공지사항 목록을 출력하는 화면입니다.
  */
 
-public class LectureNoticesFragment extends Fragment {
+public class LectureNoticesFragment extends Fragment implements LectureChangeDialogFragment.LectureChangeListener{
 	private final String LOG_TAG = LectureNoticesFragment.class.getSimpleName();
 	private Realm realm;
 	private LectureNoticesAdapter lectureNoticesAdapter;
@@ -67,6 +68,13 @@ public class LectureNoticesFragment extends Fragment {
 	}
 
 	@Override
+	public void onDialogLectureNameClick(String name) {
+		lectureNotices = realm.where(LectureNotice.class).equalTo("lecture.name", name).findAll();
+		lectureNoticesAdapter.updateRealmResults(lectureNotices);
+	}
+
+
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		realm.close();
@@ -80,6 +88,13 @@ public class LectureNoticesFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		return super.onOptionsItemSelected(item);
+		switch(item.getItemId()){
+			case R.id.action_change_lecture:
+				LectureChangeDialogFragment changeLectureDialog = new LectureChangeDialogFragment();
+				changeLectureDialog.show(getActivity().getFragmentManager(), LectureChangeDialogFragment.class.getSimpleName());
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 }

@@ -226,7 +226,7 @@ public class PortalXmlParser {
         try {
             // Encoding 재조정 작업.
             homeworkContentXmlContent = new String(homeworkContentXmlContent.getBytes("ISO_8859_1"));
-            //Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkContentXmlContent);
+            Log.e(LOG_TAG, "HomeworkView Parsing에 전달된 Xml : " + homeworkContentXmlContent);
 
             InputSource inputSource = new InputSource(new StringReader(homeworkContentXmlContent));
             Document homeworkDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
@@ -234,7 +234,7 @@ public class PortalXmlParser {
 
             // 노드 탐색
             String homeworkContent = (String)xmlPath.compile("/map/map[@id='task']/taskContent/@value").evaluate(homeworkDocument, XPathConstants.STRING);
-//            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
+            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
             if(homeworkContent != null) return homeworkContent;
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());

@@ -28,6 +28,7 @@ public class DetailLectureNoticeActivity extends AppCompatActivity {
 		// Toolbar 초기화
 		toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		// TODO back button과 동일하게 작동해야함
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
@@ -37,7 +38,7 @@ public class DetailLectureNoticeActivity extends AppCompatActivity {
 		Realm realm = Realm.getDefaultInstance();
 		RealmResults<LectureNotice> item = realm.where(LectureNotice.class)
 				.equalTo("title", noticeTitle)
-				.equalTo("lecture.lectureNum", lectureNum).findAll();
+				.equalTo("lecture.num", lectureNum).findAll();
 		LectureNotice lectureNotice = item.first();
 		LinearLayout container = (LinearLayout)findViewById(R.id.container);
 		TextView title = (TextView)findViewById(R.id.lecture_notice_item_title);

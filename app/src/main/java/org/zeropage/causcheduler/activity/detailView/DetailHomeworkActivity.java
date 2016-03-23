@@ -30,6 +30,7 @@ public class DetailHomeworkActivity extends AppCompatActivity {
 		// Toolbar 초기화
 		toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		// TODO back button과 동일하게 작동해야함
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
@@ -39,7 +40,7 @@ public class DetailHomeworkActivity extends AppCompatActivity {
 		Realm realm = Realm.getDefaultInstance();
 		RealmResults<Homework> item = realm.where(Homework.class)
 				.equalTo("name", homeworkName)
-				.equalTo("lecture.lectureNum", lectureNum).findAll();
+				.equalTo("lecture.num", lectureNum).findAll();
 		Homework homework = item.first();
 		LinearLayout container = (LinearLayout)findViewById(R.id.container);
 		TextView name = (TextView)findViewById(R.id.homework_item_name);
