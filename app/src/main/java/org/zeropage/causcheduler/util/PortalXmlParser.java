@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -233,9 +234,14 @@ public class PortalXmlParser {
             XPath xmlPath = XPathFactory.newInstance().newXPath();
 
             // 노드 탐색
-            String homeworkContent = (String)xmlPath.compile("/map/map[@id='task']/taskContent/@value").evaluate(homeworkDocument, XPathConstants.STRING);
-            Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
-            if(homeworkContent != null) return homeworkContent;
+            NodeList contentNodes = (NodeList) xmlPath.compile("/map/map[@id='task']/taskContent[@value]").evaluate(homeworkDocument, XPathConstants.NODESET);
+
+            if (contentNodes != null && contentNodes.getLength() > 0) {
+                String homeworkContent = contentNodes.item(0).getAttributes().item(0).getTextContent();
+                Log.e(LOG_TAG, "현재 Parsing 중인 과제의 내용 : " + homeworkContent);
+                return homeworkContent;
+            }
+
         } catch (ParserConfigurationException e) {
             Log.e(LOG_TAG, "Parsing 중 오류가 발생하였습니다. 다음의 메시지를 참고하세요." + e.getMessage());
         } catch (IOException | SAXException e) {

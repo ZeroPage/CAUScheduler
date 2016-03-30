@@ -185,7 +185,7 @@ public class PortalNetworkQueue {
      * @param listener 네트워크 작업이 끝난 후 수행할 작업을 가리키는 Listener입니다.
      * @param errorListener 네트워크 작업 중 오류가 발생했을 때 수행할 작업을 가리키는 Listener입니다.
      */
-    public static void sendHomeworkContentRequest(final Context context, final String studentId, final int networkLectureId, final int homeworkTaskId, final Response.Listener listener, final Response.ErrorListener errorListener) {
+    public static void sendHomeworkContentRequest(final Context context, final String studentId, final int networkLectureId, final int homeworkTaskId, final Response.Listener<String> listener, final Response.ErrorListener errorListener) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         PostStringRequest stringRequest = new PostStringRequest("http://cautis.cau.ac.kr/LMS/LMS/std/lec/sLmsLec070/getTaskView.do",
